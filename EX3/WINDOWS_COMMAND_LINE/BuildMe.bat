@@ -40,7 +40,7 @@ javac -cp ./FOLDER_5_CUP_JARS/java-cup-11b-runtime.jar -d FOLDER_4_bin FOLDER_3_
 @echo ###########################################################
 @echo #                                                         #
 @echo #                                                         #
-@echo # [3] Create a JAR file from from *.class files + CUP JAR #
+@echo # [4] Create a JAR file from from *.class files + CUP JAR #
 @echo #                                                         #
 @echo #                                                         #
 @echo ###########################################################
@@ -49,7 +49,7 @@ jar cfm PARSER.jar ./FOLDER_9_MANIFEST/MANIFEST.MF -C ./FOLDER_4_bin/ .
 @echo #############################
 @echo #                           #
 @echo #                           #
-@echo # [4] Run resulting program #
+@echo # [5] Run resulting program #
 @echo #                           #
 @echo #                           #
 @echo #############################
