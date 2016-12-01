@@ -6,4 +6,4 @@
 [6] The output file should contain a single word:
 [6a] OK (if the program has correct syntx)
 [6b] FAIL (otherwise)
-[7]
+[7] Don't forget to set the permissions to 707 on all files and directories
