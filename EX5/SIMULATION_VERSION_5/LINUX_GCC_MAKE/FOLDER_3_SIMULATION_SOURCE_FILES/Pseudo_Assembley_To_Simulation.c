@@ -68,7 +68,7 @@ void CodeGenerationExp_VfTable(PSEUDO_MIPS_ASM_AST_exp exp)
 		fprintf(fl,"\t\tmov %s+%d, eax\n",exp->u.vftable.name,offset);
 	}
 			
-	fprintf(fl,"\t}\n");
+	fprintf(fl,"\t}\n\n");
 }
 
 void CodeGenerationExp_StartOfCode(CodeGenerationExp_StartOfCode)
@@ -87,7 +87,7 @@ void CodeGenerationExp_StartOfCode(CodeGenerationExp_StartOfCode)
 	/* [2] Initialize sp & fp */
 	/**************************/
 	fprintf(fl,"\tint *AlonzoMorales = (sp = &b3);\n");
-	fprintf(fl,"\tint *KamrashAlura  = (fp = &b2);\n");	
+	fprintf(fl,"\tint *KamrashAlura  = (fp = &b2);\n\n");	
 }
 void CodeGenerationExp_StringVar(PSEUDO_MIPS_ASM_AST_exp exp)
 {
