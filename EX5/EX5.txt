@@ -1,0 +1,5 @@
+[1] All source files should be inside USER/COMPILATION/EX5/src
+[2] BuildMe file inside USER/COMPILATION/EX5
+[3] The output jar file should be called COMPILER
+[4] COMPILER <input-ic-program-filename> <output-pseudo-mips-filename>
+[5] Don't forget to set the permissions to 707 on all files and directories
