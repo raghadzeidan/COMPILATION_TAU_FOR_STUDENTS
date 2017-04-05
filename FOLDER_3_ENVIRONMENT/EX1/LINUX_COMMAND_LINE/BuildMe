@@ -1,4 +1,17 @@
 #! /bin/bash
+clear
+
+echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+echo +"                                                           "+
+echo +"                                                           "+
+echo + Welcome to the most awesome LEXER in the whole wide world +
+echo +"                                                           "+
+echo +"                                                           "+
+echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+sleep 3
+clear
+
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo +"                                                          "+
 echo +"                                                          "+
@@ -8,6 +21,10 @@ echo +"                                                          "+
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo rm -rf FOLDER_1_src/Lexer.java FOLDER_2_bin/*.class
      rm -rf FOLDER_1_src/Lexer.java FOLDER_2_bin/*.class
+
+sleep 3
+clear
+
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo +"                                                          "+
 echo +"                                                          "+
@@ -17,6 +34,10 @@ echo +"                                                          "+
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo jflex -q -d FOLDER_1_src FOLDER_0_lex/LEX_FILE.lex
      jflex -q -d FOLDER_1_src FOLDER_0_lex/LEX_FILE.lex
+
+sleep 3
+clear
+
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo +"                                                      "+
 echo +"                                                      "+
@@ -26,6 +47,10 @@ echo +"                                                      "+
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo javac -cp ./FOLDER_3_CUP_JARS/java-cup-11b-runtime.jar -d FOLDER_2_bin FOLDER_1_src/*.java
      javac -cp ./FOLDER_3_CUP_JARS/java-cup-11b-runtime.jar -d FOLDER_2_bin FOLDER_1_src/*.java
+
+sleep 3
+clear
+
 echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo +"                                                         "+
 echo +"                                                         "+
@@ -35,6 +60,10 @@ echo +"                                                         "+
 echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo jar cfm LEXER.jar ./FOLDER_7_MANIFEST/MANIFEST.MF -C ./FOLDER_2_bin/ .
      jar cfm LEXER.jar ./FOLDER_7_MANIFEST/MANIFEST.MF -C ./FOLDER_2_bin/ .
+
+sleep 3
+clear
+
 echo +++++++++++++++++++++++++++++
 echo +"                           "+
 echo +"                           "+
