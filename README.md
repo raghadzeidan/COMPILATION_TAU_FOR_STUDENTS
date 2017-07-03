@@ -1,3 +1,2 @@
-# COMPILATION_TAU_FOR_STUDENTS
-Source code for the compilation course in TAU.
-Please look at the relevant exercises
+The official website for the compilation course in TAU.
+The forum of the course is located ni the moodle website.
