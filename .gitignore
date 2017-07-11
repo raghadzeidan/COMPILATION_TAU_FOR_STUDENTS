@@ -2,4 +2,5 @@
 **/PARSER
 **/*.class
 **/Lexer.java
-
+**/Parser.java
+**/TokenNames.java

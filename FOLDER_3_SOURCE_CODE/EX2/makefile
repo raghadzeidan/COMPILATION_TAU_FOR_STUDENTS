@@ -1,12 +1,15 @@
 ###############
 # DIRECTORIES #
 ###############
-BASEDIR      = $(shell pwd)
-JFlex_DIR    = ${BASEDIR}/FOLDER_4_bin
-CUP_DIR      = ${BASEDIR}/FOLDER_4_bin
-SRC_DIR      = ${BASEDIR}/FOLDER_3_src
-BIN_DIR      = ${BASEDIR}/FOLDER_4_bin
-MANIFEST_DIR = ${BASEDIR}/FOLDER_9_MANIFEST
+BASEDIR           = $(shell pwd)
+JFlex_DIR         = ${BASEDIR}/FOLDER_0_JFlex
+CUP_DIR           = ${BASEDIR}/FOLDER_1_CUP
+SRC_DIR           = ${BASEDIR}/FOLDER_2_SRC
+BIN_DIR           = ${BASEDIR}/FOLDER_3_BIN
+INPUT_DIR         = ${BASEDIR}/FOLDER_4_INPUT
+OUTPUT_DIR        = ${BASEDIR}/FOLDER_5_OUTPUT
+EXTERNAL_JARS_DIR = ${BASEDIR}/FOLDER_7_EXTERNAL_JARS
+MANIFEST_DIR      = ${BASEDIR}/FOLDER_8_MANIFEST
 
 #########
 # FILES #
@@ -14,8 +17,9 @@ MANIFEST_DIR = ${BASEDIR}/FOLDER_9_MANIFEST
 JFlex_GENERATED_FILE      = ${SRC_DIR}/Lexer.java
 CUP_GENERATED_FILES       = ${SRC_DIR}/Parser.java ${SRC_DIR}/TokenNames.java
 JFlex_CUP_GENERATED_FILES = ${JFlex_GENERATED_FILE} ${CUP_GENERATED_FILES}
-SRC_FILES                 = ${SRC_DIR}/*.java
-CLASS_FILES               = ${BIN_DIR}/*.class ${BIN_DIR}/AST/*.class
+SRC_FILES                 = ${SRC_DIR}/*.java ${SRC_DIR}/AST/*.java
+EXTERNAL_JAR_FILES        = ${EXTERNAL_JARS_DIR}/java-cup-11b-runtime.jar
+MANIFEST_FILE             = ${MANIFEST_DIR}/MANIFEST.MF
 
 ########################
 # DEFINITIONS :: JFlex #
@@ -28,22 +32,24 @@ JFlex_FILE     = ${JFlex_DIR}/LEX_FILE.lex
 ######################
 # DEFINITIONS :: CUP #
 ######################
-CUP_RUNTIME_JAR                = ${CUP_DIR}/java-cup-11b.jar
-CUP_PROGRAM                    = java -jar ${CUP_RUNTIME_JAR} 
-CUP_INPUT_FILE                 =
-CUP_DEST_DIR                   =
+CUP_PROGRAM                    = java -jar ${EXTERNAL_JARS_DIR}/java-cup-11b.jar 
+CUP_FILE                       = ${CUP_DIR}/CUP_FILE.cup
 CUP_GENERATED_PARSER_NAME      = Parser
 CUP_GENERATED_SYMBOLS_FILENAME = TokenNames
-CUP_FLAGS                      = -nowarn                                    \
-                                 -destdir ${CUP_DEST_DIR}                   \
-                                 -parser  ${CUP_GENERATED_PARSER_NAME}      \
-                                 -symbols ${CUP_GENERATED_SYMBOLS_FILENAME} 
+
+######################
+# DEFINITIONS :: CUP #
+######################
+CUP_FLAGS =                                \
+-nowarn                                    \
+-parser  ${CUP_GENERATED_PARSER_NAME}      \
+-symbols ${CUP_GENERATED_SYMBOLS_FILENAME} 
+
 #########################
 # DEFINITIONS :: PARSER #
 #########################
 INPUT    = ${INPUT_DIR}/Input.txt
 OUTPUT   = ${OUTPUT_DIR}/ParseStatus.txt
-MANIFEST = ${MANIFEST_DIR}/MANIFEST.MF
 
 ##########
 # TARGET #
@@ -62,14 +68,14 @@ all:
 	@echo "************************************************************"
 	@echo "*                                                          *"
 	@echo "*                                                          *"
-	@echo "* [1] Clean *.class files and JFlex-CUP generated files:   *"
+	@echo "* [1] Remove *.class files and JFlex-CUP generated files:  *"
 	@echo "*                                                          *"
 	@echo "*     Lexer.java                                           *"
 	@echo "*     Parser.java                                          *"
 	@echo "*     TokenNames.java                                      *"
 	@echo "*                                                          *"
 	@echo "************************************************************"
-	rm -rf ${JFlex_CUP_GENERATED_FILES} ${CLASS_FILES}
+	rm -rf ${JFlex_CUP_GENERATED_FILES} ${BIN_DIR}/*.class ${BIN_DIR}/AST/*.class
 	@echo "\n"
 	@echo "************************************************************"
 	@echo "*                                                          *"
@@ -87,7 +93,7 @@ all:
 	@echo "*                                                                             *"
 	@echo "*                                                                             *"
 	@echo "*******************************************************************************"
-	$(CUP_PROGRAM) ${CUP_FLAGS} -destdir ${CUP_DEST_DIR} ${CUP_FILE} &>/dev/null
+	$(CUP_PROGRAM) ${CUP_FLAGS} -destdir ${SRC_DIR} ${CUP_FILE}
 	@echo "\n"
 	@echo "********************************************************"
 	@echo "*                                                      *"
@@ -96,7 +102,7 @@ all:
 	@echo "*                                                      *"
 	@echo "*                                                      *"
 	@echo "********************************************************"
-	javac -cp ${EXTERNAL_JARS} -d ${BIN_DIR} ${SRC_FILES}
+	javac -cp ${EXTERNAL_JAR_FILES} -d ${BIN_DIR} ${SRC_FILES}
 	@echo "\n"
 	@echo "***********************************************************"
 	@echo "*                                                         *"
@@ -105,7 +111,7 @@ all:
 	@echo "*                                                         *"
 	@echo "*                                                         *"
 	@echo "***********************************************************"
-	jar cfm PARSER ${MANIFEST} -C ${BIN_DIR} ${BASEDIR}
+	jar cfm PARSER ${MANIFEST_FILE} -C ${BIN_DIR} .
 	@echo "\n"
 	@echo "*****************************"
 	@echo "*                           *"

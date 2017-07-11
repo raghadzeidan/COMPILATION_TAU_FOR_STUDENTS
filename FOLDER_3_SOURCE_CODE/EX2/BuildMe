@@ -6,8 +6,8 @@ echo + [0] Clean *.class files and machine generated Lexer.java Parser.java Toke
 echo +"                                                                                      "+
 echo +"                                                                                      "+
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-echo rm -rf FOLDER_3_src/Lexer.java FOLDER_3_src/Parser.java FOLDER_3_src/TokenNames.java FOLDER_4_bin/*.class FOLDER_4_bin/AST/*.class
-     rm -rf FOLDER_3_src/Lexer.java FOLDER_3_src/Parser.java FOLDER_3_src/TokenNames.java FOLDER_4_bin/*.class FOLDER_4_bin/AST/*.class
+echo rm -rf FOLDER_2_SRC/Lexer.java FOLDER_2_SRC/Parser.java FOLDER_2_SRC/TokenNames.java FOLDER_3_BIN/*.class FOLDER_3_BIN/AST/*.class
+     rm -rf FOLDER_2_SRC/Lexer.java FOLDER_2_SRC/Parser.java FOLDER_2_SRC/TokenNames.java FOLDER_3_BIN/*.class FOLDER_3_BIN/AST/*.class
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo +"                                                          "+
 echo +"                                                          "+
@@ -15,8 +15,8 @@ echo + [1] Use JFlex to synthesize Lexer.java from LEX_FILE.lex +
 echo +"                                                          "+
 echo +"                                                          "+
 echo ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-echo jflex -q -d FOLDER_3_src FOLDER_1_lex/LEX_FILE.lex
-     jflex -q -d FOLDER_3_src FOLDER_1_lex/LEX_FILE.lex
+echo jflex -q -d FOLDER_2_SRC FOLDER_0_JFlex/LEX_FILE.lex
+     jflex -q -d FOLDER_2_SRC FOLDER_0_JFlex/LEX_FILE.lex
 echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo +"                                                                             "+
 echo +"                                                                             "+
@@ -24,8 +24,8 @@ echo + [2] Use CUP to synthesize Parser.java and TokenNames.java from CUP_FILE.c
 echo +"                                                                             "+
 echo +"                                                                             "+
 echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-echo java -jar ./FOLDER_5_CUP_JARS/java-cup-11b.jar -nowarn -destdir ./FOLDER_3_src -parser Parser -symbols TokenNames ./FOLDER_2_cup/CUP_FILE.cup
-     java -jar ./FOLDER_5_CUP_JARS/java-cup-11b.jar -nowarn -destdir ./FOLDER_3_src -parser Parser -symbols TokenNames ./FOLDER_2_cup/CUP_FILE.cup &>/dev/null
+echo java -jar ./FOLDER_7_EXTERNAL_JARS/java-cup-11b.jar -nowarn -destdir ./FOLDER_2_SRC -parser Parser -symbols TokenNames ./FOLDER_1_CUP/CUP_FILE.cup
+     java -jar ./FOLDER_7_EXTERNAL_JARS/java-cup-11b.jar -nowarn -destdir ./FOLDER_2_SRC -parser Parser -symbols TokenNames ./FOLDER_1_CUP/CUP_FILE.cup
 echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo +"                                                       "+
 echo +"                                                       "+
@@ -33,8 +33,8 @@ echo +  [3] Create *.class files from *.java files + CUP JAR +
 echo +"                                                       "+
 echo +"                                                       "+
 echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-echo javac -cp ./FOLDER_5_CUP_JARS/java-cup-11b-runtime.jar -d FOLDER_4_bin FOLDER_3_src/*.java FOLDER_3_src/AST/*.java
-     javac -cp ./FOLDER_5_CUP_JARS/java-cup-11b-runtime.jar -d FOLDER_4_bin FOLDER_3_src/*.java FOLDER_3_src/AST/*.java &>/dev/null
+echo javac -cp ./FOLDER_7_EXTERNAL_JARS/java-cup-11b-runtime.jar -d ./FOLDER_3_BIN FOLDER_2_SRC/*.java FOLDER_2_SRC/AST/*.java
+     javac -cp ./FOLDER_7_EXTERNAL_JARS/java-cup-11b-runtime.jar -d ./FOLDER_3_BIN FOLDER_2_SRC/*.java FOLDER_2_SRC/AST/*.java
 echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo +"                                                         "+
 echo +"                                                         "+
@@ -42,8 +42,8 @@ echo + [4] Create a JAR file from from *.class files + CUP JAR +
 echo +"                                                         "+
 echo +"                                                         "+
 echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-echo jar cfm PARSER.jar ./FOLDER_9_MANIFEST/MANIFEST.MF -C ./FOLDER_4_bin/ .
-     jar cfm PARSER.jar ./FOLDER_9_MANIFEST/MANIFEST.MF -C ./FOLDER_4_bin/ .
+echo jar cfm PARSER.jar ./FOLDER_8_MANIFEST/MANIFEST.MF -C ./FOLDER_3_BIN/ .
+     jar cfm PARSER.jar ./FOLDER_8_MANIFEST/MANIFEST.MF -C ./FOLDER_3_BIN/ .
 echo +++++++++++++++++++++++++++++
 echo +"                           "+
 echo +"                           "+
@@ -51,6 +51,6 @@ echo + [5] Run resulting program +
 echo +"                           "+
 echo +"                           "+
 echo +++++++++++++++++++++++++++++
-echo java -jar PARSER.jar ./FOLDER_6_Input/Input.ic ./FOLDER_7_Output/ParseStatus.txt
-     java -jar PARSER.jar ./FOLDER_6_Input/Input.ic ./FOLDER_7_Output/ParseStatus.txt
+echo java -jar PARSER.jar ./FOLDER_4_INPUT/Input.txt ./FOLDER_5_OUTPUT/ParseStatus.txt
+     java -jar PARSER.jar ./FOLDER_4_INPUT/Input.txt ./FOLDER_5_OUTPUT/ParseStatus.txt
 

@@ -37,6 +37,7 @@ scan with
 /* TERMINALS */
 /*************/
 terminal IF;
+terminal EQ;
 terminal DOT;
 terminal PLUS;
 terminal MINUS;
@@ -59,6 +60,9 @@ terminal Integer INT;
 terminal String ID;
 terminal UMINUS;
 
+/*****************/
+/* NON TERMINALS */
+/*****************/
 non terminal AST_EXP exp;
 non terminal AST_VAR var;
 non terminal AST_STMT stmt;
@@ -82,8 +86,8 @@ start with stmtList;
 /* DERIVATION RULES */
 /********************/
 
-stmtList	::=		stmt:s								{: RESULT = new AST_STMT_LIST(s,null); :}
-					| stmtList:l stmt:s					{: RESULT = new AST_STMT_LIST(s,l); :}
+stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_STMT_LIST(s,l);    :}
+					| stmt:s				{: RESULT = new AST_STMT_LIST(s,null); :}
 					;
 
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}

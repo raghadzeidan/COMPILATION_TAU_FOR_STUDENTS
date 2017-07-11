@@ -11,6 +11,7 @@ public class Main
 		Lexer l;
 		Parser p;
 		Symbol s;
+		AST_STMT_LIST AST;
 		FileReader file_reader;
 		PrintWriter file_writer;
 		String inputFilename = argv[0];
@@ -38,16 +39,16 @@ public class Main
 			/*******************************/
 			p = new Parser(l);
 
-			/********************************/
-			/* [5] Main reading tokens loop */
-			/********************************/
-			AST_STMT_LIST stmtList = (AST_STMT_LIST) p.parse().value;
+			/***********************************/
+			/* [5] 3 ... 2 ... 1 ... Parse !!! */
+			/***********************************/
+			AST = (AST_STMT_LIST) p.parse().value;
 			
-			while (stmtList != null)
+			while (AST != null)
 			{
-				System.out.print(stmtList.PrintMe());
+				System.out.print(AST.PrintMe());
 				System.out.print("\n");				
-				stmtList = stmtList.tail;
+				AST = AST.tail;
 			}
 			
 			/**************************/
