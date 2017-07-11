@@ -1,4 +1,5 @@
-**/LEXER.jar
+**/LEXER
+**/PARSER
 **/*.class
 **/Lexer.java
 

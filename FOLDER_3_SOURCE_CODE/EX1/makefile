@@ -1,3 +1,38 @@
+###############
+# DIRECTORIES #
+###############
+BASEDIR           = $(shell pwd)
+JFlex_DIR         = ${BASEDIR}/FOLDER_0_JFlex
+SRC_DIR           = ${BASEDIR}/FOLDER_1_SRC
+BIN_DIR           = ${BASEDIR}/FOLDER_2_BIN
+INPUT_DIR         = ${BASEDIR}/FOLDER_4_INPUT
+OUTPUT_DIR        = ${BASEDIR}/FOLDER_5_OUTPUT
+EXTERNAL_JARS_DIR = ${BASEDIR}/FOLDER_7_EXTERNAL_JARS
+MANIFEST_DIR      = ${BASEDIR}/FOLDER_8_MANIFEST
+
+#########
+# FILES #
+#########
+JFlex_GENERATED_FILE = ${SRC_DIR}/Lexer.java
+SRC_FILES            = ${SRC_DIR}/*.java
+CLASS_FILES          = ${BIN_DIR}/*.class
+EXTERNAL_JAR_FILES   = ${EXTERNAL_JARS_DIR}/java-cup-11b-runtime.jar
+MANIFEST_FILE        = ${MANIFEST_DIR}/MANIFEST.MF
+
+########################
+# DEFINITIONS :: JFlex #
+########################
+JFlex_PROGRAM  = jflex
+JFlex_FLAGS    = -q
+JFlex_DEST_DIR = ${SRC_DIR}
+JFlex_FILE     = ${JFlex_DIR}/LEX_FILE.lex
+
+########################
+# DEFINITIONS :: LEXER #
+########################
+INPUT    = ${INPUT_DIR}/Input.txt
+OUTPUT   = ${OUTPUT_DIR}/OutputTokens.txt
+
 all:
 	clear
 	@echo "****************************"
@@ -7,16 +42,16 @@ all:
 	@echo "*                          *"
 	@echo "*                          *"
 	@echo "****************************"
-	      rm -rf LEXER
+	rm -rf LEXER
 	@echo "\n"
-	@echo "************************************************************"
-	@echo "*                                                          *"
-	@echo "*                                                          *"
-	@echo "* [1] Clean *.class files and machine generated Lexer.java *"
-	@echo "*                                                          *"
-	@echo "*                                                          *"
-	@echo "************************************************************"
-	      rm -rf FOLDER_1_src/Lexer.java FOLDER_2_bin/*.class
+	@echo "*************************************************************"
+	@echo "*                                                           *"
+	@echo "*                                                           *"
+	@echo "* [1] Remove *.class files and machine generated Lexer.java *"
+	@echo "*                                                           *"
+	@echo "*                                                           *"
+	@echo "*************************************************************"
+	rm -rf ${JFlex_GENERATED_FILE} ${CLASS_FILES}
 	@echo "\n"
 	@echo "************************************************************"
 	@echo "*                                                          *"
@@ -25,25 +60,25 @@ all:
 	@echo "*                                                          *"
 	@echo "*                                                          *"
 	@echo "************************************************************"
-	      jflex -q -d FOLDER_1_src FOLDER_0_lex/LEX_FILE.lex
+	$(JFlex_PROGRAM) ${JFlex_FLAGS} -d ${JFlex_DEST_DIR} ${JFlex_FILE}
 	@echo "\n"
-	@echo "********************************************************"
-	@echo "*                                                      *"
-	@echo "*                                                      *"
-	@echo "* [3] Create *.class files from *.java files + CUP JAR *"
-	@echo "*                                                      *"
-	@echo "*                                                      *"
-	@echo "********************************************************"
-	      javac -cp ./FOLDER_3_CUP_JARS/java-cup-11b-runtime.jar -d FOLDER_2_bin FOLDER_1_src/*.java
+	@echo "*********************************************************************"
+	@echo "*                                                                   *"
+	@echo "*                                                                   *"
+	@echo "* [3] Create *.class files from *.java files + External *.jar files *"
+	@echo "*                                                                   *"
+	@echo "*                                                                   *"
+	@echo "*********************************************************************"
+	javac -cp ${EXTERNAL_JAR_FILES} -d ${BIN_DIR} ${SRC_FILES}
 	@echo "\n"
-	@echo "***********************************************************"
-	@echo "*                                                         *"
-	@echo "*                                                         *"
-	@echo "* [4] Create a JAR file from from *.class files + CUP JAR *"
-	@echo "*                                                         *"
-	@echo "*                                                         *"
-	@echo "***********************************************************"
-	      jar cfm LEXER ./FOLDER_7_MANIFEST/MANIFEST.MF -C ./FOLDER_2_bin/ .
+	@echo "************************************************************************"
+	@echo "*                                                                      *"
+	@echo "*                                                                      *"
+	@echo "* [4] Create a JAR file from from *.class files + External *.jar files *"
+	@echo "*                                                                      *"
+	@echo "*                                                                      *"
+	@echo "************************************************************************"
+	jar cfm LEXER ${MANIFEST_FILE} -C ${BIN_DIR} .
 	@echo "\n"
 	@echo "*****************************"
 	@echo "*                           *"
@@ -52,5 +87,5 @@ all:
 	@echo "*                           *"
 	@echo "*                           *"
 	@echo "*****************************"
-	      java -jar LEXER ./FOLDER_4_Input/Input.ic ./FOLDER_5_Output/OutputTokens.txt
+	java -jar LEXER ${INPUT} ${OUTPUT}
 

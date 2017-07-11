@@ -96,7 +96,7 @@ all:
 	@echo "*                                                      *"
 	@echo "*                                                      *"
 	@echo "********************************************************"
-	javac -cp ${CUP_RUNTIME_JAR} -d ${BIN_DIR} ${SRC_FILES}
+	javac -cp ${EXTERNAL_JARS} -d ${BIN_DIR} ${SRC_FILES}
 	@echo "\n"
 	@echo "***********************************************************"
 	@echo "*                                                         *"
