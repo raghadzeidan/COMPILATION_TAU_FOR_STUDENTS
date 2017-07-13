@@ -159,19 +159,24 @@ the line number they appeared on, and the character position inside that line.
 \end{table}
 
 \section{Submission Guidelines}
-The code for this exercise resides as usual in subdirectory EX5 of the course GitHub.
-Currently, the grammar in RioMare.y contains a shift/reduce conflict,
-so you should start by fixing this.
-Next, you need to add the relevant derivation rules and AST constructors
-for classes. Last, you should implement the missing parts of the RioMare semantic analyzer.
-The semantic analyzer resides in the file semant.c, and this is where
-most of your changes will occur.
-Please submit your exercise in your GitHub repository under COMPILATION/EX5,
-and have a makefile there to build a runnable program called compiler.
-Make sure that compiler is created in the same level as the makefile: inside EX5.
-To avoid the pollution of EX5, please remove all *.o files once the target is built.
-The next paragraph describes the execution of compiler.
-
+Open an account on \href{https://github.com/}{GitHub}.
+Then, visit the
+\href{https://education.github.com/discount_requests/new}{academic discount page}
+to enable the free creation of private repositories.
+One team member should create a new \textit{private} repository called COMPILATION,
+and then invite other team members and myself as collaborators.
+My username is OrenGitHub.
+Please put inside the uppermost folder (COMPILATION) a text file ``IDS.txt"
+with the IDs of all team members (one ID per line).
+In addition, COMPILATION should contain a sub folder called EX1
+where your code will reside.
+COMPILATION/EX1 should contain a makefile building your source to a
+runnable jar file called LEXER (note the lack of the .jar suffix).
+Feel free to use the makefile supplied in the course repository,
+or write a new one if you want to. 
+Before you submit, make sure that your exercise compiles and runs
+on the school server: $nova.cs.tau.ac.il$.
+This is the formal running environment of the course.
 \paragraph{Execution parameters}
 compiler receives $2$ input file names:\\ \\
 InputRioMareProgram.txt\\
