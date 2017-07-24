@@ -1,0 +1,3 @@
+GIDI := 0;
+AVROOM := 55;
+YOSSI := 777;
