@@ -31,5 +31,13 @@ void main(void)
     array[5] := 30;
     array[6] := -580;
     
-    PrintPrimes(2,100);
+    BubbleSort(array,7);
+    
+    PrintInt(array[0]);
+    PrintInt(array[1]);
+    PrintInt(array[2]);
+    PrintInt(array[3]);
+    PrintInt(array[4]);
+    PrintInt(array[5]);
+    PrintInt(array[6]);
 }
