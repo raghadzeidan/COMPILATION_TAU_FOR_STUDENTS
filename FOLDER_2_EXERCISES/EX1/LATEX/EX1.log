@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.7.18)  13 JUL 2017 14:32
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.7.18)  1 OCT 2017 15:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -145,22 +145,22 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 (./EX1.aux)
 \openout1 = `EX1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
 \AtBeginShipoutBox=\box26
-Package hyperref Info: Link coloring OFF on input line 3.
+Package hyperref Info: Link coloring OFF on input line 14.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -169,61 +169,60 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count97
 )
-LaTeX Info: Redefining \ref on input line 3.
-LaTeX Info: Redefining \pageref on input line 3.
-LaTeX Info: Redefining \nameref on input line 3.
+LaTeX Info: Redefining \ref on input line 14.
+LaTeX Info: Redefining \pageref on input line 14.
+LaTeX Info: Redefining \nameref on input line 14.
 
 (./EX1.out) (./EX1.out)
 \@outlinefile=\write3
 \openout3 = `EX1.out'.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 8.
+(Font)              <12> on input line 35.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 8.
+(Font)              <8> on input line 35.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 8.
+(Font)              <6> on input line 35.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 31.
+(Font)              <7> on input line 64.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 31.
+(Font)              <5> on input line 64.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Overfull \hbox (56.91734pt too wide) in paragraph at lines 140--158
+Overfull \hbox (56.91734pt too wide) in paragraph at lines 163--183
  [][] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 [2] [3]
-Underfull \hbox (badness 10000) in paragraph at lines 181--184
+Underfull \hbox (badness 10000) in paragraph at lines 208--211
 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 185.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 212.
 [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 185.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 212.
  (./EX1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 185.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 185.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 212.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 212.
 Package rerunfilecheck Info: File `EX1.out' has not changed.
 (rerunfilecheck)             Checksum: 7501801E5D3469A123FE6351CAD7CA20;298.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 185.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 212.
  ) 
 Here is how much of TeX's memory you used:
  4268 strings out of 494985
  63963 string characters out of 6180356
- 150510 words of memory out of 5000000
+ 150349 words of memory out of 5000000
  7485 multiletter control sequences out of 15000+600000
  8102 words of font info for 29 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 29i,9n,28p,524b,323s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,9n,28p,501b,323s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
@@ -234,10 +233,10 @@ type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
 blic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmtt10.pfb>
-Output written on EX1.pdf (4 pages, 128253 bytes).
+Output written on EX1.pdf (4 pages, 124367 bytes).
 PDF statistics:
- 109 PDF objects out of 1000 (max. 8388607)
- 92 compressed objects within 1 object stream
+ 110 PDF objects out of 1000 (max. 8388607)
+ 93 compressed objects within 1 object stream
  21 named destinations out of 1000 (max. 500000)
  49 words of extra memory for PDF output out of 10000 (max. 10000000)
 
