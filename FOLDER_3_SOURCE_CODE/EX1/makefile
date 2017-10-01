@@ -3,8 +3,8 @@
 ###############
 BASEDIR           = $(shell pwd)
 JFlex_DIR         = ${BASEDIR}/FOLDER_0_JFlex
-SRC_DIR           = ${BASEDIR}/FOLDER_1_SRC
-BIN_DIR           = ${BASEDIR}/FOLDER_2_BIN
+SRC_DIR           = ${BASEDIR}/FOLDER_2_SRC
+BIN_DIR           = ${BASEDIR}/FOLDER_3_BIN
 INPUT_DIR         = ${BASEDIR}/FOLDER_4_INPUT
 OUTPUT_DIR        = ${BASEDIR}/FOLDER_5_OUTPUT
 EXTERNAL_JARS_DIR = ${BASEDIR}/FOLDER_7_EXTERNAL_JARS
@@ -44,13 +44,13 @@ all:
 	@echo "****************************"
 	rm -rf LEXER
 	@echo "\n"
-	@echo "*************************************************************"
-	@echo "*                                                           *"
-	@echo "*                                                           *"
-	@echo "* [1] Remove *.class files and machine generated Lexer.java *"
-	@echo "*                                                           *"
-	@echo "*                                                           *"
-	@echo "*************************************************************"
+	@echo "***********************************************************"
+	@echo "*                                                         *"
+	@echo "*                                                         *"
+	@echo "* [1] Remove *.class files and JFlex generated Lexer.java *"
+	@echo "*                                                         *"
+	@echo "*                                                         *"
+	@echo "***********************************************************"
 	rm -rf ${JFlex_GENERATED_FILE} ${CLASS_FILES}
 	@echo "\n"
 	@echo "************************************************************"
