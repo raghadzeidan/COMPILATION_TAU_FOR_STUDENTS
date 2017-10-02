@@ -87,36 +87,6 @@ they are artificially limited in RioMare to have
 16-bits signed values between $-2^{15}$ and $2^{15}-1$.
 Integers out of this range are lexical errors.
 
-\begin{table}[h]
-\centering
-\begin{tabular}{|c|c|l|l| }
-  \hline
-  Precedence       & Operator & Description & Associativity \\
-  \hline
-  \hline
-  1                & $:=$            & assign         & right \\
-  \hline
-  2                & $=$             & equals         & left  \\
-  \hline
-  3                & $<,\leq,>,\geq$ &                & left  \\
-  \hline
-  4                & $+,-$           &                & left  \\
-  \hline
-  5                & $*,/$           &                & left  \\
-  \hline
-  6                & $[$             & array indexing &       \\
-  \hline
-  7                & $($             & function call  &       \\
-  \hline
-  8                & $\verb"->"$     & field access   & left  \\
-  \hline
-\end{tabular}
-\caption{
-Binary operators of RioMare along with their associativity and precedence.
-$1$ stands for the lowest precedence, and $9$ for the highest.
-\label{Table_Binary_Operators_Of_RioMare}}
-\end{table}
-
 \section{Input}
 The input for this exercise is a single text file, the input RioMare program.
 
@@ -197,7 +167,7 @@ Please put inside the uppermost folder (COMPILATION) the following text files:
 (3) ``NAMES.txt", with the \textit{hebrew} names of all team members (one name per line).
 In addition, COMPILATION should contain a sub folder called EX1
 where your code will reside.
-COMPILATION/EX1 should contain a makefile building your source to a
+COMPILATION/EX1 should contain a makefile building your source files to a
 runnable jar file called LEXER (note the lack of the .jar suffix).
 Feel free to use the makefile supplied in the course repository,
 or write a new one if you want to. 
@@ -205,8 +175,8 @@ Before you submit, make sure that your exercise compiles and runs
 on the school server: $nova.cs.tau.ac.il$.
 This is the formal running environment of the course.
 \paragraph{Execution parameters}
-compiler receives $2$ input file names:\\ \\
+compiler receives $2$ file names:\\ \\
 InputRioMareProgram.txt\\
-OutputStatus.txt
+OutputTokenizedProgram.txt
 
 \end{document}
