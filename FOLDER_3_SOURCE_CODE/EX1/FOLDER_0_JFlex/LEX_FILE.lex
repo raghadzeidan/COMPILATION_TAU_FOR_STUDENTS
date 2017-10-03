@@ -31,7 +31,7 @@ import java_cup.runtime.*;
 %column
 
 /*******************************************************************************/
-/* Note that this has to be the EXACT smae name of the class the CUP generates */
+/* Note that this has to be the EXACT same name of the class the CUP generates */
 /*******************************************************************************/
 %cupsym TokenNames
 
@@ -45,7 +45,7 @@ import java_cup.runtime.*;
 /****************/
 /*****************************************************************************/   
 /* Code between %{ and %}, both of which must be at the beginning of a line, */
-/* will be copied letter to letter into the Lexer class code.                */
+/* will be copied verbatim (letter to letter) into the Lexer class code.     */
 /* Here you declare member variables and functions that are used inside the  */
 /* scanner actions.                                                          */  
 /*****************************************************************************/   
