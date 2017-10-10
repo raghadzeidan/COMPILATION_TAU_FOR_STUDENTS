@@ -55,6 +55,9 @@ and the output is a (single) text file containing a tokenized representation of 
 The course repository contains a simple skeleton program,
 and you are encouraged to work your way up from there.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Lexical Considerations %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Lexical Considerations}
 \paragraph{Identifiers} may contain letters and digits, and must start with a letter.
 \paragraph{Keywords} in Table \ref{Table_Reserved_Keywords_of_RioMare} can \textit{not}
@@ -62,10 +65,10 @@ be used as identifiers.
 \begin{table}[h]
 \centering
 \begin{tabular}{ l l l l}
-  int         & string  & void   & while \\
-  class       & nil     & new    & if    \\
-  PrintInt    & extends & return & end   \\
-  PrintString &         &        &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+class   & nil    & void   & while \\
+extends & return & new    & if    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{tabular}
 \caption{
 Reserved keywords of RioMare.
@@ -81,15 +84,17 @@ In addition, a comment can be a sequence of characters that begins with /*,
 followed by any characters, including newlines, up to the first occurrence of the end sequence */. Unclosed comments are lexical errors.
 \paragraph{Integer} literals may start with an optional negation sign $-$,
 followed by a sequence of digits.
-Non-zero numbers should \textit{not} have leading zeroes.
+Integers should \textit{not} have leading zeroes.
 Though integers are stored as 32 bits in memory,
 they are artificially limited in RioMare to have
 16-bits signed values between $-2^{15}$ and $2^{15}-1$.
 Integers out of this range are lexical errors.
-
+\paragraph{Strings} are sequences of (zero or more) letters and digits between double quotes.
 \section{Input}
 The input for this exercise is a single text file, the input RioMare program.
-
+%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Output %
+%%%%%%%%%%%%%%%%%%%%%
 \section{Output}
 The output is a single text file that contains a tokenized representation of the input program.
 Each token should appear in a separate line, together with the line number
@@ -100,24 +105,24 @@ Later phases of the compiler will make no use of these token names.
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|c|c|l|c|}
-  \hline
-  Token Name & Description & & Token Name & Description \\
-  \hline
-  \hline
-  LPAREN    & $($  & & ASSIGN           & $:=$                     \\
-  RPAREN    & $)$  & & EQ               & $=$                      \\
-  LBRACK    & $[$  & & LT               & $<$                      \\
-  RBRACK    & $]$  & & GT               & $>$                      \\
-  LBRACE    & $\{$ & & CLASS            &                          \\
-  RBRACE    & $\}$ & & EXTENDS          &                          \\
-  PLUS      & $+$  & & RETURN           &                          \\
-  MINUS     & $-$  & & WHILE            &                          \\
-  TIMES     & $*$  & & IF               &                          \\
-  DIVIDE    & $/$  & &                  &                          \\
-  COMMA     & $,$  & & INT$(value)$     & $value$ is an integer    \\
-  DOT       & $.$  & & STRING$(value)$  & $value$ is a string      \\
-  SEMICOLON & $;$  & & ID$(value)$      & $value$ is an identifier \\
-  \hline
+\hline
+Token Name & Description & & Token Name & Description \\
+\hline
+\hline
+LPAREN    & $($  & & ASSIGN           & $:=$                     \\
+RPAREN    & $)$  & & EQ               & $=$                      \\
+LBRACK    & $[$  & & LT               & $<$                      \\
+RBRACK    & $]$  & & GT               & $>$                      \\
+LBRACE    & $\{$ & & CLASS            &                          \\
+RBRACE    & $\}$ & & EXTENDS          &                          \\
+PLUS      & $+$  & & RETURN           &                          \\
+MINUS     & $-$  & & WHILE            &                          \\
+TIMES     & $*$  & & IF               &                          \\
+DIVIDE    & $/$  & & NEW              &                          \\
+COMMA     & $,$  & & INT$(value)$     & $value$ is an integer    \\
+DOT       & $.$  & & STRING$(value)$  & $value$ is a string      \\
+SEMICOLON & $;$  & & ID$(value)$      & $value$ is an identifier \\
+\hline
 \end{tabular}
 \caption{
 Token names for the first exercise.
@@ -127,21 +132,30 @@ The rest of the tokens encountered only contain their name.
 \label{Table_Token_Names_For_Exercise_1}}
 \end{table}
 Three types of tokens are associated with corresponding values: integers, identifiers and strings.
-The printing format for these tokens can be easily deduced from the examples in Table \ref{Table_Token_Printing_Examples_For_Exercise_1}.
+The printing format for these tokens can be easily deduced from the examples in Table
+\ref{Table_Token_Printing_Examples_For_Exercise_1}.
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|l| }
-  Printed Lines Examples & Description \\
-  \hline
-  \hline
-  LPAREN[$7$,$8$] & left parenthesis is encountered in line $7$, character position $8$ \\
-  \hline
-  INT($74$)[$3$,$8$] & integer $74$ is encountered in line $3$, character position $8$ \\
-  \hline
-  STRING(``Dan")[$2$,$5$] & string ``Dan" is encountered in line $2$, character position $5$ \\
-  \hline
-  ID(numPts)[$1$,$6$] & identifier numPts is encountered in line $1$, character position $6$ \\
-  \hline
+Printed Lines Examples & Description \\
+\hline
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+LPAREN[$7$,$8$] & left parenthesis is encountered in line $7$, character position $8$ \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+INT($74$)[$3$,$8$] & integer $74$ is encountered in line $3$, character position $8$ \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+STRING(``Dan")[$2$,$5$] & string ``Dan" is encountered in line $2$, character position $5$ \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ID(numPts)[$1$,$6$] & identifier numPts is encountered in line $1$, character position $6$ \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
 \end{tabular}
 \caption{
 Printing format for the first exercise.
@@ -152,7 +166,11 @@ integers, identifiers and strings.
 These values should appear inside the parentheses as shown.
 \label{Table_Token_Printing_Examples_For_Exercise_1}}
 \end{table}
-
+Whenever the input program contains a lexical error, the output file
+should contain a \textit{single} word only: ERROR.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Submission Guidelines %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Submission Guidelines}
 Open an account on \href{https://github.com/}{GitHub}.
 Then, visit the
@@ -175,7 +193,7 @@ Before you submit, make sure that your exercise compiles and runs
 on the school server: $nova.cs.tau.ac.il$.
 This is the formal running environment of the course.
 \paragraph{Execution parameters}
-compiler receives $2$ file names:\\ \\
+LEXER receives $2$ file names:\\ \\
 InputRioMareProgram.txt\\
 OutputTokenizedProgram.txt
 
