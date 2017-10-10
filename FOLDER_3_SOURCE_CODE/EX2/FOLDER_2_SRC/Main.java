@@ -44,16 +44,14 @@ public class Main
 			/***********************************/
 			AST = (AST_STMT_LIST) p.parse().value;
 			
-			while (AST != null)
-			{
-				System.out.print(AST.PrintMe());
-				System.out.print("\n");				
-				AST = AST.tail;
-			}
+			/*************************/
+			/* [6] Print the AST ... */
+			/*************************/
+			AST.PrintMe();
 			
-			/**************************/
-			/* [10] Close output file */
-			/**************************/
+			/*************************/
+			/* [7] Close output file */
+			/*************************/
 			file_writer.close();
     	}
 			     
