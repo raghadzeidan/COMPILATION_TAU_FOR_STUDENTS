@@ -90,9 +90,11 @@ Defining an integer matrix, for example, is possible as follows:
 and can only be defined in the uppermost (global) scope.
 They can refer to/extend only previously defined classes,
 to ensure that the class hierarchy has a tree structure.
-Following the same concept, method \verb"M1" can \textit{not} refer to method \verb"M2",
+Following the same concept,
+a method \verb"M1" can \textit{not} refer to a method \verb"M2",
 whenever \verb"M2" is defined after \verb"M1" in the class.
-In contrast to all that, method \verb"M" \textit{can} refer to a data member \verb"d",
+In contrast to all that,
+a method \verb"M" \textit{can} refer to a data member \verb"d",
 even if \verb"d" is defined \textit{after} \verb"M" in the class.
 Table \ref{Table_Code_Examples_Use_Before_Def} summarizes these facts.
 \begin{table}[h]
@@ -139,28 +141,17 @@ Table \ref{Table_Code_Examples_Use_Before_Def} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
-\caption{\label{Table_Code_Examples_Use_Before_Def}}
+\caption{Referring to classes, methods and data members
+\label{Table_Code_Examples_Use_Before_Def}}
 \end{table}
-%\caption{Using a data member before its definition is legal,
-%but using a method before its definition is not.
 \paragraph{Methods overloading} is \textit{illegal} in RioMare,
 with the obvious exception of overriding a method in a derived class.
-So, example $1$ in Table \ref{Table_Code_Examples_Overload_Override} is legal,
-and all other examples there are not.
+Similarly, it is illegal to define a variable with the same name of
+a previously defined variable (shadowing), or a previously defined method.
+Table \ref{Table_Code_Examples_Overload_Override} summarizes these facts.
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|l|l|}
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $1$ & \verb"CLASS Father"                        &    \\
-     & \verb"{"                                   &    \\
-     & ~ ~ ~ ~\verb"int foo(int i) { return 8; }" &    \\
-     & \verb"}"                                   & OK \\
-     & \verb"CLASS Son EXTENDS Father"            &    \\
-     & \verb"{"                                   &    \\
-     & ~ ~ ~ ~\verb"int foo(int i) { return i; }" &    \\
-     & \verb"}"                                   &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  $2$ & \verb"CLASS Father"                       &       \\
@@ -173,58 +164,39 @@ and all other examples there are not.
      & \verb"}"                                  &       \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $1$ & \verb"CLASS Father"                        &    \\
+     & \verb"{"                                   &    \\
+     & ~ ~ ~ ~\verb"int foo(int i) { return 8; }" &    \\
+     & \verb"}"                                   & OK \\
+     & \verb"CLASS Son EXTENDS Father"            &    \\
+     & \verb"{"                                   &    \\
+     & ~ ~ ~ ~\verb"int foo(int i) { return i; }" &    \\
+     & \verb"}"                                   &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $3$ & \verb"CLASS OverloadOverride"                  &       \\
+ $3$ & \verb"CLASS IllegalSameName"                   &       \\
      & \verb"{"                                       &       \\
      & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }"      & ERROR \\
      & ~ ~ ~ ~\verb"void foo(int i) { PrintInt(i); }" &       \\
      & \verb"}"                                       &       \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $4$ & \verb"CLASS OverloadOverride"             &       \\
-     & \verb"{"                                  &       \\
-     & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }" & ERROR \\
-     & ~ ~ ~ ~\verb"int foo() { return 8; }"     &       \\
-     & \verb"}"                                  &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $3$ & \verb"CLASS Father"             &       \\
+     & \verb"{"                        &       \\
+     & ~ ~ ~ ~\verb"int foo;"          &       \\
+     & \verb"}"                        & ERROR \\
+     & \verb"CLASS Son EXTENDS Father" &       \\
+     & \verb"{"                        &       \\
+     & ~ ~ ~ ~\verb"string foo;"       &       \\
+     & \verb"}"                        &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
 \caption{Method overloading is illegal in RioMare.
 \label{Table_Code_Examples_Overload_Override}}
-\end{table}
-On a similar note, it is illegal for a class to have a variable with the same name
-as an existing method, or an existing variable.
-So, all examples in Table \ref{Table_Code_Examples_Variables_With_The_Same_Name} are illegal.
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|l|l|}
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $3$ & \verb"CLASS Father"                       &       \\
-     & \verb"{"                                  &       \\
-     & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }" &       \\
-     & \verb"}"                                  & ERROR \\
-     & \verb"CLASS Son EXTENDS Father"           &       \\
-     & \verb"{"                                  &       \\
-     & ~ ~ ~ ~\verb"int foo;"                    &       \\
-     & \verb"}"                                  &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $3$ & \verb"CLASS Father"                       &       \\
-     & \verb"{"                                  &       \\
-     & ~ ~ ~ ~\verb"string foo;"                 &       \\
-     & \verb"}"                                  & ERROR \\
-     & \verb"CLASS Son EXTENDS Father"           &       \\
-     & \verb"{"                                  &       \\
-     & ~ ~ ~ ~\verb"string foo;"                 &       \\
-     & \verb"}"                                  &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-\end{tabular}
-\caption{Variables can not have the same name as existing methods, or other variables.
-\label{Table_Code_Examples_Variables_With_The_Same_Name}}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: Assignments %
