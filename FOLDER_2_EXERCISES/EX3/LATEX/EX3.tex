@@ -1,11 +1,41 @@
+%%%%%%%%%%%%%%%%%%
+% DOCUMENT CLASS %
+%%%%%%%%%%%%%%%%%%
 \documentclass{article}
+
+%%%%%%%%%%%%
+% PACKAGES %
+%%%%%%%%%%%%
 \usepackage{hyperref}
+
+%%%%%%%%%%%%%%%%%%
+% BEGIN DOCUMENT %
+%%%%%%%%%%%%%%%%%%
 \begin{document}
+
+%%%%%%%%%
+% TITLE %
+%%%%%%%%%
 \title{Exercise 3}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% AUTHOR = COURSE NAME HERE %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \author{Compilation 0368:3133}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DATE = SUBMISSION DATE HERE %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \date{Due 6/12/2017}
+
+%%%%%%%%%
+% TITLE %
+%%%%%%%%%
 \maketitle
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Introduction %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 We continue our journey of building a compiler
 for the invented object oriented language RioMare.
@@ -14,9 +44,12 @@ inside the relevant folder of the course website.
 In order to make this document self contained,
 all the information needed to complete the third exercise is brought here again.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Programming Assignment %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Programming Assignment}
 The third exercise implements a semantic analyzer that
-scans the abstract syntax tree produced by
+recursively scans the AST produced by
 \href{http://www2.cs.tum.edu/projects/cup/}{CUP},
 and checks if it contains any semantic errors.
 The input for the semantic analyzer is a (single) text file containing a RioMare program,
@@ -26,99 +59,237 @@ In addition to that, whenever the input program is valid semantically,
 the semantic analyzer will add meta data to the abstract syntax tree,
 which is needed for later phases (code generation and optimization).
 The added meta data content will not be checked in exercises $3$,
-but still, the best time to design and implement this addition is
+but the best time to design and implement this addition is
 exercise $3$.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: RioMare Semantics %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The RioMare Semantics}
-To avoid unnecessary formalism, this section describes the semantics of RioMare
-using a multitude of running examples. 
+This section describes the semantics of RioMare,
+and provides a multitude of legal and illegal example programs.
+%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SECTION :: Types %
+%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Types}
 The RioMare programming language defines two native types: integers and strings.
-In addition, one can recursively define classes and arrays according to th
+In addition, it is possible to define a class by specifying its data members and methods.
+Also, given an existing type \verb"T", one can define an array of \verb"T"'s.
+Note, that defining classes and arrays is only possible in the uppermost (global) scope.
+The exact details follow.
+\paragraph{Arrays} can only be defined in the uppermost (global) scope.
+They are defined with respect to some existing type, as in the following example:
+\[
+\verb"ARRAY" ~ \verb"IntArray" ~ \verb"EQ" ~ \verb"int[]"
+\]
+Defining an integer matrix, for example, is possible as follows:
+\[
+\verb"ARRAY IntArray EQ int[]; ARRAY IntMat EQ IntArray[];"
+\]
+\paragraph{Classes} contain data members and methods,
+and can only be defined in the uppermost (global) scope.
+They can refer to/extend only previously defined classes,
+to ensure that the class hierarchy has a tree structure.
+Following the same concept, method \verb"M1" can \textit{not} refer to method \verb"M2",
+whenever \verb"M2" is defined after \verb"M1" in the class.
+In contrast to all that, method \verb"M" \textit{can} refer to a data member \verb"d",
+even if \verb"d" is defined \textit{after} \verb"M" in the class.
+Table \ref{Table_Code_Examples_Use_Before_Def} summarizes these facts.
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $1$ & \verb"CLASS Son EXTENDS Father"           &       \\
+     & \verb"{"                                  &       \\
+     & ~ ~ ~ ~\verb"int bar;"                    &       \\
+     & \verb"}"                                  & ERROR \\
+     & \verb"CLASS Father"                       &       \\
+     & \verb"{"                                  &       \\
+     & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }" &       \\
+     & \verb"}"                                  &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $3$ & \verb"CLASS Edge"                         &       \\
+     & \verb"{"                                  &       \\
+     & ~ ~ ~ ~\verb"Vertex u;"                   &       \\
+     & ~ ~ ~ ~\verb"Vertex v;"                   &       \\
+     & \verb"}"                                  & ERROR \\
+     & \verb"CLASS Vertex"                       &       \\
+     & \verb"{"                                  &       \\
+     & ~ ~ ~ ~\verb"int weight;"                 &       \\
+     & \verb"}"                                  &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $2$ & \verb"CLASS UseBeforeDef"                      &       \\
+     & \verb"{"                                       &       \\
+     & ~ ~ ~ ~\verb"void foo() { bar(8); }"           & ERROR \\
+     & ~ ~ ~ ~\verb"void bar(int i) { PrintInt(i); }" &       \\
+     & \verb"}"                                       &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $1$ & \verb"CLASS UseBeforeDef"                 &    \\
+     & \verb"{"                                  &    \\
+     & ~ ~ ~ ~\verb"void foo() { PrintInt(i); }" & OK \\
+     & ~ ~ ~ ~\verb"int i;"                      &    \\
+     & \verb"}"                                  &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption{\label{Table_Code_Examples_Use_Before_Def}}
+\end{table}
+%\caption{Using a data member before its definition is legal,
+%but using a method before its definition is not.
+\paragraph{Methods overloading} is \textit{illegal} in RioMare,
+with the obvious exception of overriding a method in a derived class.
+So, example $1$ in Table \ref{Table_Code_Examples_Overload_Override} is legal,
+and all other examples there are not.
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $1$ & \verb"CLASS Father"                        &    \\
+     & \verb"{"                                   &    \\
+     & ~ ~ ~ ~\verb"int foo(int i) { return 8; }" &    \\
+     & \verb"}"                                   & OK \\
+     & \verb"CLASS Son EXTENDS Father"            &    \\
+     & \verb"{"                                   &    \\
+     & ~ ~ ~ ~\verb"int foo(int i) { return i; }" &    \\
+     & \verb"}"                                   &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $2$ & \verb"CLASS Father"                       &       \\
+     & \verb"{"                                  &       \\
+     & ~ ~ ~ ~\verb"int foo() { return 8; }"     &       \\
+     & \verb"}"                                  & ERROR \\
+     & \verb"CLASS Son EXTENDS Father"           &       \\
+     & \verb"{"                                  &       \\
+     & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }" &       \\
+     & \verb"}"                                  &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $3$ & \verb"CLASS OverloadOverride"                  &       \\
+     & \verb"{"                                       &       \\
+     & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }"      & ERROR \\
+     & ~ ~ ~ ~\verb"void foo(int i) { PrintInt(i); }" &       \\
+     & \verb"}"                                       &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $4$ & \verb"CLASS OverloadOverride"             &       \\
+     & \verb"{"                                  &       \\
+     & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }" & ERROR \\
+     & ~ ~ ~ ~\verb"int foo() { return 8; }"     &       \\
+     & \verb"}"                                  &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption{Method overloading is illegal in RioMare.
+\label{Table_Code_Examples_Overload_Override}}
+\end{table}
+On a similar note, it is illegal for a class to have a variable with the same name
+as an existing method, or an existing variable.
+So, all examples in Table \ref{Table_Code_Examples_Variables_With_The_Same_Name} are illegal.
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $3$ & \verb"CLASS Father"                       &       \\
+     & \verb"{"                                  &       \\
+     & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }" &       \\
+     & \verb"}"                                  & ERROR \\
+     & \verb"CLASS Son EXTENDS Father"           &       \\
+     & \verb"{"                                  &       \\
+     & ~ ~ ~ ~\verb"int foo;"                    &       \\
+     & \verb"}"                                  &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $3$ & \verb"CLASS Father"                       &       \\
+     & \verb"{"                                  &       \\
+     & ~ ~ ~ ~\verb"string foo;"                 &       \\
+     & \verb"}"                                  & ERROR \\
+     & \verb"CLASS Son EXTENDS Father"           &       \\
+     & \verb"{"                                  &       \\
+     & ~ ~ ~ ~\verb"string foo;"                 &       \\
+     & \verb"}"                                  &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption{Variables can not have the same name as existing methods, or other variables.
+\label{Table_Code_Examples_Variables_With_The_Same_Name}}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SECTION :: Assignments %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Asignments}
 Binary operations are performed only between integers and strings.
 A variable is a recursive entity, represented as a sub tree in the AST.
 Assigning a value to a variable, 
 Table \ref{Table_CFG_Of_RioMare} summarizes the context free grammar of RioMare.
 You will need to feed this grammar to \href{http://www2.cs.tum.edu/projects/cup/}{CUP},
 and make sure there are no shift-reduce conflicts.  
-
 \begin{table}[h]
 \centering
 \begin{tabular}{ l c l }
-  Program     & $::=$ & dec$^{+}$                                           \\ \\
-
-  dec         & $::=$ & funcDec $|$ varDec $|$ classDec                       \\ \\
-
-  varDec      & $::=$ & ID ID $[$ ASSIGN exp $]$ ';'                              \\
-  funcDec     & $::=$ & ID ID $'('$ $[$ ID ID $[$ ',' ID ID $]^{*}$ $]$ $')'$
-                              $'\{'$ stmt   $[$ stmt $]^{*}$ $'\}'$           \\
-  classDec    & $::=$ & CLASS ID $[$ EXTENDS ID $]$
-                               $'\{'$ cField $[$ cField $]^{*}$ $'\}'$      \\ \\
-
-  exp         & $::=$ & $'('$ exp $')'$                                     \\
-              & $::=$ & exp BINOP exp                                       \\
-              & $::=$ & $[$ var '.' $]$ ID $'('$ $[$ exp $[$ ',' exp $]^{*}$ $]$ $')'$ \\
-              & $::=$ & INT $|$ NIL $|$ STRING $|$ NEW ID $|$ var           \\ \\
-  var         & $::=$ & ID                                                        \\
-              & $::=$ & var '.' ID                                                \\
-              & $::=$ & var $'['$ exp $']'$                                       \\ \\
-  
-  stmt        & $::=$ & varDec                                                             \\
-              & $::=$ & var ASSIGN exp ';'                                                 \\
-              & $::=$ & RETURN $[$ exp $]$ ';'                                             \\
-              & $::=$ & IF $'('$ exp $')'$ $'\{'$ stmt $[$ stmt $]^{*}$ $'\}'$             \\
-              & $::=$ & WHILE $'('$ exp $')'$ $'\{'$ stmt $[$ stmt $]^{*}$ $'\}'$          \\
-              & $::=$ & $[$ var '.' $]$ ID $'('$ $[$ exp $[$ ',' exp $]^{*}$ $]$ $')'$ ';' \\ \\
-
-  cField      & $::=$ & varDec $|$ funcDec                                             \\ \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Program  & $::=$ & dec$^{+}$ \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+dec      & $::=$ & funcDec $|$ varDec $|$ classDec \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+varDec   & $::=$ & ID ID $[$ ASSIGN exp $]$ ';' \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+funcDec  & $::=$ & ID ID $'('$ $[$ ID ID $[$ ',' ID ID $]^{*}$ $]$ $')'$ %%
+                   $'\{'$ stmt   $[$ stmt $]^{*}$ $'\}'$                 \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+classDec & $::=$ & CLASS ID $[$ EXTENDS ID $]$ $'\{'$ cField $[$ cField $]^{*}$ $'\}'$ \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+exp      & $::=$ & $'('$ exp $')'$                                                \\
+         & $::=$ & exp BINOP exp                                                  \\
+         & $::=$ & $[$ var '.' $]$ ID $'('$ $[$ exp $[$ ',' exp $]^{*}$ $]$ $')'$ \\
+         & $::=$ & INT $|$ NIL $|$ STRING $|$ NEW ID $|$ var                      \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+var      & $::=$ & ID                  \\
+         & $::=$ & var '.' ID          \\
+         & $::=$ & var $'['$ exp $']'$ \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+stmt     & $::=$ & varDec                                                             \\
+         & $::=$ & var ASSIGN exp ';'                                                 \\
+         & $::=$ & RETURN $[$ exp $]$ ';'                                             \\
+         & $::=$ & IF $'('$ exp $')'$ $'\{'$ stmt $[$ stmt $]^{*}$ $'\}'$             \\
+         & $::=$ & WHILE $'('$ exp $')'$ $'\{'$ stmt $[$ stmt $]^{*}$ $'\}'$          \\
+         & $::=$ & $[$ var '.' $]$ ID $'('$ $[$ exp $[$ ',' exp $]^{*}$ $]$ $')'$ ';' \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+cField   & $::=$ & varDec $|$ funcDec \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\
 \end{tabular}
 \caption{
 Context free grammar for the RioMare programming language.
 \label{Table_CFG_Of_RioMare}}
 \end{table}
 
-\begin{table}[h]
-\centering
-\begin{tabular}{ l l l l}
-  int         & string  & void   & while \\
-  class       & nil     & new    & if    \\
-  PrintInt    & extends & return & end   \\
-  PrintString &         &        &       \\
-\end{tabular}
-\caption{
-Reserved keywords of RioMare.
-\label{Table_Reserved_Keywords_of_RioMare}}
-\end{table}
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|c|c|l|l| }
-  \hline
-  Precedence       & Operator & Description & Associativity \\
-  \hline
-  \hline
-  1                & $:=$            & assign         & right \\
-  \hline
-  2                & $=$             & equals         & left  \\
-  \hline
-  3                & $<,\leq,>,\geq$ &                & left  \\
-  \hline
-  4                & $+,-$           &                & left  \\
-  \hline
-  5                & $*,/$           &                & left  \\
-  \hline
-  6                & $[$             & array indexing &       \\
-  \hline
-  7                & $($             & function call  &       \\
-  \hline
-  8                & $\verb"->"$     & field access   & left  \\
-  \hline
-\end{tabular}
-\caption{
-Binary operators of RioMare along with their associativity and precedence.
-$1$ stands for the lowest precedence, and $9$ for the highest.
-\label{Table_Binary_Operators_Of_RioMare}}
-\end{table}
 
 To create a graph visualization of the AST, please install graphviz
 and run
@@ -127,87 +298,35 @@ and run
 \]
 from \verb"EX5/LINUX_GCC_MAKE"
 
+%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Input %
+%%%%%%%%%%%%%%%%%%%%
 \section{Input}
 The input for this exercise is a single text file, the input RioMare program.
 
+%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Output %
+%%%%%%%%%%%%%%%%%%%%%
 \section{Output}
-The output is a single text file that contains a tokenized representation of the input program.
-Each token should appear in a separate line, together with the line number
-it appeared on, and the character position inside that line.
-The list of token names appears in Table 777,
-and will only be used in this first exercise.
-Later phases of the compiler will make no use of these token names.
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|c|c|l|c|}
-  \hline
-  Token Name & Description & & Token Name & Description \\
-  \hline
-  \hline
-  LPAREN    & $($  & & ASSIGN           & $:=$                     \\
-  RPAREN    & $)$  & & EQ               & $=$                      \\
-  LBRACK    & $[$  & & LT               & $<$                      \\
-  RBRACK    & $]$  & & GT               & $>$                      \\
-  LBRACE    & $\{$ & & CLASS            &                          \\
-  RBRACE    & $\}$ & & EXTENDS          &                          \\
-  PLUS      & $+$  & & RETURN           &                          \\
-  MINUS     & $-$  & & WHILE            &                          \\
-  TIMES     & $*$  & & IF               &                          \\
-  DIVIDE    & $/$  & &                  &                          \\
-  COMMA     & $,$  & & INT$(value)$     & $value$ is an integer    \\
-  DOT       & $.$  & & STRING$(value)$  & $value$ is a string      \\
-  SEMICOLON & $;$  & & ID$(value)$      & $value$ is an identifier \\
-  \hline
-\end{tabular}
-\caption{
-Token names and printing format for the first exercise.
-Each line in the output text file should contain a single token.
-Note that three types of tokens are associated with corresponding values:
-integers, identifiers and strings. The rest of the tokens encountered
-should only contain their name,
-the line number they appeared on, and the character position inside that line.
-\label{Table_Token_Names_For_Exercise_1}}
-\end{table}
+The output is a \textit{single} text file that contains a \textit{single} word.
+Either OK when the input program is correct semantically,
+or otherwise ERROR(\textit{location}), where \textit{location}
+is the line number of the \textit{first} error that was encountered.
 
-Three types of tokens are associated with corresponding values: integers, identifiers and strings.
-The printing format for these tokens can be easily deduced from the examples in Table \ref{Table_Token_Printing_Examples_For_Exercise_1}.
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|l| }
-  Printed Lines Examples & Description \\
-  \hline
-  \hline
-  INT($74$)[$3$,$8$] & integer $74$ is encountered in line $3$, character position $8$ \\
-  \hline
-  STRING(``Dan")[$2$,$5$] & string ``Dan" is encountered in line $2$, character position $5$ \\
-  \hline
-  ID(numPts)[$1$,$6$] & identifier numPts is encountered in line $1$, character position $6$ \\
-  \hline
-\end{tabular}
-\caption{
-Token names and printing format for the first exercise.
-Each line in the output text file should contain a single token.
-Note that three types of tokens are associated with corresponding values:
-integers, identifiers and strings. The rest of the tokens encountered
-should only contain their name,
-the line number they appeared on, and the character position inside that line.
-\label{Table_Token_Printing_Examples_For_Exercise_1}}
-\end{table}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Submission Guidelines %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Submission Guidelines}
-The code for this exercise resides as usual in subdirectory EX5 of the course GitHub.
-Currently, the grammar in RioMare.y contains a shift/reduce conflict,
-so you should start by fixing this.
-Next, you need to add the relevant derivation rules and AST constructors
-for classes. Last, you should implement the missing parts of the RioMare semantic analyzer.
-The semantic analyzer resides in the file semant.c, and this is where
-most of your changes will occur.
-Please submit your exercise in your GitHub repository under COMPILATION/EX5,
-and have a makefile there to build a runnable program called compiler.
-Make sure that compiler is created in the same level as the makefile: inside EX5.
-To avoid the pollution of EX5, please remove all *.o files once the target is built.
-The next paragraph describes the execution of compiler.
-
+The skeleton code for this exercise resides (as usual)
+in subdirectory EX3 of the course repository.
+COMPILATION/EX3 should contain a makefile building your source files to a
+runnable jar file called COMPILER (note the lack of the .jar suffix).
+Feel free to use the makefile supplied in the course repository,
+or write a new one if you want to. 
+Before you submit, make sure that your exercise compiles and runs
+on the school server: $nova.cs.tau.ac.il$.
+This is the formal running environment of the course.
+\
 \paragraph{Execution parameters}
 compiler receives $2$ input file names:\\ \\
 InputRioMareProgram.txt\\
