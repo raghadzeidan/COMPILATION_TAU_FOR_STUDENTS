@@ -26,7 +26,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DATE = SUBMISSION DATE HERE %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\date{Due 30/10/2017}
+\date{Due 08/11/2017}
 
 %%%%%%%%%
 % TITLE %
@@ -68,6 +68,7 @@ be used as identifiers.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 class   & nil    & void   & while \\
 extends & return & new    & if    \\
+array   &        &        &       \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{tabular}
 \caption{
@@ -90,6 +91,7 @@ they are artificially limited in RioMare to have
 16-bits signed values between $-2^{15}$ and $2^{15}-1$.
 Integers out of this range are lexical errors.
 \paragraph{Strings} are sequences of (zero or more) letters and digits between double quotes.
+Unclosed strings are lexical errors.
 \section{Input}
 The input for this exercise is a single text file, the input RioMare program.
 %%%%%%%%%%%%%%%%%%%%%
@@ -109,12 +111,14 @@ Later phases of the compiler will make no use of these token names.
 Token Name & Description & & Token Name & Description \\
 \hline
 \hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 LPAREN    & $($  & & ASSIGN           & $:=$                     \\
 RPAREN    & $)$  & & EQ               & $=$                      \\
 LBRACK    & $[$  & & LT               & $<$                      \\
 RBRACK    & $]$  & & GT               & $>$                      \\
-LBRACE    & $\{$ & & CLASS            &                          \\
-RBRACE    & $\}$ & & EXTENDS          &                          \\
+LBRACE    & $\{$ & & ARRAY            &                          \\
+RBRACE    & $\}$ & & CLASS            &                          \\
+          &      & & EXTENDS          &                          \\
 PLUS      & $+$  & & RETURN           &                          \\
 MINUS     & $-$  & & WHILE            &                          \\
 TIMES     & $*$  & & IF               &                          \\
@@ -122,6 +126,7 @@ DIVIDE    & $/$  & & NEW              &                          \\
 COMMA     & $,$  & & INT$(value)$     & $value$ is an integer    \\
 DOT       & $.$  & & STRING$(value)$  & $value$ is a string      \\
 SEMICOLON & $;$  & & ID$(value)$      & $value$ is an identifier \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
 \caption{
