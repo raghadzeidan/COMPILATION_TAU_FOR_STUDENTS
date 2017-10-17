@@ -78,7 +78,7 @@ Also, given an existing type \verb"T", one can define an array of \verb"T"'s.
 Note, that defining classes and arrays is only possible in the uppermost (global) scope.
 The exact details follow.
 \paragraph{Arrays} can only be defined in the uppermost (global) scope.
-They are defined with respect to some existing type, as in the following example:
+They are defined with respect to some previously defined type, as in the following example:
 \[
 \verb"ARRAY" ~ \verb"IntArray" ~ \verb"EQ" ~ \verb"int[]"
 \]
@@ -195,7 +195,7 @@ Table \ref{Table_Code_Examples_Overload_Override} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
-\caption{Method overloading is illegal in RioMare.
+\caption{Method overloading and variable shadowing are both illegal in RioMare.
 \label{Table_Code_Examples_Overload_Override}}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -203,7 +203,49 @@ Table \ref{Table_Code_Examples_Overload_Override} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Asignments}
 Assigning an expression to a variable is clearly legal whenever the two have the same type.
-In addition, if the assigning \verb"NULL" to class variables is legalBinary operations are performed only between integers and strings.
+In addition, assigning \verb"NULL" to array and class variables is legal.
+Last, if \verb"Son" is a class derived from class \verb"Father",
+then any place in the program that semantically allows an expression of type \verb"Father",
+should semantically allow an expression of type \verb"Son".
+Table 777 summarizes these facts
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $1$ & \verb"CLASS Father"                       &    \\
+     & \verb"{"                                  &    \\
+     & ~ ~ ~ ~\verb"int foo() { return 8; }"     & OK \\
+     & \verb"}"                                  &    \\
+     & \verb"Father f := NULL;"                  &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $2$ & \verb"CLASS Father { ... }"             &    \\
+     & \verb"CLASS Son EXTENDS Father { ... }" &    \\
+     & \verb"void foo(Father f) { ... }"       & OK \\
+     & \verb"Father f := new Son;"             &    \\
+     & \verb"foo(new Son);"                    &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $3$ & \verb"ARRAY gradesArray = int[];" &       \\
+     & \verb"ARRAY IDsArray    = int[];" &       \\
+     & \verb"IDsArray := new int[8];"    & ERROR \\
+     & \verb"gradesArray := new int[8];" &       \\
+     & \verb"gradesArray := IDsArray;"   &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $4$ & \verb"string s := NULL;" & ERROR \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption{Assignments in RioMare.
+\label{Table_Code_Examples_Assignments}}
+\end{table}
+
+Binary operations are performed only between integers and strings.
 A variable is a recursive entity, represented as a sub tree in the AST.
 Assigning a value to a variable, 
 Table \ref{Table_CFG_Of_RioMare} summarizes the context free grammar of RioMare.
