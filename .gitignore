@@ -1,6 +1,9 @@
 **/LEXER
 **/PARSER
 **/*.class
+**/COMPILER
 **/Lexer.java
 **/Parser.java
 **/TokenNames.java
+FOLDER_3_SOURCE_CODE/EX2/FOLDER_2_SRC/Parser.java
+FOLDER_3_SOURCE_CODE/EX2/FOLDER_2_SRC/TokenNames.java
