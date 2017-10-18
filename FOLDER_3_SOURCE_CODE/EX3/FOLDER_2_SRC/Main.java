@@ -1,16 +1,8 @@
-/*******************/
-/* GENERAL IMPORTS */
-/*******************/
+   
 import java.io.*;
 import java.io.PrintWriter;
 import java_cup.runtime.Symbol;
-
-/*******************/
-/* PROJECT IMPORTS */
-/*******************/
 import AST.*;
-import AST_PRINT.*;
-import AST_VISITOR.*;
 
 public class Main
 {
@@ -20,12 +12,10 @@ public class Main
 		Parser p;
 		Symbol s;
 		AST_STMT_LIST AST;
-		AST_Printing_Visitor v;
 		FileReader file_reader;
 		PrintWriter file_writer;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
-		v = new AST_Printing_Visitor(argv[2]);
 		
 		try
 		{
@@ -54,21 +44,14 @@ public class Main
 			/***********************************/
 			AST = (AST_STMT_LIST) p.parse().value;
 			
-			/*******************************************************/
-			/* [6] Print AST recursively with AST Printing Visitor */
-			/*******************************************************/
-			AST.Accept_AST_Visitor(v);
+			/*************************/
+			/* [6] Print the AST ... */
+			/*************************/
+			AST.PrintMe();
 			
-			// while (AST != null)
-			// {
-			//	System.out.print(AST.PrintMe());
-			//	System.out.print("\n");
-			//	AST = AST.tail;
-			// }
-			
-			/**************************/
-			/* [10] Close output file */
-			/**************************/
+			/*************************/
+			/* [7] Close output file */
+			/*************************/
 			file_writer.close();
     	}
 			     
