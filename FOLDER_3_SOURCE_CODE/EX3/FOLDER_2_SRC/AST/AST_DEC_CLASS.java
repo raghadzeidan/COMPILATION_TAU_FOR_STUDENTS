@@ -38,4 +38,8 @@ public class AST_DEC_CLASS extends AST_DEC
 		if (data_members != null) data_members.PrintMe();
 	}
 	
+	public TYPE SemantMe()
+	{
+		return new TYPE_CLASS(null,data_members.SemantMe());
+	}
 }
