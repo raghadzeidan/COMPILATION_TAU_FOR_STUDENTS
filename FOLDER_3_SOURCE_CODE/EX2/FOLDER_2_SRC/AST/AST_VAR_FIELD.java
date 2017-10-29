@@ -42,5 +42,17 @@ public class AST_VAR_FIELD extends AST_VAR
 		/**********************************************/
 		if (var != null) var.PrintMe();
 		System.out.format("FIELD NAME( %s )\n",fieldName);
+
+		/***************************************/
+		/* PRINT Node to AST GRAPHVIZ DOT file */
+		/***************************************/
+		AST_GRAPHVIZ.getInstance().logNode(
+			SerialNumber,
+			String.format("FIELD\nVAR\n...->%s",fieldName));
+		
+		/****************************************/
+		/* PRINT Edges to AST GRAPHVIZ DOT file */
+		/****************************************/
+		if (var != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
 	}
 }

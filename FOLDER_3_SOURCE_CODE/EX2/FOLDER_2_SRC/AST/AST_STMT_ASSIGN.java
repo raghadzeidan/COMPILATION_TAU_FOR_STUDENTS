@@ -45,5 +45,18 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		/***********************************/
 		if (var != null) var.PrintMe();
 		if (exp != null) exp.PrintMe();
+
+		/***************************************/
+		/* PRINT Node to AST GRAPHVIZ DOT file */
+		/***************************************/
+		AST_GRAPHVIZ.getInstance().logNode(
+			SerialNumber,
+			"ASSIGN\nleft := right\n");
+		
+		/****************************************/
+		/* PRINT Edges to AST GRAPHVIZ DOT file */
+		/****************************************/
+		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
+		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
 	}
 }

@@ -53,6 +53,11 @@ public class Main
 			/* [7] Close output file */
 			/*************************/
 			file_writer.close();
+			
+			/*************************************/
+			/* [8] Finalize AST GRAPHIZ DOT file */
+			/*************************************/
+			AST_GRAPHVIZ.getInstance().finalizeFile();
     	}
 			     
 		catch (Exception e)

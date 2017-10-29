@@ -7,7 +7,7 @@ public class AST_Node_Serial_Number
 	/* In particular, it can help in creating  */
 	/* a graphviz dot format of the AST ...    */
 	/*******************************************/
-	public static int SerialNumber;
+	public int SerialNumber;
 	
 	/**************************************/
 	/* USUAL SINGLETON IMPLEMENTATION ... */
