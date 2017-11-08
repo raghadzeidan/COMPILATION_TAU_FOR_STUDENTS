@@ -74,23 +74,52 @@ extends & return & new    & if    \\
 Reserved keywords of RioMare.
 \label{Table_Reserved_Keywords_of_RioMare}}
 \end{table}
-\paragraph{White spaces} consist of spaces, tabs and newlines
-characters. They may appear between any tokens.
+\paragraph{White spaces} consist of spaces, tabs and newlines characters.
+They may appear between any tokens.
 Keywords and identifiers must be separated by a white space,
 or a token that is neither a keyword nor an identifier.
-\paragraph{Comments} in RioMare are similar to those used in the C programming language:
-a comment beginning with the characters // indicates that the remainder of the line is a comment.
+\paragraph{Comments} in RioMare are similar to those used in the C programming language,
+but may only contain characters from Table \ref{Table_Characters_That _May_Appear_inside_Comments}.
+\begin{table}[h]
+\centering
+\begin{tabular}{ | c | c | c | c | }
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        &        &              &                  \\
+letters & digits & white spaces & line terminators \\
+        &        &              &                  \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                  &     &                 &                       \\
+( ) [ ] $\{$ $\}$ & ? ! & $+$ $-$ $*$ $/$ & . (dot) ; (semicolon) \\
+                  &     &                 &                       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption{
+Characters that may appear inside comments in RioMare.
+\label{Table_Characters_That _May_Appear_inside_Comments}}
+\end{table}
+A comment beginning with the characters // indicates that the remainder of the line is a comment.
 In addition, a comment can be a sequence of characters that begins with /*,
-followed by any characters, including newlines, up to the first occurrence of the end sequence */. Unclosed comments are lexical errors.
+followed by any characters from Table \ref{Table_Characters_That _May_Appear_inside_Comments},
+up to the first occurrence of the end sequence */.
+Comments that contain characters that do not appear in Table
+\ref{Table_Characters_That _May_Appear_inside_Comments} are lexical errors.
+Unclosed comments are lexical errors too.
 \paragraph{Integer} literals may start with an optional negation sign $-$,
 followed by a sequence of digits.
-Integers should \textit{not} have leading zeroes.
+Integers should \textit{not} have leading zeroes,
+and when they do, it is a lexical error.
+In addition, $-0$ is a lexical error.
 Though integers are stored as 32 bits in memory,
 they are artificially limited in RioMare to have
 16-bits signed values between $-2^{15}$ and $2^{15}-1$.
 Integers out of this range are lexical errors.
-\paragraph{Strings} are sequences of (zero or more) letters and digits between double quotes.
-Unclosed strings are lexical errors.
+\paragraph{Strings} are sequences of (zero or more) letters between double quotes.
+Strings that contain non letter characters are lexical errors.
+Unclosed strings are lexical errors too.
 \section{Input}
 The input for this exercise is a single text file, the input RioMare program.
 %%%%%%%%%%%%%%%%%%%%%
