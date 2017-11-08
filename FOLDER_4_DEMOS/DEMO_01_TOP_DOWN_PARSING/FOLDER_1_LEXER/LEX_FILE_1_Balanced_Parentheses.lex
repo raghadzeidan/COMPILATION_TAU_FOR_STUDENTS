@@ -83,4 +83,10 @@ INT	[0-9]+
 						ErrorMsg_Log("INT(%d) ",aalval.gval.ival);
 						return INT;
 					}
-
+.					{
+						adjust();
+						ErrorMsg_Error(
+							ErrorMsg_tokPos,
+							"\n\nERROR >> Unknown character(s): %s\n\n",
+							aatext);
+					}

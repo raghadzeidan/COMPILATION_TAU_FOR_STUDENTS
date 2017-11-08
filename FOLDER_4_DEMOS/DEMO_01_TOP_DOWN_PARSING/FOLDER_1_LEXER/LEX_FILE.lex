@@ -64,14 +64,6 @@ LINE_TERMINATOR	\n
 LPAREN	"("
 RPAREN	")"
 
-/********************/
-/* BINARY OPERATORS */
-/********************/
-PLUS	"+"
-MINUS	"-"
-TIMES	"*"
-DIVIDE	"/"
-
 /*******/
 /* INT */
 /*******/
@@ -85,10 +77,6 @@ INT	[0-9]+
 {LINE_TERMINATOR}	{adjust(); ErrorMsg_Newline(); continue;}
 {LPAREN}			{adjust(); ErrorMsg_Log("("); return LPAREN;}
 {RPAREN}			{adjust(); ErrorMsg_Log(")"); return RPAREN;}
-{PLUS}				{adjust(); ErrorMsg_Log("+"); return PLUS;}
-{MINUS}				{adjust(); ErrorMsg_Log("-"); return MINUS;}
-{TIMES}				{adjust(); ErrorMsg_Log("*"); return TIMES;}
-{DIVIDE}			{adjust(); ErrorMsg_Log("/"); return DIVIDE;}
 {INT}				{
 						adjust();
 						aalval.gval.ival=atoi(aatext);
