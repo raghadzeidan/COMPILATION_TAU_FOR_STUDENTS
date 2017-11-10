@@ -39,16 +39,14 @@ YYSTYPE aalval;
 /****************************/
 int aalex(void);
 
-#define NUM_DERIVIATION_RULES 7
+#define NUM_DERIVIATION_RULES 5
 char *RULES[NUM_DERIVIATION_RULES]=
 {
 	"S->E$",
-	"E->E+E",
-	"E->E-E",
-	"E->E*E",
-	"E->E/E",
-	"E->y",
-	"E->(E)"
+	"E->{L}",
+	"E->x=i",
+	"L->L;E",
+	"L->E"
 };
 
 char LEFT_SIDE_DERIVIATION_RULES[NUM_DERIVIATION_RULES]=
@@ -56,65 +54,59 @@ char LEFT_SIDE_DERIVIATION_RULES[NUM_DERIVIATION_RULES]=
 	'S',
 	'E',
 	'E',
-	'E',
-	'E',
-	'E',
-	'E',
+	'L',
+	'L'
 };
 
 int LENGTH_DERIVIATION_RULES[NUM_DERIVIATION_RULES]=
 {
 	2,/* S->E$  */
-	3,/* E->E+E */
-	3,/* E->E-E */
-	3,/* E->E*E */
-	3,/* E->E/E */
-	1,/* E->y   */
-	3 /* E->(E) */
+	3,/* E->{L} */
+	3,/* E->x=i */
+	3,/* L->L;E */
+	1 /* L->E   */
 };
 
 int ConvertTokenToIndex(int token)
 {
 	switch (token) {
-	case (LPAREN): return 0;
-	case (RPAREN): return 1;
-	case (INT):    return 2;
-	case (PLUS):   return 3;
-	case (MINUS):  return 4;
-	case (TIMES):  return 5;
-	case (DIVIDE): return 6;
-	case (0):      return 7;
-	default:       return -1;
+	case (LBRACE):    return 0;
+	case (RBRACE):    return 1;
+	case (ID):        return 2;
+	case (INT):       return 3;
+	case (ASSIGN):    return 4;
+	case (SEMICOLON): return 5;
+	case (0):         return 6;
+	default:          return -1;
 	}
 }
 
 char ConvertTokenToChar(int token)
 {
 	switch (token) {
-	case (LPAREN): return '(';
-	case (RPAREN): return ')';
-	case (INT):    return 'y';
-	case (PLUS):   return '+';
-	case (MINUS):  return '-';
-	case (TIMES):  return '*';
-	case (DIVIDE): return '/';
-	case (0):      return '$';
-	default:       return  0 ;
+	case (LBRACE):    return '{';
+	case (RBRACE):    return '}';
+	case (ID):        return 'x';
+	case (INT):       return 'i';
+	case (ASSIGN):    return '=';
+	case (SEMICOLON): return '-';
+	case (0):         return '$';
+	default:          return  0 ;
 	}
 }
 
 int ConvertCharToIndex(char c)
 {
 	switch (c) {
-	case ('('): return  0;
-	case (')'): return  1;
-	case ('y'): return  2;
-	case ('+'): return  3;
-	case ('-'): return  4;
-	case ('*'): return  5;
-	case ('/'): return  6;
-	case ('$'): return  7;
-	case ('E'): return  8;
+	case ('{'): return  0;
+	case ('}'): return  1;
+	case ('x'): return  2;
+	case ('i'): return  3;
+	case ('='): return  4;
+	case ('-'): return  5;
+	case ('$'): return  6;
+	case ('E'): return  7;
+	case ('L'): return  8;
 	default:    return -1;
 	}
 }
@@ -204,7 +196,7 @@ int Parse()
 		/* extract table entry */
 		/***********************/
 		entry=table[Top(&s)->state][ConvertTokenToIndex(tok)];
-		
+
 		switch (*entry) {
 		
 		case ('s'):

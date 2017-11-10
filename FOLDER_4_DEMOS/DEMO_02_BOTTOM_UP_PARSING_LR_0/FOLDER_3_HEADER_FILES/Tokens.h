@@ -9,13 +9,12 @@
 /*********************/
 /* TOKENS start here */
 /*********************/
-#define PLUS	SERIAL_NUMBER_START+1
-#define MINUS	SERIAL_NUMBER_START+2
-#define TIMES	SERIAL_NUMBER_START+3
-#define DIVIDE	SERIAL_NUMBER_START+4
-#define LPAREN	SERIAL_NUMBER_START+5
-#define RPAREN	SERIAL_NUMBER_START+6
-#define INT		SERIAL_NUMBER_START+7
+#define LBRACE		SERIAL_NUMBER_START+1
+#define RBRACE		SERIAL_NUMBER_START+2
+#define ID			SERIAL_NUMBER_START+3
+#define INT			SERIAL_NUMBER_START+4
+#define ASSIGN		SERIAL_NUMBER_START+5
+#define SEMICOLON	SERIAL_NUMBER_START+6
 
 /*********/
 /* TYPES */
@@ -25,6 +24,7 @@ typedef union
 	union
 	{
 		int ival;
+		string sval;
 	}
 	gval;
 }

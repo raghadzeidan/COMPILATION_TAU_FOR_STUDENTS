@@ -56,24 +56,27 @@ LINE_TERMINATOR	\n
 /***************/
 /* PARENTHESES */
 /***************/
-LPAREN	"("
-RPAREN	")"
+LBRACE	"{"
+RBRACE	"}"
 
 /**********/
 /* BINOPS */
 /**********/
-PLUS	"+"
-MINUS	"-"
-TIMES	"*"
-DIVIDE	"/"
+ASSIGN		"="
+SEMICOLON	";"
 
 /*******/
 /* INT */
 /*******/
 DIGIT			[0-9]
 NON_ZERO_DIGIT	[1-9]
-LETTER			[a-zA-Z_]
 INT				"0"|({NON_ZERO_DIGIT}({DIGIT}*))
+
+/******/
+/* ID */
+/******/
+LETTER			[a-zA-Z_]
+ID				{LETTER}+
 		
 /*********/
 /* RULES */
@@ -81,12 +84,16 @@ INT				"0"|({NON_ZERO_DIGIT}({DIGIT}*))
 %%
 {WHITE_SPACE}		{adjust(); continue;}
 {LINE_TERMINATOR}	{adjust(); ErrorMsg_Newline(); continue;}
-{LPAREN}			{adjust(); ErrorMsg_Log("("); return LPAREN;}
-{RPAREN}			{adjust(); ErrorMsg_Log(")"); return RPAREN;}
-{PLUS}				{adjust(); ErrorMsg_Log("+"); return PLUS;}
-{MINUS}				{adjust(); ErrorMsg_Log("-"); return MINUS;}
-{TIMES}				{adjust(); ErrorMsg_Log("*"); return TIMES;}
-{DIVIDE}			{adjust(); ErrorMsg_Log("/"); return DIVIDE;}
+{LBRACE}			{adjust(); ErrorMsg_Log("{"); return LBRACE;}
+{RBRACE}			{adjust(); ErrorMsg_Log("}"); return RBRACE;}
+{ASSIGN}			{adjust(); ErrorMsg_Log("="); return ASSIGN;}
+{SEMICOLON}			{adjust(); ErrorMsg_Log(";"); return SEMICOLON;}
+{ID}				{
+						adjust();
+						aalval.gval.sval=String(aatext);
+						ErrorMsg_Log("ID(%s)",aalval.gval.sval);
+						return ID;
+					}
 {INT}				{
 						adjust();
 						aalval.gval.ival=atoi(aatext);

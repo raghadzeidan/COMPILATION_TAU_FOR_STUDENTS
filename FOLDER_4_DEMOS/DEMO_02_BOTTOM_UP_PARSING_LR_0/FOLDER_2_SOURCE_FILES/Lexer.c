@@ -301,12 +301,12 @@ static void yy_fatal_error YY_PROTO(( yyconst char msg[] ));
 	*yy_cp = '\0'; \
 	yy_c_buf_p = yy_cp;
 
-#define YY_NUM_RULES 10
-#define YY_END_OF_BUFFER 11
+#define YY_NUM_RULES 9
+#define YY_END_OF_BUFFER 10
 static yyconst short int yy_accept[17] =
     {   0,
-        0,    0,   11,   10,    1,    2,    3,    4,    7,    5,
-        6,    8,    9,    9,    9,    0
+        0,    0,   10,    9,    1,    2,    8,    8,    6,    5,
+        7,    3,    4,    8,    7,    0
     } ;
 
 static yyconst int yy_ec[256] =
@@ -314,17 +314,17 @@ static yyconst int yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    4,    1,    1,    1,    1,    1,    1,    1,    5,
-        6,    7,    8,    1,    9,    1,   10,   11,   12,   12,
-       12,   12,   12,   12,   12,   12,   12,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    4,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    5,    6,    6,
+        6,    6,    6,    6,    6,    6,    6,    1,    7,    1,
+        8,    1,    1,    1,    9,    9,    9,    9,    9,    9,
+        9,    9,    9,    9,    9,    9,    9,    9,    9,    9,
+        9,    9,    9,    9,    9,    9,    9,    9,    9,    9,
+        1,    1,    1,    1,    9,    1,    9,    9,    9,    9,
 
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        9,    9,    9,    9,    9,    9,    9,    9,    9,    9,
+        9,    9,    9,    9,    9,    9,    9,    9,    9,    9,
+        9,    9,   10,    1,   11,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -341,35 +341,35 @@ static yyconst int yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static yyconst int yy_meta[13] =
+static yyconst int yy_meta[12] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        2,    2
+        1,    1,    1,    1,    2,    2,    1,    1,    1,    1,
+        1
     } ;
 
 static yyconst short int yy_base[18] =
     {   0,
-        0,    0,   14,   15,   15,   15,   15,   15,   15,   15,
-       15,   15,   15,    0,    0,   15,   11
+        0,    0,   15,   16,   16,   16,   16,    0,   16,   16,
+        5,   16,   16,    0,    4,   16,   10
     } ;
 
 static yyconst short int yy_def[18] =
     {   0,
-       16,    1,   16,   16,   16,   16,   16,   16,   16,   16,
-       16,   16,   16,   17,   17,    0,   16
+       16,    1,   16,   16,   16,   16,   16,   17,   16,   16,
+       16,   16,   16,   17,   16,    0,   16
     } ;
 
 static yyconst short int yy_nxt[28] =
     {   0,
         4,    5,    6,    5,    7,    8,    9,   10,   11,   12,
-       13,   14,   15,   16,    3,   16,   16,   16,   16,   16,
+       13,   14,   15,   15,   16,    3,   16,   16,   16,   16,
        16,   16,   16,   16,   16,   16,   16
     } ;
 
 static yyconst short int yy_chk[28] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,   17,    3,   16,   16,   16,   16,   16,   16,
+        1,   17,   15,   11,    3,   16,   16,   16,   16,   16,
        16,   16,   16,   16,   16,   16,   16
     } ;
 
@@ -442,10 +442,13 @@ void adjust(void)
 /*******/
 /* INT */
 /*******/
+/******/
+/* ID */
+/******/
 /*********/
 /* RULES */
 /*********/
-#line 449 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/Lexer.c"
+#line 452 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/Lexer.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -596,9 +599,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 81 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
+#line 84 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
 
-#line 602 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/Lexer.c"
+#line 605 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/Lexer.c"
 
 	if ( yy_init )
 		{
@@ -655,7 +658,7 @@ yy_match:
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 15 );
+		while ( yy_base[yy_current_state] != 16 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -683,47 +686,47 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 82 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
+#line 85 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
 {adjust(); continue;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 83 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
+#line 86 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
 {adjust(); ErrorMsg_Newline(); continue;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 84 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
-{adjust(); ErrorMsg_Log("("); return LPAREN;}
+#line 87 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
+{adjust(); ErrorMsg_Log("{"); return LBRACE;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 85 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
-{adjust(); ErrorMsg_Log(")"); return RPAREN;}
+#line 88 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
+{adjust(); ErrorMsg_Log("}"); return RBRACE;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 86 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
-{adjust(); ErrorMsg_Log("+"); return PLUS;}
+#line 89 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
+{adjust(); ErrorMsg_Log("="); return ASSIGN;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 87 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
-{adjust(); ErrorMsg_Log("-"); return MINUS;}
+#line 90 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
+{adjust(); ErrorMsg_Log(";"); return SEMICOLON;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 88 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
-{adjust(); ErrorMsg_Log("*"); return TIMES;}
+#line 91 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
+{
+						adjust();
+						aalval.gval.sval=String(aatext);
+						ErrorMsg_Log("ID(%s)",aalval.gval.sval);
+						return ID;
+					}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 89 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
-{adjust(); ErrorMsg_Log("/"); return DIVIDE;}
-	YY_BREAK
-case 9:
-YY_RULE_SETUP
-#line 90 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
+#line 97 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
 {
 						adjust();
 						aalval.gval.ival=atoi(aatext);
@@ -731,12 +734,12 @@ YY_RULE_SETUP
 						return INT;
 					}
 	YY_BREAK
-case 10:
+case 9:
 YY_RULE_SETUP
-#line 97 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
+#line 104 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
 ECHO;
 	YY_BREAK
-#line 740 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/Lexer.c"
+#line 743 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/Lexer.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1612,4 +1615,4 @@ int main()
 	return 0;
 	}
 #endif
-#line 97 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
+#line 104 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_02_BOTTOM_UP_PARSING_LR_0/FOLDER_1_LEXER/LEX_FILE.lex"
