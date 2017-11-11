@@ -11,7 +11,7 @@ LEXER_DIR         = $(BASEDIR)/FOLDER_0_Flex
 LEXER_USER_DIR    = $(BASEDIR)/FOLDER_1_LEXER
 SOURCE_FILES_DIR  = $(BASEDIR)/FOLDER_2_SOURCE_FILES
 HEADER_FILES_DIR  = $(BASEDIR)/FOLDER_3_HEADER_FILES
-PROG_DIR          = $(BASEDIR)/FOLDER_4_BOTTOM_UP_LR_0_PARSER
+PROG_DIR          = $(BASEDIR)/FOLDER_4_BOTTOM_UP_SLR_1_PARSER
 INPUT_DIR         = $(BASEDIR)/FOLDER_5_INPUT
 OUTPUT_DIR        = $(BASEDIR)/FOLDER_6_OUTPUT
 DEBUG_SCRIPTS_DIR = $(BASEDIR)/FOLDER_7_GDB_SCRIPTS
@@ -39,12 +39,12 @@ LEXER_HEADER_FILES   := $(wildcard  $(LEXER_HEADER_DIR)/*.h)
 LEXER_OBJECT_FILES   := $(addprefix $(LEXER_OBJECT_DIR)/,$(LEXER_SOURCE_FILES,.c=.o))
 
 #########################
-# BOTTOM_UP_LR_0_PARSER #
+# BOTTOM_UP_SLR_1_PARSER #
 #########################
-BOTTOM_UP_LR_0_PARSER_FLAGS         = -I$(HEADER_FILES_DIR) -w
-BOTTOM_UP_LR_0_PARSER_PROGRAM       = $(PROG_DIR)/BOTTOM_UP_LR_0_PARSER
-BOTTOM_UP_LR_0_PARSER_SOURCE_FILES := $(wildcard  $(SOURCE_FILES_DIR)/*.c)
-BOTTOM_UP_LR_0_PARSER_HEADER_FILES := $(wildcard  $(HEADER_FILES_DIR)/*.h)
+BOTTOM_UP_SLR_1_PARSER_FLAGS         = -I$(HEADER_FILES_DIR) -w
+BOTTOM_UP_SLR_1_PARSER_PROGRAM       = $(PROG_DIR)/BOTTOM_UP_SLR_1_PARSER
+BOTTOM_UP_SLR_1_PARSER_SOURCE_FILES := $(wildcard  $(SOURCE_FILES_DIR)/*.c)
+BOTTOM_UP_SLR_1_PARSER_HEADER_FILES := $(wildcard  $(HEADER_FILES_DIR)/*.h)
 
 ################
 # INPUT/OUTPUT #
@@ -62,7 +62,7 @@ all:
 	@echo "*****************"
 	@echo "\n"
 	rm -rf $(LEXER_PROGRAM) 
-	rm -rf $(BOTTOM_UP_LR_0_PARSER_PROGRAM) 
+	rm -rf $(BOTTOM_UP_SLR_1_PARSER_PROGRAM) 
 	rm -rf $(SOURCE_FILES_DIR)/Lexer.c
 	@echo "\n"
 	@echo "******************"
@@ -84,10 +84,10 @@ all:
 	mv $(LEXER_USER_DIR)/Lexer.c $(SOURCE_FILES_DIR)
 	@echo "\n"
 	@echo "***********************************"
-	@echo "* Build BOTTOM_UP_LR_0_PARSER ... *"
+	@echo "* Build BOTTOM_UP_SLR_1_PARSER ... *"
 	@echo "***********************************"
 	@echo "\n"	
-	$(CC) $(BOTTOM_UP_LR_0_PARSER_FLAGS) $(BOTTOM_UP_LR_0_PARSER_SOURCE_FILES) -o $(BOTTOM_UP_LR_0_PARSER_PROGRAM)
+	$(CC) $(BOTTOM_UP_SLR_1_PARSER_FLAGS) $(BOTTOM_UP_SLR_1_PARSER_SOURCE_FILES) -o $(BOTTOM_UP_SLR_1_PARSER_PROGRAM)
 	@echo "\n"
 	@echo "********************"
 	@echo "* Clear Screen ... *"
@@ -96,8 +96,8 @@ all:
 	clear
 	@echo "\n"
 	@echo "*************************************"
-	@echo "* Execute BOTTOM_UP_LR_0_PARSER ... *"
+	@echo "* Execute BOTTOM_UP_SLR_1_PARSER ... *"
 	@echo "*************************************"
 	@echo "\n"	
-	$(BOTTOM_UP_LR_0_PARSER_PROGRAM) $(INPUT) $(OUTPUT)
+	$(BOTTOM_UP_SLR_1_PARSER_PROGRAM) $(INPUT) $(OUTPUT)
 	
