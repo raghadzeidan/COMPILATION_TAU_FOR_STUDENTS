@@ -69,7 +69,7 @@ int ROOT;
 /******************************/
 /* ASSOCIATIVITY & PRECEDENCE */
 /******************************/
-%left PLUS,MINUS
+%left MINUS,PLUS
 %left TIMES,DIVIDE
 
 /**************/
@@ -83,8 +83,8 @@ program:	E					{ROOT = $1.ival;}
 
 E:			INT					{$$.ival = $1.ival          ;}
 			| LPAREN E RPAREN	{$$.ival = $2.ival          ;}
-			| E PLUS E			{$$.ival = $1.ival + $3.ival;}
 			| E MINUS  E		{$$.ival = $1.ival - $3.ival;}
+			| E PLUS   E		{$$.ival = $1.ival + $3.ival;}
 			| E TIMES  E		{$$.ival = $1.ival * $3.ival;}
 			| E DIVIDE E		{$$.ival = $1.ival / $3.ival;}
 
