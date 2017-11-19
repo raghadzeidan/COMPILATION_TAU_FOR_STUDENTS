@@ -13,6 +13,16 @@ parser code
 		super(lexer);
 		this.lexer = lexer;
 	}
+	public void report_error(String message, Object info)
+	{
+		System.out.print("ERROR >> ");		
+		System.out.print("[");
+		System.out.print(lexer.getLine());
+		System.out.print(":");
+		System.out.print(lexer.getCharPos());
+		System.out.print("] ");		
+		System.exit(0);
+	}
 :}
 
 /************************/
@@ -23,6 +33,11 @@ scan with
 	Symbol s;
 	s = lexer.next_token();
 	//System.out.print(s.sym);
+	System.out.print("[");
+	System.out.print(lexer.getLine());
+	System.out.print(":");
+	System.out.print(lexer.getCharPos());
+	System.out.print("] ");
 	System.out.print(TokenNames.terminalNames[s.sym]);
 	if (s.value != null)
 	{
@@ -59,7 +74,6 @@ terminal ASSIGN;
 /*************/
 terminal Integer INT;
 terminal String ID;
-terminal UMINUS;
 
 /*****************/
 /* NON TERMINALS */
@@ -76,7 +90,6 @@ precedence left PLUS;
 precedence left MINUS;
 precedence left TIMES;
 precedence left DIVIDE;
-precedence left UMINUS;
 
 /************************/
 /* START WITH: stmtList */
