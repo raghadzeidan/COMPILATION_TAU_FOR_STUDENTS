@@ -77,16 +77,11 @@ In addition, it is possible to define a class by specifying its data members and
 Also, given an existing type \verb"T", one can define an array of \verb"T"'s.
 Note, that defining classes and arrays is only possible in the uppermost (global) scope.
 The exact details follow.
-\paragraph{Arrays} can only be defined in the uppermost (global) scope.
-They are defined with respect to some previously defined type, as in the following example:
-\[
-\verb"ARRAY" ~ \verb"IntArray" ~ \verb"EQ" ~ \verb"int[]"
-\]
-Defining an integer matrix, for example, is possible as follows:
-\[
-\verb"ARRAY IntArray EQ int[]; ARRAY IntMat EQ IntArray[];"
-\]
-\paragraph{Classes} contain data members and methods,
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SUB-SECTION :: Types %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Classes}
+Classes contain data members and methods,
 and can only be defined in the uppermost (global) scope.
 They can refer to/extend only previously defined classes,
 to ensure that the class hierarchy has a tree structure.
@@ -144,6 +139,7 @@ Table \ref{Table_Code_Examples_Use_Before_Def} summarizes these facts.
 \caption{Referring to classes, methods and data members
 \label{Table_Code_Examples_Use_Before_Def}}
 \end{table}
+\newpage
 \paragraph{Methods overloading} is \textit{illegal} in RioMare,
 with the obvious exception of overriding a method in a derived class.
 Similarly, it is illegal to define a variable with the same name of
@@ -198,16 +194,54 @@ Table \ref{Table_Code_Examples_Overload_Override} summarizes these facts.
 \caption{Method overloading and variable shadowing are both illegal in RioMare.
 \label{Table_Code_Examples_Overload_Override}}
 \end{table}
+\newpage
+In addition, if class \verb"Son" is derived from class \verb"Father",
+then any place in the program that semantically allows an expression of type \verb"Father",
+should semantically allow an expression of type \verb"Son". For example,
+\begin{table}[h]
+\centering
+\begin{tabular}{ l l l }
+\verb"ARRAY IntArray EQ int[]" \\
+\verb"void F(IntArray A){ PrintInt(A[8]); }" \\
+\verb"void main(){ F(NULL); }" \\
+\end{tabular}
+\caption{NULL sent instead of an integer array is semantically allowed.
+\label{Table_Code_Examples_NULL_Instead_Of_Any_Class}}
+\end{table}
+
+\paragraph{Arrays} can only be defined in the uppermost (global) scope.
+They are defined with respect to some previously defined type, as in the following example:
+\[
+\verb"ARRAY" ~ \verb"IntArray" ~ \verb"EQ" ~ \verb"int[]"
+\]
+Defining an integer matrix, for example, is possible as follows:
+\[
+\verb"ARRAY IntArray EQ int[] ARRAY IntMat EQ IntArray[];"
+\]
+In addition, any place in the program that semantically allows an expression of type array,
+should semantically allow \verb"NULL" instead. For instance,
+\begin{table}[h]
+\centering
+\begin{tabular}{ l l l }
+\verb"ARRAY IntArray EQ int[]" \\
+\verb"void F(IntArray A){ PrintInt(A[8]); }" \\
+\verb"void main(){ F(NULL); }" \\
+\end{tabular}
+\caption{NULL sent instead of an integer array is semantically allowed.
+\label{Table_Code_Examples_NULL_Instead_Of_Any_Array}}
+\end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: Assignments %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Asignments}
 Assigning an expression to a variable is clearly legal whenever the two have the same type.
-In addition, assigning \verb"NULL" to array and class variables is legal.
-Last, if \verb"Son" is a class derived from class \verb"Father",
+In addition, if class \verb"Son" is derived from class \verb"Father",
 then any place in the program that semantically allows an expression of type \verb"Father",
 should semantically allow an expression of type \verb"Son".
-Table 777 summarizes these facts
+Assigning \verb"NULL" to array and class variables is legal,
+but assigning \verb"NULL" to string variables is illegal.
+Last, 
+Table \ref{Table_Code_Examples_Assignments} summarizes these facts
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|l|l|}
@@ -258,9 +292,9 @@ and make sure there are no shift-reduce conflicts.
 Program  & $::=$ & dec$^{+}$ \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-dec      & $::=$ & funcDec $|$ varDec $|$ classDec \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+dec      & $::=$ & funcDec $|$ varDec $|$ classDec $|$ arrayDec \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 varDec   & $::=$ & ID ID $[$ ASSIGN exp $]$ ';' \\
@@ -272,13 +306,17 @@ funcDec  & $::=$ & ID ID $'('$ $[$ ID ID $[$ ',' ID ID $]^{*}$ $]$ $')'$ %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 classDec & $::=$ & CLASS ID $[$ EXTENDS ID $]$ $'\{'$ cField $[$ cField $]^{*}$ $'\}'$ \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+arrayDec & $::=$ & ARRAY ID $=$ ID $'['$ $']'$ \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-exp      & $::=$ & $'('$ exp $')'$                                                \\
+exp      & $::=$ & var                                                            \\
+         & $::=$ & $'('$ exp $')'$                                                \\
          & $::=$ & exp BINOP exp                                                  \\
          & $::=$ & $[$ var '.' $]$ ID $'('$ $[$ exp $[$ ',' exp $]^{*}$ $]$ $')'$ \\
-         & $::=$ & INT $|$ NIL $|$ STRING $|$ NEW ID $|$ var                      \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+         & $::=$ & $['-']$ INT $|$ NIL $|$ STRING $|$ NEW ID $|$ NEW ID $'['$ exp $']'$ \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 var      & $::=$ & ID                  \\
@@ -298,20 +336,16 @@ stmt     & $::=$ & varDec                                                       
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 cField   & $::=$ & varDec $|$ funcDec \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+BINOP    & $::=$ & $+$ $|$ $-$ $|$ $*$ $|$ $/$ $|$ $<$ $|$ $>$ $|$ $=$ \\
+INT      & $::=$ & $[1-9][0-9]^{*}$ $|$ $0$                            \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\
 \end{tabular}
 \caption{
 Context free grammar for the RioMare programming language.
 \label{Table_CFG_Of_RioMare}}
 \end{table}
-
-
-To create a graph visualization of the AST, please install graphviz
-and run
-\[
-\verb"$ dot -Tjpeg -o ./AST_Graph.jpeg ./AST_Graph.txt"
-\]
-from \verb"EX5/LINUX_GCC_MAKE"
 
 %%%%%%%%%%%%%%%%%%%%
 % SECTION :: Input %
@@ -341,7 +375,7 @@ or write a new one if you want to.
 Before you submit, make sure that your exercise compiles and runs
 on the school server: $nova.cs.tau.ac.il$.
 This is the formal running environment of the course.
-\
+
 \paragraph{Execution parameters}
 compiler receives $2$ input file names:\\ \\
 InputRioMareProgram.txt\\
