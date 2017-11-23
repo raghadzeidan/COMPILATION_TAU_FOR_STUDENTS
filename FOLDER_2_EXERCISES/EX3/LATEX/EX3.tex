@@ -77,10 +77,11 @@ In addition, it is possible to define a class by specifying its data members and
 Also, given an existing type \verb"T", one can define an array of \verb"T"'s.
 Note, that defining classes and arrays is only possible in the uppermost (global) scope.
 The exact details follow.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SUB-SUB-SECTION :: Types %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SUB-SECTION :: Classes %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Classes}
+\label{subsubsection_Classes}
 Classes contain data members and methods,
 and can only be defined in the uppermost (global) scope.
 They can refer to/extend only previously defined classes,
@@ -108,7 +109,7 @@ Table \ref{Table_Code_Examples_Use_Before_Def} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $3$ & \verb"CLASS Edge"                         &       \\
+ $2$ & \verb"CLASS Edge"                         &       \\
      & \verb"{"                                  &       \\
      & ~ ~ ~ ~\verb"Vertex u;"                   &       \\
      & ~ ~ ~ ~\verb"Vertex v;"                   &       \\
@@ -120,7 +121,7 @@ Table \ref{Table_Code_Examples_Use_Before_Def} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $2$ & \verb"CLASS UseBeforeDef"                      &       \\
+ $3$ & \verb"CLASS UseBeforeDef"                      &       \\
      & \verb"{"                                       &       \\
      & ~ ~ ~ ~\verb"void foo() { bar(8); }"           & ERROR \\
      & ~ ~ ~ ~\verb"void bar(int i) { PrintInt(i); }" &       \\
@@ -128,7 +129,7 @@ Table \ref{Table_Code_Examples_Use_Before_Def} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $1$ & \verb"CLASS UseBeforeDef"                 &    \\
+ $4$ & \verb"CLASS UseBeforeDef"                 &    \\
      & \verb"{"                                  &    \\
      & ~ ~ ~ ~\verb"void foo() { PrintInt(i); }" & OK \\
      & ~ ~ ~ ~\verb"int i;"                      &    \\
@@ -150,7 +151,7 @@ Table \ref{Table_Code_Examples_Overload_Override} summarizes these facts.
 \begin{tabular}{|l|l|l|}
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $2$ & \verb"CLASS Father"                       &       \\
+ $1$ & \verb"CLASS Father"                       &       \\
      & \verb"{"                                  &       \\
      & ~ ~ ~ ~\verb"int foo() { return 8; }"     &       \\
      & \verb"}"                                  & ERROR \\
@@ -161,13 +162,13 @@ Table \ref{Table_Code_Examples_Overload_Override} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $1$ & \verb"CLASS Father"                        &    \\
+ $2$ & \verb"CLASS Father"                        &    \\
      & \verb"{"                                   &    \\
      & ~ ~ ~ ~\verb"int foo(int i) { return 8; }" &    \\
      & \verb"}"                                   & OK \\
      & \verb"CLASS Son EXTENDS Father"            &    \\
      & \verb"{"                                   &    \\
-     & ~ ~ ~ ~\verb"int foo(int i) { return i; }" &    \\
+     & ~ ~ ~ ~\verb"int foo(int j) { return j; }" &    \\
      & \verb"}"                                   &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
@@ -180,7 +181,7 @@ Table \ref{Table_Code_Examples_Overload_Override} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $3$ & \verb"CLASS Father"             &       \\
+ $4$ & \verb"CLASS Father"             &       \\
      & \verb"{"                        &       \\
      & ~ ~ ~ ~\verb"int foo;"          &       \\
      & \verb"}"                        & ERROR \\
@@ -195,21 +196,49 @@ Table \ref{Table_Code_Examples_Overload_Override} summarizes these facts.
 \label{Table_Code_Examples_Overload_Override}}
 \end{table}
 \newpage
-In addition, if class \verb"Son" is derived from class \verb"Father",
+\paragraph{Inheritance} if class \verb"Son" is derived from class \verb"Father",
 then any place in the program that semantically allows an expression of type \verb"Father",
-should semantically allow an expression of type \verb"Son". For example,
+should semantically allow an expression of type \verb"Son".
+For example,
 \begin{table}[h]
 \centering
-\begin{tabular}{ l l l }
-\verb"ARRAY IntArray EQ int[]" \\
-\verb"void F(IntArray A){ PrintInt(A[8]); }" \\
-\verb"void main(){ F(NULL); }" \\
+\begin{tabular}{ | l  | l | }
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\verb"CLASS Father { int i; }"               &    \\
+\verb"CLASS Son EXTENDS Father { int j; }"   & OK \\
+\verb"void foo(Father f) { PrintInt(f.i); }" &    \\
+\verb"void main(){ foo(new Son); }"          &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
 \end{tabular}
-\caption{NULL sent instead of an integer array is semantically allowed.
+\caption{new Son is a semantically valid input for foo.
+\label{Table_Code_Examples_Son_Class_Instead_Of_Father_Class}}
+\end{table}
+\paragraph{Null expressions} any place in the program that
+semantically allows an expression of type class,
+should semantically allow \verb"NULL" instead.
+For instance,
+\begin{table}[h]
+\centering
+\begin{tabular}{ | l | l | }
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\verb"CLASS Father { int i; }"              &    \\
+\verb"void foo(Father f){ PrintInt(f.i); }" & OK \\
+\verb"void main(){ foo(NULL); }"            &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption{NULL sent instead of a (Father) class is semantically allowed.
 \label{Table_Code_Examples_NULL_Instead_Of_Any_Class}}
 \end{table}
-
-\paragraph{Arrays} can only be defined in the uppermost (global) scope.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SUB-SECTION :: Arrays %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Arrays}
+\label{subsubsection_Arrays}
+Arrays can only be defined in the uppermost (global) scope.
 They are defined with respect to some previously defined type, as in the following example:
 \[
 \verb"ARRAY" ~ \verb"IntArray" ~ \verb"EQ" ~ \verb"int[]"
@@ -222,26 +251,54 @@ In addition, any place in the program that semantically allows an expression of 
 should semantically allow \verb"NULL" instead. For instance,
 \begin{table}[h]
 \centering
-\begin{tabular}{ l l l }
-\verb"ARRAY IntArray EQ int[]" \\
-\verb"void F(IntArray A){ PrintInt(A[8]); }" \\
-\verb"void main(){ F(NULL); }" \\
+\begin{tabular}{ | l | l | }
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\verb"ARRAY IntArray EQ int[]"               &    \\
+\verb"void F(IntArray A){ PrintInt(A[8]); }" & OK \\
+\verb"void main(){ F(NULL); }"               &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
 \end{tabular}
 \caption{NULL sent instead of an integer array is semantically allowed.
+\label{Table_Code_Examples_NULL_Instead_Of_Any_Array}}
+\end{table}
+\paragraph{Note} that if two arrays of type \verb"T" are defined,
+they are \textit{not} interchangeable:
+\begin{table}[h]
+\centering
+\begin{tabular}{ | l | l | }
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\verb"ARRAY gradesArray = int[];"                &       \\
+\verb"ARRAY IDsArray    = int[];"                &       \\
+\verb"void F(IDsArray ids){ PrintInt(ids[6]); }" &       \\
+\verb"void main()"                               &       \\
+\verb"{"                                         & ERROR \\
+~ ~ ~ ~\verb"IDsArray ids := new int[8];"        &       \\
+~ ~ ~ ~\verb"gradesArray grades := new int[8];"  &       \\
+~ ~ ~ ~\verb"F(grades);"                         &       \\
+\verb"}"                                         &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption{Non interchangeable array types.
 \label{Table_Code_Examples_NULL_Instead_Of_Any_Array}}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: Assignments %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Asignments}
+\label{subsection_Assignments}
 Assigning an expression to a variable is clearly legal whenever the two have the same type.
-In addition, if class \verb"Son" is derived from class \verb"Father",
-then any place in the program that semantically allows an expression of type \verb"Father",
-should semantically allow an expression of type \verb"Son".
-Assigning \verb"NULL" to array and class variables is legal,
-but assigning \verb"NULL" to string variables is illegal.
-Last, 
-Table \ref{Table_Code_Examples_Assignments} summarizes these facts
+In addition, following the concept in \ref{subsubsection_Classes},
+if class \verb"Son" is derived from class \verb"Father",
+then a variable of type \verb"Father" can be assigned an expression
+of type \verb"Son".
+Furthermore, following the concept in \ref{subsubsection_Classes} and \ref{subsubsection_Arrays},
+assigning \verb"NULL" to array and class variables is legal.
+In contrast to that, assigning \verb"NULL" to string variables is \textit{illegal}.
+Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|l|l|}
@@ -278,13 +335,106 @@ Table \ref{Table_Code_Examples_Assignments} summarizes these facts
 \caption{Assignments in RioMare.
 \label{Table_Code_Examples_Assignments}}
 \end{table}
-
-Binary operations are performed only between integers and strings.
-A variable is a recursive entity, represented as a sub tree in the AST.
-Assigning a value to a variable, 
-Table \ref{Table_CFG_Of_RioMare} summarizes the context free grammar of RioMare.
-You will need to feed this grammar to \href{http://www2.cs.tum.edu/projects/cup/}{CUP},
-and make sure there are no shift-reduce conflicts.  
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SECTION :: Equality Testing %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Equality Testing}
+\label{subsection_Equality_Testing}
+Testing equality between two expressions is legal whenever the two have the same type.
+In addition, following the same reason in \ref{subsection_Assignments},
+if class \verb"Son" is derived from class \verb"Father",
+then an expression  of type \verb"Father" can be
+tested for equality with an expression of type \verb"Son".
+Furthermore, any class variable,
+string variable or array variable can be tested for equality with \verb"NULL".
+The resulting type of a semantically valid comparison is the primitive type int.
+Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $1$ & \verb"CLASS Father"                       &    \\
+     & \verb"{"                                  &    \\
+     & ~ ~ ~ ~\verb"int foo() { return 8; }"     & OK \\
+     & \verb"}"                                  &    \\
+     & \verb"Father f := NULL;"                  &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $2$ & \verb"CLASS Father { ... }"             &    \\
+     & \verb"CLASS Son EXTENDS Father { ... }" &    \\
+     & \verb"void foo(Father f) { ... }"       & OK \\
+     & \verb"Father f := new Son;"             &    \\
+     & \verb"foo(new Son);"                    &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $3$ & \verb"ARRAY gradesArray = int[];" &       \\
+     & \verb"ARRAY IDsArray    = int[];" &       \\
+     & \verb"IDsArray := new int[8];"    & ERROR \\
+     & \verb"gradesArray := new int[8];" &       \\
+     & \verb"gradesArray := IDsArray;"   &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $4$ & \verb"string s := NULL;" & ERROR \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption{Assignments in RioMare.
+\label{Table_Code_Examples_Assignments}}
+\end{table}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SECTION :: Binary Operations %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Binary Operations}
+\label{subsection_Binary_Operations}
+Most binary operations $(-,*,/,<,>)$ are performed only between integers.
+The single exception to that is the $+$ binary operation,
+that can be performed between integers \textit{and strings}.
+Note that equality testing $(=)$ is treated differently,
+as discussed in \ref{subsection_Equality_Testing}.
+The resulting type of a semantically valid binary operation is the primitive type int.
+Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $1$ & \verb"CLASS Father"                       &    \\
+     & \verb"{"                                  &    \\
+     & ~ ~ ~ ~\verb"int foo() { return 8; }"     & OK \\
+     & \verb"}"                                  &    \\
+     & \verb"Father f := NULL;"                  &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $2$ & \verb"CLASS Father { ... }"             &    \\
+     & \verb"CLASS Son EXTENDS Father { ... }" &    \\
+     & \verb"void foo(Father f) { ... }"       & OK \\
+     & \verb"Father f := new Son;"             &    \\
+     & \verb"foo(new Son);"                    &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $3$ & \verb"ARRAY gradesArray = int[];" &       \\
+     & \verb"ARRAY IDsArray    = int[];" &       \\
+     & \verb"IDsArray := new int[8];"    & ERROR \\
+     & \verb"gradesArray := new int[8];" &       \\
+     & \verb"gradesArray := IDsArray;"   &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $4$ & \verb"string s := NULL;" & ERROR \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption{Assignments in RioMare.
+\label{Table_Code_Examples_Assignments}}
+\end{table}
 \begin{table}[h]
 \centering
 \begin{tabular}{ l c l }
