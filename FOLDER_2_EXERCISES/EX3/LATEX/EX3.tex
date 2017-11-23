@@ -275,7 +275,7 @@ they are \textit{not} interchangeable:
 \verb"void F(IDsArray ids){ PrintInt(ids[6]); }" &       \\
 \verb"void main()"                               &       \\
 \verb"{"                                         & ERROR \\
-~ ~ ~ ~\verb"IDsArray ids := new int[8];"        &       \\
+~ ~ ~ ~\verb"IDsArray ids       := new int[8];"  &       \\
 ~ ~ ~ ~\verb"gradesArray grades := new int[8];"  &       \\
 ~ ~ ~ ~\verb"F(grades);"                         &       \\
 \verb"}"                                         &       \\
@@ -311,20 +311,18 @@ Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
      & \verb"Father f := NULL;"                  &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $2$ & \verb"CLASS Father { ... }"             &    \\
-     & \verb"CLASS Son EXTENDS Father { ... }" &    \\
-     & \verb"void foo(Father f) { ... }"       & OK \\
-     & \verb"Father f := new Son;"             &    \\
-     & \verb"foo(new Son);"                    &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $2$ & \verb"CLASS Father { int i; }"             &    \\
+     & \verb"CLASS Son EXTENDS Father { int j; }" & OK \\
+     & \verb"Father f := new Son;"                &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  $3$ & \verb"ARRAY gradesArray = int[];" &       \\
      & \verb"ARRAY IDsArray    = int[];" &       \\
-     & \verb"IDsArray := new int[8];"    & ERROR \\
+     & \verb"IDsArray    := new int[8];" & ERROR \\
      & \verb"gradesArray := new int[8];" &       \\
-     & \verb"gradesArray := IDsArray;"   &       \\
+     & \verb"gradesArray :=   IDsArray;" &       \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -332,7 +330,7 @@ Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
-\caption{Assignments in RioMare.
+\caption{Assignments.
 \label{Table_Code_Examples_Assignments}}
 \end{table}
 \newpage
@@ -349,26 +347,25 @@ tested for equality with an expression of type \verb"Son".
 Furthermore, any class variable,
 string variable or array variable can be tested for equality with \verb"NULL".
 The resulting type of a semantically valid comparison is the primitive type int.
-Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
+Table \ref{Table_Code_Examples_Equality_Testing} summarizes these facts.
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|l|l|}
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $1$ & \verb"CLASS Father"                       &    \\
-     & \verb"{"                                  &    \\
-     & ~ ~ ~ ~\verb"int foo() { return 8; }"     & OK \\
-     & \verb"}"                                  &    \\
-     & \verb"Father f := NULL;"                  &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $1$ & \verb"CLASS Father { int i; int j; }" &    \\
+     & \verb"int Check(Father f)"            &    \\
+     & \verb"{"                              & OK \\
+     & ~ ~ ~ ~\verb"return f = NULL;"        &    \\
+     & \verb"}"                              &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $2$ & \verb"CLASS Father { ... }"             &    \\
-     & \verb"CLASS Son EXTENDS Father { ... }" &    \\
-     & \verb"void foo(Father f) { ... }"       & OK \\
-     & \verb"Father f := new Son;"             &    \\
-     & \verb"foo(new Son);"                    &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $2$ & \verb"int Check(string s)"                            &    \\
+     & \verb"{"                                              &    \\
+     & ~ ~ ~ ~\verb"return s =" ``LosPollosHermanos"\verb";" & OK \\
+     & \verb"}"                                              &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  $3$ & \verb"ARRAY gradesArray = int[];" &       \\
@@ -383,8 +380,8 @@ Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
-\caption{Assignments in RioMare.
-\label{Table_Code_Examples_Assignments}}
+\caption{Equality testing.
+\label{Table_Code_Examples_Equality_Testing}}
 \end{table}
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -398,18 +395,17 @@ that can be performed between integers \textit{and strings}.
 Note that equality testing $(=)$ is treated differently,
 as discussed in \ref{subsection_Equality_Testing}.
 The resulting type of a semantically valid binary operation is the primitive type int.
-Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
+Table \ref{Table_Code_Examples_Binary_Operations} summarizes these facts.
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|l|l|}
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $1$ & \verb"CLASS Father"                       &    \\
-     & \verb"{"                                  &    \\
-     & ~ ~ ~ ~\verb"int foo() { return 8; }"     & OK \\
-     & \verb"}"                                  &    \\
-     & \verb"Father f := NULL;"                  &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $1$ & \verb"CLASS Father"                     &    \\
+     & \verb"{"                                &    \\
+     & ~ ~ ~ ~\verb"int foo() { return 8/0; }" & OK \\
+     & \verb"}"                                &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  $2$ & \verb"CLASS Father { ... }"             &    \\
@@ -432,8 +428,8 @@ Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
-\caption{Assignments in RioMare.
-\label{Table_Code_Examples_Assignments}}
+\caption{Binary Operations.
+\label{Table_Code_Examples_Binary_Operations}}
 \end{table}
 \begin{table}[h]
 \centering
