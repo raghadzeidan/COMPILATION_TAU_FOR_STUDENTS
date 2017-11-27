@@ -98,10 +98,10 @@ Table \ref{Table_Code_Examples_Use_Before_Def} summarizes these facts.
 \begin{tabular}{|l|l|l|}
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $1$ & \verb"CLASS Son EXTENDS Father"           &       \\
+ $1$ & \verb"CLASS Son EXTENDS Father"           & ERROR \\
      & \verb"{"                                  &       \\
      & ~ ~ ~ ~\verb"int bar;"                    &       \\
-     & \verb"}"                                  & ERROR \\
+     & \verb"}"                                  &       \\
      & \verb"CLASS Father"                       &       \\
      & \verb"{"                                  &       \\
      & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }" &       \\
@@ -111,9 +111,9 @@ Table \ref{Table_Code_Examples_Use_Before_Def} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  $2$ & \verb"CLASS Edge"                         &       \\
      & \verb"{"                                  &       \\
-     & ~ ~ ~ ~\verb"Vertex u;"                   &       \\
+     & ~ ~ ~ ~\verb"Vertex u;"                   & ERROR \\
      & ~ ~ ~ ~\verb"Vertex v;"                   &       \\
-     & \verb"}"                                  & ERROR \\
+     & \verb"}"                                  &       \\
      & \verb"CLASS Vertex"                       &       \\
      & \verb"{"                                  &       \\
      & ~ ~ ~ ~\verb"int weight;"                 &       \\
@@ -154,10 +154,10 @@ Table \ref{Table_Code_Examples_Overload_Override} summarizes these facts.
  $1$ & \verb"CLASS Father"                       &       \\
      & \verb"{"                                  &       \\
      & ~ ~ ~ ~\verb"int foo() { return 8; }"     &       \\
-     & \verb"}"                                  & ERROR \\
+     & \verb"}"                                  &       \\
      & \verb"CLASS Son EXTENDS Father"           &       \\
      & \verb"{"                                  &       \\
-     & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }" &       \\
+     & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }" & ERROR \\
      & \verb"}"                                  &       \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
@@ -175,8 +175,8 @@ Table \ref{Table_Code_Examples_Overload_Override} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  $3$ & \verb"CLASS IllegalSameName"                   &       \\
      & \verb"{"                                       &       \\
-     & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }"      & ERROR \\
-     & ~ ~ ~ ~\verb"void foo(int i) { PrintInt(i); }" &       \\
+     & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }"      &       \\
+     & ~ ~ ~ ~\verb"void foo(int i) { PrintInt(i); }" & ERROR \\
      & \verb"}"                                       &       \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
@@ -184,10 +184,10 @@ Table \ref{Table_Code_Examples_Overload_Override} summarizes these facts.
  $4$ & \verb"CLASS Father"             &       \\
      & \verb"{"                        &       \\
      & ~ ~ ~ ~\verb"int foo;"          &       \\
-     & \verb"}"                        & ERROR \\
+     & \verb"}"                        &       \\
      & \verb"CLASS Son EXTENDS Father" &       \\
      & \verb"{"                        &       \\
-     & ~ ~ ~ ~\verb"string foo;"       &       \\
+     & ~ ~ ~ ~\verb"string foo;"       & ERROR \\
      & \verb"}"                        &       \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
@@ -208,7 +208,7 @@ For example,
 \verb"CLASS Father { int i; }"               &    \\
 \verb"CLASS Son EXTENDS Father { int j; }"   & OK \\
 \verb"void foo(Father f) { PrintInt(f.i); }" &    \\
-\verb"void main(){ foo(new Son); }"          &    \\
+\verb"void main(){ foo(NEW Son); }"          &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
@@ -241,11 +241,11 @@ For instance,
 Arrays can only be defined in the uppermost (global) scope.
 They are defined with respect to some previously defined type, as in the following example:
 \[
-\verb"ARRAY" ~ \verb"IntArray" ~ \verb"EQ" ~ \verb"int[]"
+\verb"ARRAY IntArray = int[]"
 \]
 Defining an integer matrix, for example, is possible as follows:
 \[
-\verb"ARRAY IntArray EQ int[] ARRAY IntMat EQ IntArray[];"
+\verb"ARRAY IntArray = int[] ARRAY IntMat = IntArray[]"
 \]
 In addition, any place in the program that semantically allows an expression of type array,
 should semantically allow \verb"NULL" instead. For instance,
@@ -254,7 +254,7 @@ should semantically allow \verb"NULL" instead. For instance,
 \begin{tabular}{ | l | l | }
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\verb"ARRAY IntArray EQ int[]"               &    \\
+\verb"ARRAY IntArray = int[]"                &    \\
 \verb"void F(IntArray A){ PrintInt(A[8]); }" & OK \\
 \verb"void main(){ F(NULL); }"               &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -270,14 +270,14 @@ they are \textit{not} interchangeable:
 \begin{tabular}{ | l | l | }
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\verb"ARRAY gradesArray = int[];"                &       \\
-\verb"ARRAY IDsArray    = int[];"                &       \\
+\verb"ARRAY gradesArray = int[]"                 &       \\
+\verb"ARRAY IDsArray    = int[]"                 &       \\
 \verb"void F(IDsArray ids){ PrintInt(ids[6]); }" &       \\
 \verb"void main()"                               &       \\
-\verb"{"                                         & ERROR \\
-~ ~ ~ ~\verb"IDsArray ids       := new int[8];"  &       \\
-~ ~ ~ ~\verb"gradesArray grades := new int[8];"  &       \\
-~ ~ ~ ~\verb"F(grades);"                         &       \\
+\verb"{"                                         &       \\
+~ ~ ~ ~\verb"IDsArray ids       := NEW int[8];"  &       \\
+~ ~ ~ ~\verb"gradesArray grades := NEW int[8];"  &       \\
+~ ~ ~ ~\verb"F(grades);"                         & ERROR \\
 \verb"}"                                         &       \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
@@ -298,41 +298,81 @@ of type \verb"Son".
 Furthermore, following the concept in \ref{subsubsection_Classes} and \ref{subsubsection_Arrays},
 assigning \verb"NULL" to array and class variables is legal.
 In contrast to that, assigning \verb"NULL" to string variables is \textit{illegal}.
+To avoid an overly complex semantics,
+we will enforce a strict policy of initializing data members inside classes:
+a declared data member inside a class can be initialized \textit{only with a constant value}
+(that matches its type). 
 Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|l|l|}
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $1$ & \verb"CLASS Father"                       &    \\
-     & \verb"{"                                  &    \\
-     & ~ ~ ~ ~\verb"int foo() { return 8; }"     & OK \\
-     & \verb"}"                                  &    \\
-     & \verb"Father f := NULL;"                  &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $1$ & \verb"CLASS Father { int i; }"             & OK \\
+     & \verb"Father f := NULL;"                   &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  $2$ & \verb"CLASS Father { int i; }"             &    \\
      & \verb"CLASS Son EXTENDS Father { int j; }" & OK \\
-     & \verb"Father f := new Son;"                &    \\
+     & \verb"Father f := NEW Son;"                &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $3$ & \verb"CLASS Father { int i; }"                  & OK \\
+     & \verb"CLASS Son EXTENDS Father { int j := 8; }" &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $4$ & \verb"CLASS Father { int i := 9; }"             &       \\
+     & \verb"CLASS Son EXTENDS Father { int j := i; }" & ERROR \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $5$ & \verb"CLASS Father { int foo() { return 90; } }"    &       \\
+     & \verb"CLASS Son EXTENDS Father { int j := foo(); }" & ERROR \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $6$ & \verb"CLASS IntList"                       &       \\
+     & \verb"{"                                   &       \\
+     & ~ ~ ~ ~\verb"int head := -1;"              &       \\
+     & ~ ~ ~ ~\verb"IntList tail := NEW IntList;" & ERROR \\
+     & \verb"}"                                   &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $7$ & \verb"CLASS IntList"                            &    \\
+     & \verb"{"                                        &    \\
+     & ~ ~ ~ ~\verb"void Init() { tail := NEW List; }" & OK \\
+     & ~ ~ ~ ~\verb"int head;"                         &    \\
+     & ~ ~ ~ ~\verb"IntList tail;"                     &    \\
+     & \verb"}"                                        &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $3$ & \verb"ARRAY gradesArray = int[];" &       \\
-     & \verb"ARRAY IDsArray    = int[];" &       \\
-     & \verb"IDsArray    := new int[8];" & ERROR \\
-     & \verb"gradesArray := new int[8];" &       \\
-     & \verb"gradesArray :=   IDsArray;" &       \\
+ $8$ & \verb"ARRAY gradesArray = int[]"  &       \\
+     & \verb"ARRAY IDsArray    = int[]"  &       \\
+     & \verb"IDsArray    := NEW int[8];" &       \\
+     & \verb"gradesArray := NEW int[8];" &       \\
+     & \verb"gradesArray :=   IDsArray;" & ERROR \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $4$ & \verb"string s := NULL;" & ERROR \\
+ $9$ & \verb"string s := NULL;" & ERROR \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
 \caption{Assignments.
 \label{Table_Code_Examples_Assignments}}
 \end{table}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SECTION :: If and While Statements %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{If and While Statements}
+\label{subsection_If_And_While_Statements}
+The condition of if and while statements is the primitive type int.
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: Equality Testing %
@@ -344,8 +384,8 @@ In addition, following the same reason in \ref{subsection_Assignments},
 if class \verb"Son" is derived from class \verb"Father",
 then an expression  of type \verb"Father" can be
 tested for equality with an expression of type \verb"Son".
-Furthermore, any class variable,
-string variable or array variable can be tested for equality with \verb"NULL".
+Furthermore, any class variable or array variable can be tested for equality with \verb"NULL".
+But, in contrast, it is \textit{illegal} to compare a string variable to \verb"NULL".
 The resulting type of a semantically valid comparison is the primitive type int.
 Table \ref{Table_Code_Examples_Equality_Testing} summarizes these facts.
 \begin{table}[h]
@@ -355,29 +395,35 @@ Table \ref{Table_Code_Examples_Equality_Testing} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  $1$ & \verb"CLASS Father { int i; int j; }" &    \\
      & \verb"int Check(Father f)"            &    \\
-     & \verb"{"                              & OK \\
-     & ~ ~ ~ ~\verb"return f = NULL;"        &    \\
+     & \verb"{"                              &    \\
+     & ~ ~ ~ ~\verb"if (f = NULL)"           &    \\
+     & ~ ~ ~ ~\verb"{"                       & OK \\
+     & ~ ~ ~ ~ ~ ~ ~ ~\verb"return 800;"     &    \\
+     & ~ ~ ~ ~\verb"}"                       &    \\
+     & ~ ~ ~ ~\verb"return 774;"             &    \\
      & \verb"}"                              &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $2$ & \verb"int Check(string s)"                            &    \\
-     & \verb"{"                                              &    \\
-     & ~ ~ ~ ~\verb"return s =" ``LosPollosHermanos"\verb";" & OK \\
-     & \verb"}"                                              &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $2$ & \verb"int Check(string s)"                                   &    \\
+     & \verb"{"                                                     &    \\
+     & ~ ~ ~ ~\verb"return s =" ``\verb"LosPollosHermanos""\verb";" & OK \\
+     & \verb"}"                                                     &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $3$ & \verb"ARRAY gradesArray = int[];" &       \\
-     & \verb"ARRAY IDsArray    = int[];" &       \\
-     & \verb"IDsArray := new int[8];"    & ERROR \\
-     & \verb"gradesArray := new int[8];" &       \\
-     & \verb"gradesArray := IDsArray;"   &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $3$ & \verb"ARRAY gradesArray = int[]"        &       \\
+     & \verb"ARRAY IDsArray    = int[]"        &       \\
+     & \verb"IDsArray    := NEW int[8];"       &       \\
+     & \verb"gradesArray := NEW int[8];"       &       \\
+     & \verb"int i := gradesArray = IDsArray;" & ERROR \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $4$ & \verb"string s := NULL;" & ERROR \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $4$ & \verb"string s1;"                                  &    \\
+     & \verb"string s2 := "``\verb"HankSchrader""\verb";" & OK \\
+     & \verb"int i := s1 = s2;"                           &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
 \caption{Equality testing.
@@ -407,30 +453,122 @@ Table \ref{Table_Code_Examples_Binary_Operations} summarizes these facts.
      & \verb"}"                                &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $2$ & \verb"CLASS Father { ... }"             &    \\
-     & \verb"CLASS Son EXTENDS Father { ... }" &    \\
-     & \verb"void foo(Father f) { ... }"       & OK \\
-     & \verb"Father f := new Son;"             &    \\
-     & \verb"foo(new Son);"                    &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $2$ & \verb"CLASS Father { string s1; string s2; }" &    \\
+     & \verb"void foo(Father f)"                     &    \\
+     & \verb"{"                                      & OK \\
+     & ~ ~ ~ ~\verb"f.s1 := f.s1 + f.s2;"            &    \\
+     & \verb"}"                                      &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $3$ & \verb"ARRAY gradesArray = int[];" &       \\
-     & \verb"ARRAY IDsArray    = int[];" &       \\
-     & \verb"IDsArray := new int[8];"    & ERROR \\
-     & \verb"gradesArray := new int[8];" &       \\
-     & \verb"gradesArray := IDsArray;"   &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $3$ & \verb"CLASS Father { string s1; string s2; }" &       \\
+     & \verb"void foo(Father f)"                     &       \\
+     & \verb"{"                                      &       \\
+     & ~ ~ ~ ~\verb"int i := f.s1 < f.s2;"           & ERROR \\
+     & \verb"}"                                      &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $4$ & \verb"string s := NULL;" & ERROR \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $4$ & \verb"CLASS Father { int j; int k; }" &    \\
+     & \verb"int foo(Father f)"              &    \\
+     & \verb"{"                              & OK \\
+     & ~ ~ ~ ~\verb"int i := 620;"           &    \\
+     & ~ ~ ~ ~\verb"return i < f.j;"         &    \\
+     & \verb"}"                              &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
 \caption{Binary Operations.
 \label{Table_Code_Examples_Binary_Operations}}
 \end{table}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SECTION :: Scope Rules %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Scope Rules}
+\label{subsection_Scope_Rules}
+RioMare defines four kinds of scopes: block scopes of if and while statements,
+function scopes, class scopes and the outermost global scope.
+When an identifier is being used at some point in the program,
+its declaration is searched for in all of its enclosing scopes.
+The search starts from the innermost scope, 
+and ends at the outermost (global) scope.
+Note that arrays and classes can only be defined
+in the outermost (global) scope,
+so this sub section is really about functions and variables.
+Functions can be defined only in the class scopes, and the global scope.
+When a function is being called inside a class scope, the declaration
+of a function with that name is searched first in its class scope.
+If no such function is found, the search moves to the global scope,
+and if the declaration is missing there too, a semantic error is issued.
+Following the same reason, when a function is being called inside the global scope,
+only the global scope is searched for its declaration. Resolving a variable identifier
+follows the same principal, with the slight difference that variables can be declared
+in all four kinds of scopes.
+Table \ref{Table_Code_Examples_Scope_Rules} summarizes these facts.
+\newpage
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $1$ & \verb"int salary := 7800;"                            &    \\
+     & \verb"void foo()"                                     &    \\
+     & \verb"{"                                              & OK \\
+     & ~ ~ ~ ~\verb"string salary := "``\verb"6950""\verb";" &    \\
+     & \verb"}"                                              &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $2$ & \verb"int salary := 7800;"        &    \\
+     & \verb"void foo(string salary)"    &    \\
+     & \verb"{"                          & OK \\
+     & ~ ~ ~ ~\verb"PrintString(salary)" &    \\
+     & \verb"}"                          &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $3$ & \verb"void foo(string salary)"    &       \\
+     & \verb"{"                          &       \\
+     & ~ ~ ~ ~\verb"int salary := 7800;" & ERROR \\
+     & ~ ~ ~ ~\verb"PrintString(salary)" &       \\
+     & \verb"}"                          &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $4$ & \verb"string myvar := "``\verb"80""\verb";" &    \\
+     & \verb"CLASS Father"                         &    \\
+     & \verb"{"                                    &    \\
+     & ~ ~ ~ ~\verb"Father myvar := NULL;"         &    \\
+     & ~ ~ ~ ~\verb"void foo()"                    & OK \\
+     & ~ ~ ~ ~\verb"{"                             &    \\
+     & ~ ~ ~ ~ ~ ~ ~ ~\verb"int myvar := 100;"     &    \\
+     & ~ ~ ~ ~ ~ ~ ~ ~\verb"PrintInt(i);"          &    \\
+     & ~ ~ ~ ~\verb"}"                             &    \\
+     & \verb"}"                                    &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $4$ & \verb"int foo(string s) { return 800;}"    &    \\
+     & \verb"CLASS Father"                        &    \\
+     & \verb"{"                                   &    \\
+     & ~ ~ ~ ~\verb"string foo(string s)"         &    \\
+     & ~ ~ ~ ~\verb"{"                            &    \\
+     & ~ ~ ~ ~ ~ ~ ~ ~\verb"return s;"            & OK \\
+     & ~ ~ ~ ~\verb"}"                            &    \\
+     & ~ ~ ~ ~\verb"void Print()"                 &    \\
+     & ~ ~ ~ ~\verb"{"                            &    \\
+     & ~ ~ ~ ~ ~ ~ ~ ~\verb"PrintString(foo());"  &    \\
+     & ~ ~ ~ ~\verb"}"                            &    \\
+     & \verb"}"                                   &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption{Scope Rules.
+\label{Table_Code_Examples_Scope_Rules}}
+\end{table}
+\newpage
 \begin{table}[h]
 \centering
 \begin{tabular}{ l c l }
@@ -491,6 +629,51 @@ INT      & $::=$ & $[1-9][0-9]^{*}$ $|$ $0$                            \\
 \caption{
 Context free grammar for the RioMare programming language.
 \label{Table_CFG_Of_RioMare}}
+\end{table}
+\begin{table}[h]
+\centering
+\begin{tabular}{ |c|c|l|l| }
+\hline
+Precedence & Operator & Description & Associativity \\
+\hline
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1          & $:=$            & assign         &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+2          & $=$             & equals         & left  \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+3          & $<,>$           &                & left  \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+4          & $+,-$           &                & left  \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+5          & $*,/$           &                & left  \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+6          & $[$             & array indexing &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+7          & $($             & function call  &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+8          & $.$     & field access   & left          \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption{
+Binary operators of RioMare along with their associativity and precedence.
+$1$ stands for the lowest precedence, and $9$ for the highest.
+\label{Table_Binary_Operators_Of_RioMare}}
 \end{table}
 
 %%%%%%%%%%%%%%%%%%%%
