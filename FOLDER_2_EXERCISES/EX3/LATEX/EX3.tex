@@ -263,7 +263,11 @@ should semantically allow \verb"NULL" instead. For instance,
 \caption{NULL sent instead of an integer array is semantically allowed.
 \label{Table_Code_Examples_NULL_Instead_Of_Any_Array}}
 \end{table}
-\paragraph{Note} that if two arrays of type \verb"T" are defined,
+\paragraph{Note} that allocating arrays with the new operator
+must be done with an \textit{integral size}.
+Similarly, accessing an array entry is semantically valid
+only when the \textit{subscript expression has an integer type}.
+Note further that if two arrays of type \verb"T" are defined,
 they are \textit{not} interchangeable:
 \begin{table}[h]
 \centering
@@ -284,11 +288,11 @@ they are \textit{not} interchangeable:
 \end{tabular}
 \caption{Non interchangeable array types.
 \label{Table_Code_Examples_NULL_Instead_Of_Any_Array}}
-\end{table}
+\end{table}  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: Assignments %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Asignments}
+\subsection{Assignments}
 \label{subsection_Assignments}
 Assigning an expression to a variable is clearly legal whenever the two have the same type.
 In addition, following the concept in \ref{subsubsection_Classes},
@@ -301,7 +305,8 @@ In contrast to that, assigning \verb"NULL" to string variables is \textit{illega
 To avoid an overly complex semantics,
 we will enforce a strict policy of initializing data members inside classes:
 a declared data member inside a class can be initialized \textit{only with a constant value}
-(that matches its type). 
+(that matches its type). Specifically, only constant integers, strings and \verb"NULL"
+can be used, and even a simple expression like $5+6$ is forbidden.
 Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
 \begin{table}[h]
 \centering
@@ -372,7 +377,7 @@ Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{If and While Statements}
 \label{subsection_If_And_While_Statements}
-The condition of if and while statements is the primitive type int.
+The type of the condition inside if and while statements is the primitive type int.
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: Equality Testing %
@@ -488,22 +493,27 @@ Table \ref{Table_Code_Examples_Binary_Operations} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Scope Rules}
 \label{subsection_Scope_Rules}
-RioMare defines four kinds of scopes: block scopes of if and while statements,
-function scopes, class scopes and the outermost global scope.
+\paragraph{RioMare} defines four kinds of scopes:
+block scopes of if and while statements,
+function scopes,
+class scopes and
+the outermost global scope.
 When an identifier is being used at some point in the program,
 its declaration is searched for in all of its enclosing scopes.
 The search starts from the innermost scope, 
 and ends at the outermost (global) scope.
-Note that arrays and classes can only be defined
+\paragraph{Note} that array type declarations and
+class type declarations can only be defined
 in the outermost (global) scope,
-so this sub section is really about functions and variables.
-Functions can be defined only in the class scopes, and the global scope.
+so this subsection is really about functions and variables.
+\paragraph{Functions} can be defined only in the class scopes, and the global scope.
 When a function is being called inside a class scope, the declaration
 of a function with that name is searched first in its class scope.
 If no such function is found, the search moves to the global scope,
 and if the declaration is missing there too, a semantic error is issued.
 Following the same reason, when a function is being called inside the global scope,
-only the global scope is searched for its declaration. Resolving a variable identifier
+only the global scope is searched for its declaration.
+\paragraph{Resolving} a variable identifier
 follows the same principal, with the slight difference that variables can be declared
 in all four kinds of scopes.
 Table \ref{Table_Code_Examples_Scope_Rules} summarizes these facts.
