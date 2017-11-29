@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.*;
+
 public class AST_TYPE_NAME extends AST_Node
 {
 	/****************/

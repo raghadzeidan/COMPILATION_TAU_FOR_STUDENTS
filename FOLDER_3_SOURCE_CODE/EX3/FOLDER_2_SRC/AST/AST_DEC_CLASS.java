@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.*;
+
 public class AST_DEC_CLASS extends AST_DEC
 {
 	/********/
