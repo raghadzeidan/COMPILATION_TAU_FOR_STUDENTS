@@ -17,12 +17,12 @@ public class TYPE_CLASS extends TYPE
 	/* Note that data members coming from the AST are */
 	/* packed together with the class methods         */
 	/**************************************************/
-	public TYPE_CLASS_VAR_DEC_LIST data_members;
+	public TYPE_LIST data_members;
 	
 	/****************/
 	/* CTROR(S) ... */
 	/****************/
-	public TYPE_CLASS(TYPE_CLASS father,TYPE_CLASS_VAR_DEC_LIST data_members)
+	public TYPE_CLASS(TYPE_CLASS father,TYPE_LIST data_members)
 	{
 		this.father = father;
 		this.data_members = data_members;

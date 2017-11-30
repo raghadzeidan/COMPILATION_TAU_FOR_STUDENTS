@@ -1,11 +1,22 @@
-package TYPES;
+/***********/
+/* PACKAGE */
+/***********/
+package SYMBOL_TABLE;
 
+/*******************/
+/* PROJECT IMPORTS */
+/*******************/
+import TYPES.*;
+
+/****************/
+/* SYMBOL TABLE */
+/****************/
 public class SYMBOL_TABLE
 {
 	/**********************************************/
 	/* The actual symbol table data structure ... */
 	/**********************************************/
-	private SYMBOL_TABLE_ENTRY table[9];
+	private SYMBOL_TABLE_ENTRY[] table = new SYMBOL_TABLE_ENTRY[9];
 	private SYMBOL_TABLE_ENTRY top;
 	
 	/**************************************************************/
@@ -56,14 +67,17 @@ public class SYMBOL_TABLE
 	/***********************************************/
 	public TYPE find(String name)
 	{
-		SYMBOL_TABLE_ENTRY e = table[hash(name)];
-		
-		while (e.name != name)
+		SYMBOL_TABLE_ENTRY e;
+				
+		for (e = table[hash(name)]; e != null; e = e.next)
 		{
-			e = e.next;
+			if (name == e.name)
+			{
+				return e.value;
+			}
 		}
 		
-		return e.type;
+		return null;
 	}
 
 	/***************************************************************************/
@@ -86,7 +100,7 @@ public class SYMBOL_TABLE
 		}
 	}
 	
-	public PrintMe()
+	public void PrintMe()
 	{
 	}
 	
