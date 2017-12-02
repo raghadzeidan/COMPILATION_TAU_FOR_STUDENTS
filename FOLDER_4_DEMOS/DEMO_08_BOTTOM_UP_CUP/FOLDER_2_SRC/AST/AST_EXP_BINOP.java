@@ -41,6 +41,7 @@ public class AST_EXP_BINOP extends AST_EXP
 		/*********************************/
 		if (OP == 0) {sOP = "+";}
 		if (OP == 1) {sOP = "-";}
+		if (OP == 2) {sOP = "*";}
 		
 		/*************************************/
 		/* AST NODE TYPE = AST SUBSCRIPT VAR */

@@ -7,7 +7,7 @@ VAR
 v1 [label = "INT(60)"];
 v2 [label = "INT(50)"];
 v3 [label = "INT(40)"];
-v4 [label = "BINOP(+)"];
+v4 [label = "BINOP(*)"];
 v4 -> v2;
 v4 -> v3;
 v5 [label = "BINOP(-)"];

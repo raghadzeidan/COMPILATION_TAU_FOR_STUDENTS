@@ -120,8 +120,8 @@ static const short yyprhs[] = {     0,
 };
 
 static const short yyrhs[] = {    11,
-     0,     3,     0,     8,    11,     9,     0,    11,     4,    11,
-     0,    11,     5,    11,     0,    11,     6,    11,     0,    11,
+     0,     3,     0,     8,    11,     9,     0,    11,     5,    11,
+     0,    11,     4,    11,     0,    11,     6,    11,     0,    11,
      7,    11,     0
 };
 
@@ -129,7 +129,7 @@ static const short yyrhs[] = {    11,
 
 #if YYDEBUG != 0
 static const short yyrline[] = { 0,
-    83,    85,    86,    87,    88,    89,    90
+    82,    84,    85,    86,    87,    88,    89
 };
 #endif
 
@@ -150,8 +150,8 @@ static const short yyr2[] = {     0,
 };
 
 static const short yydefact[] = {     0,
-     2,     0,     1,     0,     0,     0,     0,     0,     3,     4,
-     5,     6,     7,     0,     0,     0
+     2,     0,     1,     0,     0,     0,     0,     0,     3,     5,
+     4,     6,     7,     0,     0,     0
 };
 
 static const short yydefgoto[] = {    14,
@@ -160,7 +160,7 @@ static const short yydefgoto[] = {    14,
 
 static const short yypact[] = {     8,
 -32768,     8,    13,     3,     8,     8,     8,     8,-32768,    -5,
-    -5,     6,-32768,    14,    15,-32768
+    -5,-32768,-32768,    14,    15,-32768
 };
 
 static const short yypgoto[] = {-32768,
@@ -173,12 +173,12 @@ static const short yypgoto[] = {-32768,
 
 static const short yytable[] = {     4,
      7,     8,    10,    11,    12,    13,     5,     6,     7,     8,
-     1,     9,     8,    15,    16,     2,     5,     6,     7,     8
+     1,     9,     0,    15,    16,     2,     5,     6,     7,     8
 };
 
 static const short yycheck[] = {     2,
      6,     7,     5,     6,     7,     8,     4,     5,     6,     7,
-     3,     9,     7,     0,     0,     8,     4,     5,     6,     7
+     3,     9,    -1,     0,     0,     8,     4,     5,     6,     7
 };
 /* -*-C-*-  Note some compilers choke on comments on `#line' lines.  */
 #line 3 "bison.simple"
@@ -679,31 +679,31 @@ yyreduce:
   switch (yyn) {
 
 case 1:
-#line 83 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_07_BOTTOM_UP_BISON/FOLDER_03_PARSER/grammar.y"
+#line 82 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_07_BOTTOM_UP_BISON/FOLDER_03_PARSER/grammar.y"
 {ROOT = yyvsp[0].gval.ival;;
     break;}
 case 2:
-#line 85 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_07_BOTTOM_UP_BISON/FOLDER_03_PARSER/grammar.y"
+#line 84 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_07_BOTTOM_UP_BISON/FOLDER_03_PARSER/grammar.y"
 {yyval.gval.ival = yyvsp[0].gval.ival          ;;
     break;}
 case 3:
-#line 86 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_07_BOTTOM_UP_BISON/FOLDER_03_PARSER/grammar.y"
+#line 85 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_07_BOTTOM_UP_BISON/FOLDER_03_PARSER/grammar.y"
 {yyval.gval.ival = yyvsp[-1].gval.ival          ;;
     break;}
 case 4:
+#line 86 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_07_BOTTOM_UP_BISON/FOLDER_03_PARSER/grammar.y"
+{yyval.gval.ival = yyvsp[-2].gval.ival - yyvsp[0].gval.ival;;
+    break;}
+case 5:
 #line 87 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_07_BOTTOM_UP_BISON/FOLDER_03_PARSER/grammar.y"
 {yyval.gval.ival = yyvsp[-2].gval.ival + yyvsp[0].gval.ival;;
     break;}
-case 5:
-#line 88 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_07_BOTTOM_UP_BISON/FOLDER_03_PARSER/grammar.y"
-{yyval.gval.ival = yyvsp[-2].gval.ival - yyvsp[0].gval.ival;;
-    break;}
 case 6:
-#line 89 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_07_BOTTOM_UP_BISON/FOLDER_03_PARSER/grammar.y"
+#line 88 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_07_BOTTOM_UP_BISON/FOLDER_03_PARSER/grammar.y"
 {yyval.gval.ival = yyvsp[-2].gval.ival * yyvsp[0].gval.ival;;
     break;}
 case 7:
-#line 90 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_07_BOTTOM_UP_BISON/FOLDER_03_PARSER/grammar.y"
+#line 89 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_07_BOTTOM_UP_BISON/FOLDER_03_PARSER/grammar.y"
 {yyval.gval.ival = yyvsp[-2].gval.ival / yyvsp[0].gval.ival;;
     break;}
 }
@@ -904,6 +904,6 @@ yyerrhandle:
   yystate = yyn;
   goto yynewstate;
 }
-#line 92 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_07_BOTTOM_UP_BISON/FOLDER_03_PARSER/grammar.y"
+#line 91 "/home/oren/GIT/COMPILATION_TAU_FOR_STUDENTS/FOLDER_4_DEMOS/DEMO_07_BOTTOM_UP_BISON/FOLDER_03_PARSER/grammar.y"
 
 

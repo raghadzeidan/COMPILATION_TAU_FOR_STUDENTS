@@ -12,6 +12,11 @@ public class AST_EXP_VAR_SIMPLE extends AST_EXP_VAR
 	/******************/
 	public AST_EXP_VAR_SIMPLE(String name)
 	{
+		/******************************/
+		/* SET A UNIQUE SERIAL NUMBER */
+		/******************************/
+		SerialNumber = AST_Node_Serial_Number.getFresh();
+
 		System.out.format("====================== var -> ID( %s )\n",name);
 		this.name = name;
 	}
@@ -25,5 +30,12 @@ public class AST_EXP_VAR_SIMPLE extends AST_EXP_VAR
 		/* AST NODE TYPE = AST SIMPLE VAR */
 		/**********************************/
 		System.out.format("AST NODE SIMPLE VAR( %s )\n",name);
+
+		/***************************************/
+		/* PRINT Node to AST GRAPHVIZ DOT file */
+		/***************************************/
+		AST_GRAPHVIZ.getInstance().logNode(
+			SerialNumber,
+			String.format("SIMPLE\nVAR\n(%s)",name));
 	}
 }
