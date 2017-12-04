@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.*;
+
 public class AST_STMT_DEC_VAR extends AST_STMT
 {
 	/****************/
@@ -18,6 +20,11 @@ public class AST_STMT_DEC_VAR extends AST_STMT
 		SerialNumber = AST_Node_Serial_Number.getFresh();
 
 		this.var = var;
+	}
+	
+	public TYPE SemantMe()
+	{
+		return var.SemantMe();
 	}
 	
 	public void PrintMe()

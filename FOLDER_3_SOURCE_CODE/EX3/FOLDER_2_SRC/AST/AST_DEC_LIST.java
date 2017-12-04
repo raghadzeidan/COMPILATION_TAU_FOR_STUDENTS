@@ -1,5 +1,7 @@
 package AST;
 
+import TYPES.*;
+
 public class AST_DEC_LIST extends AST_Node
 {
 	/****************/
@@ -20,6 +22,17 @@ public class AST_DEC_LIST extends AST_Node
 
 		this.head = head;
 		this.tail = tail;
+	}
+
+	public TYPE SemantMe()
+	{
+		/*************************************/
+		/* RECURSIVELY PRINT HEAD + TAIL ... */
+		/*************************************/
+		if (head != null) head.SemantMe();
+		if (tail != null) tail.SemantMe();
+		
+		return null;	
 	}
 
 	/********************************************************/

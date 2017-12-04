@@ -4,6 +4,11 @@
 package SYMBOL_TABLE;
 
 /*******************/
+/* GENERAL IMPORTS */
+/*******************/
+import java.io.PrintWriter;
+
+/*******************/
 /* PROJECT IMPORTS */
 /*******************/
 import TYPES.*;
@@ -13,10 +18,12 @@ import TYPES.*;
 /****************/
 public class SYMBOL_TABLE
 {
+	private int hashArraySize = 9;
+	
 	/**********************************************/
 	/* The actual symbol table data structure ... */
 	/**********************************************/
-	private SYMBOL_TABLE_ENTRY[] table = new SYMBOL_TABLE_ENTRY[9];
+	private SYMBOL_TABLE_ENTRY[] table = new SYMBOL_TABLE_ENTRY[hashArraySize];
 	private SYMBOL_TABLE_ENTRY top;
 	
 	/**************************************************************/
@@ -73,7 +80,7 @@ public class SYMBOL_TABLE
 		{
 			if (name == e.name)
 			{
-				return e.value;
+				return e.type;
 			}
 		}
 		
@@ -83,13 +90,13 @@ public class SYMBOL_TABLE
 	/***************************************************************************/
 	/* begine scope = Enter the <SCOPE-BOUNDARY> element to the data structure */
 	/***************************************************************************/
-	public void begin_scope(){enter("<SCOPE-BOUNDARY>",null);}
+	public void beginScope(){enter("<SCOPE-BOUNDARY>",null);}
 
 	/********************************************************************************/
 	/* end scope = Keep popping elements out of the data structure,                 */
 	/* from most recent element entered, until a <NEW-SCOPE> element is encountered */
 	/********************************************************************************/
-	public void end_scope()
+	public void endScope()
 	{
 		SYMBOL_TABLE_ENTRY last = top;
 		
@@ -102,6 +109,78 @@ public class SYMBOL_TABLE
 	
 	public void PrintMe()
 	{
+		int i=0;
+		int j=0;
+		String dirname="./FOLDER_5_OUTPUT/";
+		String filename="SYMBOL_TABLE_IN_GRAPHVIZ_DOT_FORMAT.txt";
+
+		try
+		{
+			/*******************************************/
+			/* [1] Open Graphviz text file for writing */
+			/*******************************************/
+			PrintWriter fileWriter = new PrintWriter(dirname+filename);
+
+			/*********************************/
+			/* [2] Write Graphviz dot prolog */
+			/*********************************/
+			fileWriter.print("digraph structs {\n");
+			fileWriter.print("rankdir = LR\n");
+			fileWriter.print("node [shape=record];\n");
+
+			/*******************************/
+			/* [3] Write Hash Table Itself */
+			/*******************************/
+			fileWriter.print("hashTable [label\"=");
+			for (i=0;i<hashArraySize-1;i++) { fileWriter.format("<f%d>%d|",i,i); }
+			fileWriter.format("<f%d>%d\"];",hashArraySize-1,hashArraySize-1);
+		
+			/****************************************************************************/
+			/* [4] Loop over hash table array and print all linked lists per array cell */
+			/****************************************************************************/
+			for (i=0;i<hashArraySize;i++)
+			{
+				if (table[i] != null)
+				{
+					/*****************************************************/
+					/* [4a] Print hash table array[i] -> entry(i,0) edge */
+					/*****************************************************/
+					fileWriter.format("hashTable:f%d -> node_%d_0:f0;",i,i);
+				}
+				j=0;
+				for (SYMBOL_TABLE_ENTRY it=table[i];it!=null;it=it.next)
+				{
+					/*******************************/
+					/* [4b] Print entry(i,it) node */
+					/*******************************/
+					fileWriter.format("node_%d_%d ",i,j);
+					fileWriter.format("[label=\"<f0>%s|<f1>%s|<f2>prevtop=%d|<f3>next\"];",
+						it.name,
+						it.type.name,
+						it.prevtop_index);
+
+					if (it.next != null)
+					{
+						/***************************************************/
+						/* [4c] Print entry(i,it) -> entry(i,it.next) edge */
+						/***************************************************/
+						fileWriter.format(
+							"node_%d_%d -> node_%d_%d [style=invis,weight=10];",
+							i,j,i,j+1);
+						fileWriter.format(
+							"node_%d_%d:f3 -> node_%d_%d:f0;",
+							i,j,i,j+1);
+					}
+					j++;
+				}
+			}
+			fileWriter.print("}\n");
+			fileWriter.close();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}		
 	}
 	
 	/**************************************/

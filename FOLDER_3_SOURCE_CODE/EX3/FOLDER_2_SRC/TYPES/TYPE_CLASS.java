@@ -7,11 +7,6 @@ public class TYPE_CLASS extends TYPE
 	/*********************************************************************/
 	public TYPE_CLASS father;
 
-	/*******************************************************************/
-	/* Keep the name for debug purposes ... it won't harm anything ... */
-	/*******************************************************************/
-	public String name;
-
 	/**************************************************/
 	/* Gather up all data members in one place        */
 	/* Note that data members coming from the AST are */

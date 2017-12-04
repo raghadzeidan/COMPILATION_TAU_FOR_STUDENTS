@@ -1,6 +1,7 @@
 package AST;
 
 import TYPES.*;
+import SYMBOL_TABLE.*;
 
 public class AST_DEC_CLASS extends AST_DEC
 {
@@ -54,6 +55,29 @@ public class AST_DEC_CLASS extends AST_DEC
 	
 	public TYPE SemantMe()
 	{
-		return new TYPE_CLASS(null,data_members.SemantMe());
+		/*************************/
+		/* [1] Begin Class Scope */
+		/*************************/
+		SYMBOL_TABLE.getInstance().beginScope();
+
+		/***************************/
+		/* [2] Semant Data Members */
+		/***************************/
+		TYPE_CLASS t = new TYPE_CLASS(null,data_members.SemantMe());
+
+		/*****************/
+		/* [3] End Scope */
+		/*****************/
+		SYMBOL_TABLE.getInstance().endScope();
+
+		/************************************************/
+		/* [4] Enter the Class Type to the Symbol Table */
+		/************************************************/
+		SYMBOL_TABLE.getInstance().enter(name,t);
+
+		/*********************************************************/
+		/* [5] Return value is irrelevant for class declarations */
+		/*********************************************************/
+		return null;		
 	}
 }
