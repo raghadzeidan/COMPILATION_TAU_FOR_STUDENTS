@@ -215,9 +215,9 @@ For example,
 \caption{new Son is a semantically valid input for foo.
 \label{Table_Code_Examples_Son_Class_Instead_Of_Father_Class}}
 \end{table}
-\paragraph{Null expressions} any place in the program that
+\paragraph{nil expressions} any place in the program that
 semantically allows an expression of type class,
-should semantically allow \verb"NULL" instead.
+should semantically allow \verb"nil" instead.
 For instance,
 \begin{table}[h]
 \centering
@@ -226,12 +226,12 @@ For instance,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \verb"CLASS Father { int i; }"              &    \\
 \verb"void foo(Father f){ PrintInt(f.i); }" & OK \\
-\verb"void main(){ foo(NULL); }"            &    \\
+\verb"void main(){ foo(nil); }"            &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
-\caption{NULL sent instead of a (Father) class is semantically allowed.
-\label{Table_Code_Examples_NULL_Instead_Of_Any_Class}}
+\caption{nil sent instead of a (Father) class is semantically allowed.
+\label{Table_Code_Examples_nil_Instead_Of_Any_Class}}
 \end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SUB-SECTION :: Arrays %
@@ -248,7 +248,7 @@ Defining an integer matrix, for example, is possible as follows:
 \verb"ARRAY IntArray = int[] ARRAY IntMat = IntArray[]"
 \]
 In addition, any place in the program that semantically allows an expression of type array,
-should semantically allow \verb"NULL" instead. For instance,
+should semantically allow \verb"nil" instead. For instance,
 \begin{table}[h]
 \centering
 \begin{tabular}{ | l | l | }
@@ -256,12 +256,12 @@ should semantically allow \verb"NULL" instead. For instance,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \verb"ARRAY IntArray = int[]"                &    \\
 \verb"void F(IntArray A){ PrintInt(A[8]); }" & OK \\
-\verb"void main(){ F(NULL); }"               &    \\
+\verb"void main(){ F(nil); }"               &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
-\caption{NULL sent instead of an integer array is semantically allowed.
-\label{Table_Code_Examples_NULL_Instead_Of_Any_Array}}
+\caption{nil sent instead of an integer array is semantically allowed.
+\label{Table_Code_Examples_nil_Instead_Of_Any_Array}}
 \end{table}
 \paragraph{Note} that allocating arrays with the new operator
 must be done with an \textit{integral size}.
@@ -287,7 +287,7 @@ they are \textit{not} interchangeable:
 \hline
 \end{tabular}
 \caption{Non interchangeable array types.
-\label{Table_Code_Examples_NULL_Instead_Of_Any_Array}}
+\label{Table_Code_Examples_nil_Instead_Of_Any_Array}}
 \end{table}  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: Assignments %
@@ -300,12 +300,12 @@ if class \verb"Son" is derived from class \verb"Father",
 then a variable of type \verb"Father" can be assigned an expression
 of type \verb"Son".
 Furthermore, following the concept in \ref{subsubsection_Classes} and \ref{subsubsection_Arrays},
-assigning \verb"NULL" to array and class variables is legal.
-In contrast to that, assigning \verb"NULL" to string variables is \textit{illegal}.
+assigning \verb"nil" to array and class variables is legal.
+In contrast to that, assigning \verb"nil" to string variables is \textit{illegal}.
 To avoid an overly complex semantics,
 we will enforce a strict policy of initializing data members inside classes:
 a declared data member inside a class can be initialized \textit{only with a constant value}
-(that matches its type). Specifically, only constant integers, strings and \verb"NULL"
+(that matches its type). Specifically, only constant integers, strings and \verb"nil"
 can be used, and even a simple expression like $5+6$ is forbidden.
 Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
 \begin{table}[h]
@@ -314,7 +314,7 @@ Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  $1$ & \verb"CLASS Father { int i; }"             & OK \\
-     & \verb"Father f := NULL;"                   &    \\
+     & \verb"Father f := nil;"                   &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -355,16 +355,16 @@ Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
      & \verb"}"                                        &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $8$ & \verb"ARRAY gradesArray = int[]"  &       \\
-     & \verb"ARRAY IDsArray    = int[]"  &       \\
-     & \verb"IDsArray    := NEW int[8];" &       \\
-     & \verb"gradesArray := NEW int[8];" &       \\
-     & \verb"gradesArray :=   IDsArray;" & ERROR \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $8$ & \verb"ARRAY gradesArray  = int[]"   &       \\
+     & \verb"ARRAY IDsArray     = int[]"   &       \\
+     & \verb"IDsArray    i := NEW int[8];" &       \\
+     & \verb"gradesArray g := NEW int[8];" &       \\
+     & \verb"i := g;"                      & ERROR \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $9$ & \verb"string s := NULL;" & ERROR \\
+ $9$ & \verb"string s := nil;" & ERROR \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
@@ -389,8 +389,8 @@ In addition, following the same reason in \ref{subsection_Assignments},
 if class \verb"Son" is derived from class \verb"Father",
 then an expression  of type \verb"Father" can be
 tested for equality with an expression of type \verb"Son".
-Furthermore, any class variable or array variable can be tested for equality with \verb"NULL".
-But, in contrast, it is \textit{illegal} to compare a string variable to \verb"NULL".
+Furthermore, any class variable or array variable can be tested for equality with \verb"nil".
+But, in contrast, it is \textit{illegal} to compare a string variable to \verb"nil".
 The resulting type of a semantically valid comparison is the primitive type int.
 Table \ref{Table_Code_Examples_Equality_Testing} summarizes these facts.
 \begin{table}[h]
@@ -401,7 +401,7 @@ Table \ref{Table_Code_Examples_Equality_Testing} summarizes these facts.
  $1$ & \verb"CLASS Father { int i; int j; }" &    \\
      & \verb"int Check(Father f)"            &    \\
      & \verb"{"                              &    \\
-     & ~ ~ ~ ~\verb"if (f = NULL)"           &    \\
+     & ~ ~ ~ ~\verb"if (f = nil)"           &    \\
      & ~ ~ ~ ~\verb"{"                       & OK \\
      & ~ ~ ~ ~ ~ ~ ~ ~\verb"return 800;"     &    \\
      & ~ ~ ~ ~\verb"}"                       &    \\
@@ -442,10 +442,9 @@ Table \ref{Table_Code_Examples_Equality_Testing} summarizes these facts.
 \label{subsection_Binary_Operations}
 Most binary operations $(-,*,/,<,>)$ are performed only between integers.
 The single exception to that is the $+$ binary operation,
-that can be performed between integers \textit{and strings}.
-Note that equality testing $(=)$ is treated differently,
-as discussed in \ref{subsection_Equality_Testing}.
-The resulting type of a semantically valid binary operation is the primitive type int.
+that can be performed between two integers or between two \textit{strings}.
+The resulting type of a semantically valid binary operation is the primitive type int,
+with the single exception of adding two strings, where the resulting type is a string.
 Table \ref{Table_Code_Examples_Binary_Operations} summarizes these facts.
 \begin{table}[h]
 \centering
@@ -550,17 +549,17 @@ Table \ref{Table_Code_Examples_Scope_Rules} summarizes these facts.
  $4$ & \verb"string myvar := "``\verb"80""\verb";" &    \\
      & \verb"CLASS Father"                         &    \\
      & \verb"{"                                    &    \\
-     & ~ ~ ~ ~\verb"Father myvar := NULL;"         &    \\
+     & ~ ~ ~ ~\verb"Father myvar := nil;"          &    \\
      & ~ ~ ~ ~\verb"void foo()"                    & OK \\
      & ~ ~ ~ ~\verb"{"                             &    \\
      & ~ ~ ~ ~ ~ ~ ~ ~\verb"int myvar := 100;"     &    \\
-     & ~ ~ ~ ~ ~ ~ ~ ~\verb"PrintInt(i);"          &    \\
+     & ~ ~ ~ ~ ~ ~ ~ ~\verb"PrintInt(myvar);"      &    \\
      & ~ ~ ~ ~\verb"}"                             &    \\
      & \verb"}"                                    &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $4$ & \verb"int foo(string s) { return 800;}"    &    \\
+ $5$ & \verb"int foo(string s) { return 800;}"    &    \\
      & \verb"CLASS Father"                        &    \\
      & \verb"{"                                   &    \\
      & ~ ~ ~ ~\verb"string foo(string s)"         &    \\
@@ -569,7 +568,7 @@ Table \ref{Table_Code_Examples_Scope_Rules} summarizes these facts.
      & ~ ~ ~ ~\verb"}"                            &    \\
      & ~ ~ ~ ~\verb"void Print()"                 &    \\
      & ~ ~ ~ ~\verb"{"                            &    \\
-     & ~ ~ ~ ~ ~ ~ ~ ~\verb"PrintString(foo());"  &    \\
+     & ~ ~ ~ ~ ~ ~ ~ ~\verb"PrintString(foo("``\verb"Jerry""\verb"));"  & \\
      & ~ ~ ~ ~\verb"}"                            &    \\
      & \verb"}"                                   &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
