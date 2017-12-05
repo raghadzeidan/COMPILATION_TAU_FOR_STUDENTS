@@ -18,7 +18,7 @@ import TYPES.*;
 /****************/
 public class SYMBOL_TABLE
 {
-	private int hashArraySize = 9;
+	private int hashArraySize = 13;
 	
 	/**********************************************/
 	/* The actual symbol table data structure ... */
@@ -33,9 +33,14 @@ public class SYMBOL_TABLE
 	private int hash(String s)
 	{
 		if (s.charAt(0) == 'l') {return 1;}
+		if (s.charAt(0) == 'm') {return 1;}
 		if (s.charAt(0) == 'r') {return 3;}
 		if (s.charAt(0) == 'i') {return 6;}
-		return 8;
+		if (s.charAt(0) == 'd') {return 6;}
+		if (s.charAt(0) == 'k') {return 6;}
+		if (s.charAt(0) == 'f') {return 6;}
+		if (s.charAt(0) == 'S') {return 6;}
+		return 12;
 	}
 
 	/****************************************************************************/
@@ -169,8 +174,8 @@ public class SYMBOL_TABLE
 			/* [3] Write Hash Table Itself */
 			/*******************************/
 			fileWriter.print("hashTable [label=\"");
-			for (i=0;i<hashArraySize-1;i++) { fileWriter.format("<f%d>%d|",i,i); }
-			fileWriter.format("<f%d>%d\"];\n",hashArraySize-1,hashArraySize-1);
+			for (i=0;i<hashArraySize-1;i++) { fileWriter.format("<f%d>\n%d\n|",i,i); }
+			fileWriter.format("<f%d>\n%d\n\"];\n",hashArraySize-1,hashArraySize-1);
 		
 			/****************************************************************************/
 			/* [4] Loop over hash table array and print all linked lists per array cell */
