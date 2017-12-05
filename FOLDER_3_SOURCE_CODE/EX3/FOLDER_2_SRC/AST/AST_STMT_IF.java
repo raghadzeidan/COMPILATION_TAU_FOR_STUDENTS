@@ -57,7 +57,7 @@ public class AST_STMT_IF extends AST_STMT
 		/****************************/
 		/* [0] Semant the Condition */
 		/****************************/
-		if (cond.SemantMe() != SYMBOL_TABLE.getInstance().find("int"))
+		if (cond.SemantMe() != TYPE_INT.getInstance())
 		{
 			System.out.format(">> ERROR [%d:%d] condition inside IF is not integral\n",2,2);
 		}

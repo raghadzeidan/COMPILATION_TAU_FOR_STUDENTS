@@ -13,6 +13,11 @@ import TYPES.*;
 /**********************/
 public class SYMBOL_TABLE_ENTRY
 {
+	/*********/
+	/* index */
+	/*********/
+	int index;
+	
 	/********/
 	/* name */
 	/********/
@@ -40,12 +45,16 @@ public class SYMBOL_TABLE_ENTRY
 	public SYMBOL_TABLE_ENTRY(
 		String name,
 		TYPE type,
+		int index,
+		SYMBOL_TABLE_ENTRY next,
 		SYMBOL_TABLE_ENTRY prevtop,
-		SYMBOL_TABLE_ENTRY next)
+		int prevtop_index)
 	{
+		this.index = index;
 		this.name = name;
 		this.type = type;
-		this.prevtop = prevtop;
 		this.next = next;
+		this.prevtop = prevtop;
+		this.prevtop_index = prevtop_index;
 	}
 }

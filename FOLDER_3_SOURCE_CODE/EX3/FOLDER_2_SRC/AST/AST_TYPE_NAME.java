@@ -55,13 +55,12 @@ public class AST_TYPE_NAME extends AST_Node
 	public TYPE SemantMe()
 	{
 		TYPE t = SYMBOL_TABLE.getInstance().find(type);
-		
 		if (t == null)
 		{
 			/**************************/
 			/* ERROR: undeclared type */
 			/**************************/
-			assert(false);
+			System.exit(0);
 			return null;
 		}
 		else

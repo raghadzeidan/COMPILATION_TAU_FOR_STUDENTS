@@ -54,7 +54,7 @@ public class AST_DEC_CLASS extends AST_DEC
 	}
 	
 	public TYPE SemantMe()
-	{
+	{	
 		/*************************/
 		/* [1] Begin Class Scope */
 		/*************************/
@@ -63,7 +63,7 @@ public class AST_DEC_CLASS extends AST_DEC
 		/***************************/
 		/* [2] Semant Data Members */
 		/***************************/
-		TYPE_CLASS t = new TYPE_CLASS(null,data_members.SemantMe());
+		TYPE_CLASS t = new TYPE_CLASS(null,name,data_members.SemantMe());
 
 		/*****************/
 		/* [3] End Scope */

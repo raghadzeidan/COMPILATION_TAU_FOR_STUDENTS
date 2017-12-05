@@ -20,6 +20,7 @@ public class TYPE_INT extends TYPE
 		if (instance == null)
 		{
 			instance = new TYPE_INT();
+			instance.name = "int";
 		}
 		return instance;
 	}
