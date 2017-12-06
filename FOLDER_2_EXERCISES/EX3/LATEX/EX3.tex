@@ -301,7 +301,7 @@ then a variable of type \verb"Father" can be assigned an expression
 of type \verb"Son".
 Furthermore, following the concept in \ref{subsubsection_Classes} and \ref{subsubsection_Arrays},
 assigning \verb"nil" to array and class variables is legal.
-In contrast to that, assigning \verb"nil" to string variables is \textit{illegal}.
+In contrast to that, assigning \verb"nil" to int and string variables is \textit{illegal}.
 To avoid an overly complex semantics,
 we will enforce a strict policy of initializing data members inside classes:
 a declared data member inside a class can be initialized \textit{only with a constant value}
@@ -503,9 +503,13 @@ The search starts from the innermost scope,
 and ends at the outermost (global) scope.
 \paragraph{Note} that array type declarations and
 class type declarations can only be defined
-in the outermost (global) scope,
-so this subsection is really about functions and variables.
+in the outermost (global) scope.
+Class type names and array type names must be different than any
+previously defined variable names, function names, class type names
+and array type names.
 \paragraph{Functions} can be defined only in the class scopes, and the global scope.
+Following the same reason in \ref{Table_Code_Examples_Use_Before_Def},
+functions may only refer to previously defined types, variables and functions.
 When a function is being called inside a class scope, the declaration
 of a function with that name is searched first in its class scope.
 If no such function is found, the search moves to the global scope,
@@ -516,6 +520,15 @@ only the global scope is searched for its declaration.
 follows the same principal, with the slight difference that variables can be declared
 in all four kinds of scopes.
 Table \ref{Table_Code_Examples_Scope_Rules} summarizes these facts.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SECTION :: Library Functions %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Library Functions}
+\label{subsection_Library_Functions}
+RioMare defines two library functions: PrintInt and PrintString.\\
+The signatures of these functions are as follows:\\ \\
+\verb"void PrintInt(int i)      { ... }"\\ 
+\verb"void PrintString(string s){ ... }"\\ 
 \newpage
 \begin{table}[h]
 \centering
