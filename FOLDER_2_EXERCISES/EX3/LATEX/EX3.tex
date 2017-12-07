@@ -378,6 +378,20 @@ Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
 \subsection{If and While Statements}
 \label{subsection_If_And_While_Statements}
 The type of the condition inside if and while statements is the primitive type int.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SECTION :: Return Statements %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Return Statements}
+\label{subsection_Return_Statements}
+According to the syntax of RioMare, return statements can only be found inside functions.
+Since functions can \textit{not} be nested,
+it follows that a return statement belongs to \textit{exactly one} function.
+when a function \verb"foo" is declared to have a \verb"void" return type,
+then all of its return statements must be \textit{empty} (\verb"return;").
+In contrast, when a function \verb"bar" has a non void return type \verb"T",
+then a return statement inside \verb"bar" must be \textit{non empty},
+and the type of the returned expression must match \verb"T".
+
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: Equality Testing %
