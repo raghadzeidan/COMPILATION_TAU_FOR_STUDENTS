@@ -21,5 +21,5 @@ void main()
 {
 	Father g      := new Father;
 	g.g           := new Son;
-	WisePeople wp = new Grandfather[g.RUN]; wp[g] := g;
+	WisePeople wp := new Grandfather[g.RUN]; wp[g] := g;
 }

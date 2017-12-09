@@ -41,4 +41,5 @@ class Student extends Person
 
 void main()
 {
+	bestFriend := "AlonzoMorales";
 }
