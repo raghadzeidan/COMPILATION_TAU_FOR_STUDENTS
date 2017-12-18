@@ -433,9 +433,9 @@ Table \ref{Table_Code_Examples_Equality_Testing} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  $3$ & \verb"ARRAY gradesArray = int[]"        &       \\
      & \verb"ARRAY IDsArray    = int[]"        &       \\
-     & \verb"IDsArray    := NEW int[8];"       &       \\
-     & \verb"gradesArray := NEW int[8];"       &       \\
-     & \verb"int i := gradesArray = IDsArray;" & ERROR \\
+     & \verb"IDsArray   i:= NEW int[8];"       &       \\
+     & \verb"gradesArray g:=NEW int[8];"       &       \\
+     & \verb"int j := i = g;"                  & ERROR \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
