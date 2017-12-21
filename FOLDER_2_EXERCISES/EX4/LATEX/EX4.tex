@@ -8,6 +8,7 @@
 %%%%%%%%%%%%
 \usepackage{hyperref}
 \usepackage{amsmath}
+\usepackage{multirow}
 
 %%%%%%%%%%%%%%%%%%
 % BEGIN DOCUMENT %
@@ -76,357 +77,59 @@ and provides a multitude of example programs.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Binary Operations}
 Recall that integers in RioMare are artificially bounded between $-2^{15}$ and $2^{15}$.
-The semantics of binary operations in RioMare is therefore somewhat different
+The semantics of integer binary operations in RioMare is therefore somewhat different
 than that of standard programming languages.
-Table \ref{Table_Binary_Operations_In_RioMare} uses a RioMare subscript
-to distinguish its operators from theie usual mathematical meaning.
-
+It is presented in Table \ref{Table_Semantics_Of_Rio_Mare_Binary_Operations_Between_Integers},
+and to distinguish RioMare operators from the usual arithmetic signs,
+we shall use a RioMare subscript inside brackets:
+($*_{[RioMare]}$, $+_{[RioMare]}$ etc.)
 \begin{table}[h]
 \centering
-\begin{tabular}{llllllll}
+\begin{tabular}{|p{10cm}|}
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                         &   & $-2^{15}$  &            &        & $a*b$ & $\leq$ & $-2^{15}$  \\
-$ a ~ [*_{RioMare}] ~ b$ & = & $a*b$      & $-2^{15}$  & $\leq$ & $a*b$ & $\leq$ & $2^{15}-1$ \\
-                         &   & $2^{15}-1$ & $2^{15}-1$ & $\leq$ & $a*b$ &        &            \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                         &   & $-32768$  & $a*b \leq -32768$            \\
-$ a ~ [*_{RioMare}] ~ b$ & = & $a*b$     & $-32768 \leq a*b \leq 32767$ \\
-                         &   & $-32768$  & $a*b \leq -32768$            \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                         &   & $-32768$  & $a*b \leq -32768$            \\
-$ a ~ [*_{RioMare}] ~ b$ & = & $a*b$     & $-32768 \leq a*b \leq 32767$ \\
-                         &   & $-32768$  & $a*b \leq -32768$            \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                         &   & $-32768$  & $a*b \leq -32768$            \\
-$ a ~ [*_{RioMare}] ~ b$ & = & $a*b$     & $-32768 \leq a*b \leq 32767$ \\
-                         &   & $-32768$  & $a*b \leq -32768$            \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-\end{tabular}
-\caption{Binary Operations in RioMare
-\label{Table_Binary_Operations_In_RioMare}}
-\end{table}
-
-$$
-a ~ [*_{RioMare}] ~ b =
-\begin{array}{lr}
-a*b & a*b \in [-32768,32767] \\
-a*b & a*b \in [-32768,32767] \\
-\end{array}
-$$  
-ioMare programming language defines two native types: integers and strings.
-In addition, it is possible to define a class by specifying its data members and methods.
-Also, given an existing type \verb"T", one can define an array of \verb"T"'s.
-Note, that defining classes and arrays is only possible in the uppermost (global) scope.
-The exact details follow.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SUB-SUB-SECTION :: Classes %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Classes}
-\label{subsubsection_Classes}
-Classes contain data members and methods,
-and can only be defined in the uppermost (global) scope.
-They can refer to/extend only previously defined classes,
-to ensure that the class hierarchy has a tree structure.
-Following the same concept,
-a method \verb"M1" can \textit{not} refer to a method \verb"M2",
-whenever \verb"M2" is defined after \verb"M1" in the class.
-In contrast to all that,
-a method \verb"M" \textit{can} refer to a data member \verb"d",
-even if \verb"d" is defined \textit{after} \verb"M" in the class.
-Table \ref{Table_Code_Examples_Use_Before_Def} summarizes these facts.
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|l|l|}
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $1$ & \verb"CLASS Son EXTENDS Father"           & ERROR \\
-     & \verb"{"                                  &       \\
-     & ~ ~ ~ ~\verb"int bar;"                    &       \\
-     & \verb"}"                                  &       \\
-     & \verb"CLASS Father"                       &       \\
-     & \verb"{"                                  &       \\
-     & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }" &       \\
-     & \verb"}"                                  &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $2$ & \verb"CLASS Edge"                         &       \\
-     & \verb"{"                                  &       \\
-     & ~ ~ ~ ~\verb"Vertex u;"                   & ERROR \\
-     & ~ ~ ~ ~\verb"Vertex v;"                   &       \\
-     & \verb"}"                                  &       \\
-     & \verb"CLASS Vertex"                       &       \\
-     & \verb"{"                                  &       \\
-     & ~ ~ ~ ~\verb"int weight;"                 &       \\
-     & \verb"}"                                  &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $3$ & \verb"CLASS UseBeforeDef"                      &       \\
-     & \verb"{"                                       &       \\
-     & ~ ~ ~ ~\verb"void foo() { bar(8); }"           & ERROR \\
-     & ~ ~ ~ ~\verb"void bar(int i) { PrintInt(i); }" &       \\
-     & \verb"}"                                       &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $4$ & \verb"CLASS UseBeforeDef"                 &    \\
-     & \verb"{"                                  &    \\
-     & ~ ~ ~ ~\verb"void foo() { PrintInt(i); }" & OK \\
-     & ~ ~ ~ ~\verb"int i;"                      &    \\
-     & \verb"}"                                  &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-\end{tabular}
-\caption{Referring to classes, methods and data members
-\label{Table_Code_Examples_Use_Before_Def}}
-\end{table}
-\newpage
-\paragraph{Methods overloading} is \textit{illegal} in RioMare,
-with the obvious exception of overriding a method in a derived class.
-Similarly, it is illegal to define a variable with the same name of
-a previously defined variable (shadowing), or a previously defined method.
-Table \ref{Table_Code_Examples_Overload_Override} summarizes these facts.
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|l|l|}
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $1$ & \verb"CLASS Father"                       &       \\
-     & \verb"{"                                  &       \\
-     & ~ ~ ~ ~\verb"int foo() { return 8; }"     &       \\
-     & \verb"}"                                  &       \\
-     & \verb"CLASS Son EXTENDS Father"           &       \\
-     & \verb"{"                                  &       \\
-     & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }" & ERROR \\
-     & \verb"}"                                  &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $2$ & \verb"CLASS Father"                        &    \\
-     & \verb"{"                                   &    \\
-     & ~ ~ ~ ~\verb"int foo(int i) { return 8; }" &    \\
-     & \verb"}"                                   & OK \\
-     & \verb"CLASS Son EXTENDS Father"            &    \\
-     & \verb"{"                                   &    \\
-     & ~ ~ ~ ~\verb"int foo(int j) { return j; }" &    \\
-     & \verb"}"                                   &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $3$ & \verb"CLASS IllegalSameName"                   &       \\
-     & \verb"{"                                       &       \\
-     & ~ ~ ~ ~\verb"void foo() { PrintInt(8); }"      &       \\
-     & ~ ~ ~ ~\verb"void foo(int i) { PrintInt(i); }" & ERROR \\
-     & \verb"}"                                       &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $4$ & \verb"CLASS Father"             &       \\
-     & \verb"{"                        &       \\
-     & ~ ~ ~ ~\verb"int foo;"          &       \\
-     & \verb"}"                        &       \\
-     & \verb"CLASS Son EXTENDS Father" &       \\
-     & \verb"{"                        &       \\
-     & ~ ~ ~ ~\verb"string foo;"       & ERROR \\
-     & \verb"}"                        &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-\end{tabular}
-\caption{Method overloading and variable shadowing are both illegal in RioMare.
-\label{Table_Code_Examples_Overload_Override}}
-\end{table}
-\newpage
-\paragraph{Inheritance} if class \verb"Son" is derived from class \verb"Father",
-then any place in the program that semantically allows an expression of type \verb"Father",
-should semantically allow an expression of type \verb"Son".
-For example,
-\begin{table}[h]
-\centering
-\begin{tabular}{ | l  | l | }
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\verb"CLASS Father { int i; }"               &    \\
-\verb"CLASS Son EXTENDS Father { int j; }"   & OK \\
-\verb"void foo(Father f) { PrintInt(f.i); }" &    \\
-\verb"void main(){ foo(NEW Son); }"          &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-\end{tabular}
-\caption{new Son is a semantically valid input for foo.
-\label{Table_Code_Examples_Son_Class_Instead_Of_Father_Class}}
-\end{table}
-\paragraph{nil expressions} any place in the program that
-semantically allows an expression of type class,
-should semantically allow \verb"nil" instead.
-For instance,
-\begin{table}[h]
-\centering
-\begin{tabular}{ | l | l | }
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\verb"CLASS Father { int i; }"              &    \\
-\verb"void foo(Father f){ PrintInt(f.i); }" & OK \\
-\verb"void main(){ foo(nil); }"            &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-\end{tabular}
-\caption{nil sent instead of a (Father) class is semantically allowed.
-\label{Table_Code_Examples_nil_Instead_Of_Any_Class}}
-\end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SUB-SUB-SECTION :: Arrays %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Arrays}
-\label{subsubsection_Arrays}
-Arrays can only be defined in the uppermost (global) scope.
-They are defined with respect to some previously defined type, as in the following example:
 \[
-\verb"ARRAY IntArray = int[]"
+a ~ *_{[RioMare]} ~ b ~ = ~
+\begin{cases} 
+-2^{15}  ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ a*b \in (-\infty, -2^{15}] \\
+a*b      ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ a*b \in (-2^{15},2^{15}-1] \\
+2^{15}-1 ~ & ~ ~ ~ ~ ~ ~ ~ ~ otherwise                                \\
+\end{cases}
 \]
-Defining an integer matrix, for example, is possible as follows:
+\\ \hline
 \[
-\verb"ARRAY IntArray = int[] ARRAY IntMat = IntArray[]"
+a ~ +_{[RioMare]} ~ b ~ = ~
+\begin{cases} 
+-2^{15}  ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ a+b \in (-\infty, -2^{15}] \\
+a+b      ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ a+b \in (-2^{15},2^{15}-1] \\
+2^{15}-1 ~ & ~ ~ ~ ~ ~ ~ ~ ~ otherwise                                \\
+\end{cases}
 \]
-In addition, any place in the program that semantically allows an expression of type array,
-should semantically allow \verb"nil" instead. For instance,
-\begin{table}[h]
-\centering
-\begin{tabular}{ | l | l | }
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\verb"ARRAY IntArray = int[]"                &    \\
-\verb"void F(IntArray A){ PrintInt(A[8]); }" & OK \\
-\verb"void main(){ F(nil); }"               &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
+\\ \hline
+\[
+a ~ -_{[RioMare]} ~ b ~ = ~
+\begin{cases} 
+-2^{15}  ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ a-b \in (-\infty, -2^{15}] \\
+a-b      ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ a-b \in (-2^{15},2^{15}-1] \\
+2^{15}-1 ~ & ~ ~ ~ ~ ~ ~ ~ ~ otherwise                                \\
+\end{cases}
+\]
+\\ \hline
+\[
+a ~ /_{[RioMare]} ~ b ~ = ~
+\begin{cases} 
+-2^{15}             ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ \lfloor a/b \rfloor \in (-\infty, -2^{15}] \\
+\lfloor a/b \rfloor ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ \lfloor a/b \rfloor \in (-2^{15},2^{15}-1] \\
+2^{15}-1            ~ & ~ ~ ~ ~ ~ ~ ~ ~ otherwise                                                \\
+\end{cases}
+\]
+\\ \hline
 \end{tabular}
-\caption{nil sent instead of an integer array is semantically allowed.
-\label{Table_Code_Examples_nil_Instead_Of_Any_Array}}
+\caption{Semantics of RioMare binary operations between integers
+\label{Table_Semantics_Of_Rio_Mare_Binary_Operations_Between_Integers}}
 \end{table}
-\paragraph{Note} that allocating arrays with the new operator
-must be done with an \textit{integral size}.
-Similarly, accessing an array entry is semantically valid
-only when the \textit{subscript expression has an integer type}.
-Note further that if two arrays of type \verb"T" are defined,
-they are \textit{not} interchangeable:
-\begin{table}[h]
-\centering
-\begin{tabular}{ | l | l | }
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\verb"ARRAY gradesArray = int[]"                 &       \\
-\verb"ARRAY IDsArray    = int[]"                 &       \\
-\verb"void F(IDsArray ids){ PrintInt(ids[6]); }" &       \\
-\verb"void main()"                               &       \\
-\verb"{"                                         &       \\
-~ ~ ~ ~\verb"IDsArray ids       := NEW int[8];"  &       \\
-~ ~ ~ ~\verb"gradesArray grades := NEW int[8];"  &       \\
-~ ~ ~ ~\verb"F(grades);"                         & ERROR \\
-\verb"}"                                         &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-\end{tabular}
-\caption{Non interchangeable array types.
-\label{Table_Code_Examples_nil_Instead_Of_Any_Array}}
-\end{table}  
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SUB-SECTION :: Assignments %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Assignments}
-\label{subsection_Assignments}
-Assigning an expression to a variable is clearly legal whenever the two have the same type.
-In addition, following the concept in \ref{subsubsection_Classes},
-if class \verb"Son" is derived from class \verb"Father",
-then a variable of type \verb"Father" can be assigned an expression
-of type \verb"Son".
-Furthermore, following the concept in \ref{subsubsection_Classes} and \ref{subsubsection_Arrays},
-assigning \verb"nil" to array and class variables is legal.
-In contrast to that, assigning \verb"nil" to int and string variables is \textit{illegal}.
-To avoid an overly complex semantics,
-we will enforce a strict policy of initializing data members inside classes:
-a declared data member inside a class can be initialized \textit{only with a constant value}
-(that matches its type). Specifically, only constant integers, strings and \verb"nil"
-can be used, and even a simple expression like $5+6$ is forbidden.
-Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|l|l|}
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $1$ & \verb"CLASS Father { int i; }"             & OK \\
-     & \verb"Father f := nil;"                   &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $2$ & \verb"CLASS Father { int i; }"             &    \\
-     & \verb"CLASS Son EXTENDS Father { int j; }" & OK \\
-     & \verb"Father f := NEW Son;"                &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $3$ & \verb"CLASS Father { int i; }"                  & OK \\
-     & \verb"CLASS Son EXTENDS Father { int j := 8; }" &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $4$ & \verb"CLASS Father { int i := 9; }"             &       \\
-     & \verb"CLASS Son EXTENDS Father { int j := i; }" & ERROR \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $5$ & \verb"CLASS Father { int foo() { return 90; } }"    &       \\
-     & \verb"CLASS Son EXTENDS Father { int j := foo(); }" & ERROR \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $6$ & \verb"CLASS IntList"                       &       \\
-     & \verb"{"                                   &       \\
-     & ~ ~ ~ ~\verb"int head := -1;"              &       \\
-     & ~ ~ ~ ~\verb"IntList tail := NEW IntList;" & ERROR \\
-     & \verb"}"                                   &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $7$ & \verb"CLASS IntList"                            &    \\
-     & \verb"{"                                        &    \\
-     & ~ ~ ~ ~\verb"void Init() { tail := NEW List; }" & OK \\
-     & ~ ~ ~ ~\verb"int head;"                         &    \\
-     & ~ ~ ~ ~\verb"IntList tail;"                     &    \\
-     & \verb"}"                                        &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $8$ & \verb"ARRAY gradesArray  = int[]"   &       \\
-     & \verb"ARRAY IDsArray     = int[]"   &       \\
-     & \verb"IDsArray    i := NEW int[8];" &       \\
-     & \verb"gradesArray g := NEW int[8];" &       \\
-     & \verb"i := g;"                      & ERROR \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $9$ & \verb"string s := nil;" & ERROR \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-\end{tabular}
-\caption{Assignments.
-\label{Table_Code_Examples_Assignments}}
-\end{table}
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SUB-SECTION :: If and While Statements %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{If and While Statements}
-\label{subsection_If_And_While_Statements}
-The type of the condition inside if and while statements is the primitive type int.
+Binary operations between strings include concatenation,
+and testing for equality.
+When concatenating two strings $s_{1}$ and $s_{2}$, we should allocate enough 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: Return Statements %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -440,116 +143,12 @@ then all of its return statements must be \textit{empty} (\verb"return;").
 In contrast, when a function \verb"bar" has a non void return type \verb"T",
 then a return statement inside \verb"bar" must be \textit{non empty},
 and the type of the returned expression must match \verb"T".
-
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: Equality Testing %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Equality Testing}
 \label{subsection_Equality_Testing}
-Testing equality between two expressions is legal whenever the two have the same type.
-In addition, following the same reason in \ref{subsection_Assignments},
-if class \verb"Son" is derived from class \verb"Father",
-then an expression  of type \verb"Father" can be
-tested for equality with an expression of type \verb"Son".
-Furthermore, any class variable or array variable can be tested for equality with \verb"nil".
-But, in contrast, it is \textit{illegal} to compare a string variable to \verb"nil".
-The resulting type of a semantically valid comparison is the primitive type int.
-Table \ref{Table_Code_Examples_Equality_Testing} summarizes these facts.
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|l|l|}
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $1$ & \verb"CLASS Father { int i; int j; }" &    \\
-     & \verb"int Check(Father f)"            &    \\
-     & \verb"{"                              &    \\
-     & ~ ~ ~ ~\verb"if (f = nil)"           &    \\
-     & ~ ~ ~ ~\verb"{"                       & OK \\
-     & ~ ~ ~ ~ ~ ~ ~ ~\verb"return 800;"     &    \\
-     & ~ ~ ~ ~\verb"}"                       &    \\
-     & ~ ~ ~ ~\verb"return 774;"             &    \\
-     & \verb"}"                              &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $2$ & \verb"int Check(string s)"                                   &    \\
-     & \verb"{"                                                     &    \\
-     & ~ ~ ~ ~\verb"return s =" ``\verb"LosPollosHermanos""\verb";" & OK \\
-     & \verb"}"                                                     &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $3$ & \verb"ARRAY gradesArray = int[]"        &       \\
-     & \verb"ARRAY IDsArray    = int[]"        &       \\
-     & \verb"IDsArray   i:= NEW int[8];"       &       \\
-     & \verb"gradesArray g:=NEW int[8];"       &       \\
-     & \verb"int j := i = g;"                  & ERROR \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $4$ & \verb"string s1;"                                  &    \\
-     & \verb"string s2 := "``\verb"HankSchrader""\verb";" & OK \\
-     & \verb"int i := s1 = s2;"                           &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-\end{tabular}
-\caption{Equality testing.
-\label{Table_Code_Examples_Equality_Testing}}
-\end{table}
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SUB-SECTION :: Binary Operations %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Binary Operations}
-\label{subsection_Binary_Operations}
-Most binary operations $(-,*,/,<,>)$ are performed only between integers.
-The single exception to that is the $+$ binary operation,
-that can be performed between two integers or between two \textit{strings}.
-The resulting type of a semantically valid binary operation is the primitive type int,
-with the single exception of adding two strings, where the resulting type is a string.
-Table \ref{Table_Code_Examples_Binary_Operations} summarizes these facts.
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|l|l|}
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $1$ & \verb"CLASS Father"                     &    \\
-     & \verb"{"                                &    \\
-     & ~ ~ ~ ~\verb"int foo() { return 8/0; }" & OK \\
-     & \verb"}"                                &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $2$ & \verb"CLASS Father { string s1; string s2; }" &    \\
-     & \verb"void foo(Father f)"                     &    \\
-     & \verb"{"                                      & OK \\
-     & ~ ~ ~ ~\verb"f.s1 := f.s1 + f.s2;"            &    \\
-     & \verb"}"                                      &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $3$ & \verb"CLASS Father { string s1; string s2; }" &       \\
-     & \verb"void foo(Father f)"                     &       \\
-     & \verb"{"                                      &       \\
-     & ~ ~ ~ ~\verb"int i := f.s1 < f.s2;"           & ERROR \\
-     & \verb"}"                                      &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $4$ & \verb"CLASS Father { int j; int k; }" &    \\
-     & \verb"int foo(Father f)"              &    \\
-     & \verb"{"                              & OK \\
-     & ~ ~ ~ ~\verb"int i := 620;"           &    \\
-     & ~ ~ ~ ~\verb"return i < f.j;"         &    \\
-     & \verb"}"                              &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-\end{tabular}
-\caption{Binary Operations.
-\label{Table_Code_Examples_Binary_Operations}}
-\end{table}
-\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: Scope Rules %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -583,16 +182,17 @@ only the global scope is searched for its declaration.
 follows the same principal, with the slight difference that variables can be declared
 in all four kinds of scopes.
 Table \ref{Table_Code_Examples_Scope_Rules} summarizes these facts.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SUB-SECTION :: Library Functions %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Library Functions}
-\label{subsection_Library_Functions}
-RioMare defines two library functions: PrintInt and PrintString.\\
-The signatures of these functions are as follows:\\ \\
-\verb"void PrintInt(int i)      { ... }"\\ 
-\verb"void PrintString(string s){ ... }"\\ 
-\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SECTION :: System Calls %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{System Calls}
+\label{subsection_System_Calls}
+MIPS supports a limited set of system calls,
+out of which we will need only four:
+printing an integer,
+printing a string,
+allocating heap memory and
+exit the program.
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|l|l|}
