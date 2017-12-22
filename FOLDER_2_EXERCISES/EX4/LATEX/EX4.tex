@@ -234,21 +234,38 @@ exit the program.
 
 \begin{table}[h]
 \centering
-\begin{tabular}{|l|}
+\begin{tabular}{|l|l|l|}
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                                               \\
-\verb"CLASS counter { int i := 32767; }"       \\
-\verb"counter c := NEW counter;"               \\
-\verb"void inc(){ c.i := c.i + 1; }"           \\
-\verb"void dec(){ c.i := c.i - 1; }"           \\
-\verb"int foo(){ return c.i; }"                \\
-\verb"void main()"                             \\
-\verb"{"                                       \\
-\verb"    PrintInt(foo(inc(),dec()));"         \\
-\verb"}"                                       \\
-                                               \\
+system call example & MIPS code & Remarks      \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\verb"PrintInt(17)" & \verb"li $a0,17" & \\
+                    & \verb"li $v0,1"  & \\
+                    & \verb"syscall"   & \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\verb"string s:="``\verb"abc"" & \verb".data"                              & Printed string must be   \\
+\verb"PrintString(s)"          & \verb"myLovelyStr: .asciiz "``\verb"abc"" & null terminated.         \\
+                               & \verb".text"                              & It can be allocated      \\
+                               & \verb"main:"                              & inside the text section, \\
+                               & \verb"la $a0,myLovelyStr"                 & or in the heap.          \\
+                               & \verb"li $v0,4"                           &                          \\
+                               & \verb"syscall"                            &                          \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\verb"Malloc(17)" & \verb"li $a0,17" & allocated address         \\
+                  & \verb"li $v0,9"  & is returned in \verb"$v0" \\
+                  & \verb"syscall"   &                           \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\verb"Exit()"    & \verb"li $v0,10" & Make sure every              \\
+                 & \verb"syscall"   & MIPS program ends with exit. \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
 \caption{Relevant MIPS system calls.

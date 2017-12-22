@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.11.13)  22 DEC 2017 12:31
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.11.13)  22 DEC 2017 19:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -247,24 +247,29 @@ Overfull \hbox (1.15562pt too wide) in paragraph at lines 142--147
 rac-ti-cally) all pro-gram-ming lan-guages:
  []
 
-[3] [4] [5]
+[3] [4]
+Overfull \hbox (47.63829pt too wide) in paragraph at lines 237--272
+ [][] 
+ []
+
+[5]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 393--396
+Underfull \hbox (badness 10000) in paragraph at lines 410--413
 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 397.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 414.
 [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 397.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 414.
  (./EX4.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 397.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 397.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 414.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 414.
 Package rerunfilecheck Info: File `EX4.out' has not changed.
 (rerunfilecheck)             Checksum: D7183BA32A6DCB8037EF7AF0D35832F3;648.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 397.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 414.
  ) 
 Here is how much of TeX's memory you used:
  4887 strings out of 494910
@@ -286,7 +291,7 @@ amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pf
 b>
-Output written on EX4.pdf (7 pages, 153021 bytes).
+Output written on EX4.pdf (7 pages, 155580 bytes).
 PDF statistics:
  158 PDF objects out of 1000 (max. 8388607)
  135 compressed objects within 2 object streams
