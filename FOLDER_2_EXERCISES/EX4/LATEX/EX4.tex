@@ -134,6 +134,60 @@ the resulting string $s_{1}s_{2}$ is allocated on the heap,
 and should be null terminated. The result of testing contents equality
 is either $0$ when they are equal, or $1$ otherwise.
 \newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SECTION :: If and While Statements %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{If and While Statements}
+\label{subsection_If_And_While_Statements}
+\paragraph{While statements} behave similar to (practically) all programming languages:
+before executing their body, their condition is evaluated.
+If it equals $0$, the body is ignored, and control is transferred
+to the statement immediately after the body.
+Otherwise, the body is executed, then the condition is evaluated again, and so forth. 
+\paragraph{If statements} behave similar to (practically) all programming languages:
+before executing their body, their condition is evaluated.
+If it equals $0$, the body is ignored, and control is transferred
+to the statement immediately after the body.
+Otherwise, the body is executed exactly once,
+then control is transferred to the statement immediately after the body. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SECTION :: Function Calls and Order of Evaluation %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Function Calls and Order of Evaluation}
+\label{subsection_Function_Calls_And_Order_Of_Evaluation}
+\paragraph{When calling a function} with more than one input parameter,
+the evaluation order matters. You should evaluate the sent parameters
+from left to right, so for example, the following code should print \verb"32766":
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|}
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                               \\
+\verb"CLASS counter { int i := 32767; }"       \\
+\verb"counter c := NEW counter;"               \\
+\verb"void inc(){ c.i := c.i + 1; }"           \\
+\verb"void dec(){ c.i := c.i - 1; }"           \\
+\verb"int foo(){ return c.i; }"                \\
+\verb"void main()"                             \\
+\verb"{"                                       \\
+\verb"    PrintInt(foo(inc(),dec()));"         \\
+\verb"}"                                       \\
+                                               \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption{Evaluation order of a called function's parameters matters.
+\label{Table_Code_Example_Evaluation_Order_Function_Call}}
+\end{table}
+\paragraph{When evaluating global variables} order matters,
+and it should be the same as the order of appearance in the original program.
+Note that before entering main, all global variables with initialized values
+should be evaluated.
+\paragraph{Initializing class data members}
+should occur during the construction of the object.
+The order in which you evaluate the data members initializations is irrelevant.
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: Runtime Checks %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -166,23 +220,6 @@ The following code demonstrates an illegal array access:
 \verb"ARRAY IntArray = int[] IntArray A := NEW int[6]; int i := A[18];"
 \]
 \newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SUB-SECTION :: If and While Statements %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{If and While Statements}
-\label{subsection_If_And_While_Statements}
-\paragraph{While statements} behave similar to (practically) all programming languages:
-before executing their body, their condition is evaluated.
-If it equals $0$, the body is ignored, and control is transferred
-to the statement immediately after the body.
-Otherwise, the body is executed, then the condition is evaluated again, and so forth. 
-\paragraph{If statements} behave similar to (practically) all programming languages:
-before executing their body, their condition is evaluated.
-If it equals $0$, the body is ignored, and control is transferred
-to the statement immediately after the body.
-Otherwise, the body is executed exactly once,
-then control is transferred to the statement immediately after the body. 
-\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: System Calls %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -194,65 +231,28 @@ printing an integer,
 printing a string,
 allocating heap memory and
 exit the program.
+
 \begin{table}[h]
 \centering
-\begin{tabular}{|l|l|l|}
+\begin{tabular}{|l|}
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $1$ & \verb"int salary := 7800;"                            &    \\
-     & \verb"void foo()"                                     &    \\
-     & \verb"{"                                              & OK \\
-     & ~ ~ ~ ~\verb"string salary := "``\verb"6950""\verb";" &    \\
-     & \verb"}"                                              &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $2$ & \verb"int salary := 7800;"        &    \\
-     & \verb"void foo(string salary)"    &    \\
-     & \verb"{"                          & OK \\
-     & ~ ~ ~ ~\verb"PrintString(salary)" &    \\
-     & \verb"}"                          &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $3$ & \verb"void foo(string salary)"    &       \\
-     & \verb"{"                          &       \\
-     & ~ ~ ~ ~\verb"int salary := 7800;" & ERROR \\
-     & ~ ~ ~ ~\verb"PrintString(salary)" &       \\
-     & \verb"}"                          &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $4$ & \verb"string myvar := "``\verb"80""\verb";" &    \\
-     & \verb"CLASS Father"                         &    \\
-     & \verb"{"                                    &    \\
-     & ~ ~ ~ ~\verb"Father myvar := nil;"          &    \\
-     & ~ ~ ~ ~\verb"void foo()"                    & OK \\
-     & ~ ~ ~ ~\verb"{"                             &    \\
-     & ~ ~ ~ ~ ~ ~ ~ ~\verb"int myvar := 100;"     &    \\
-     & ~ ~ ~ ~ ~ ~ ~ ~\verb"PrintInt(myvar);"      &    \\
-     & ~ ~ ~ ~\verb"}"                             &    \\
-     & \verb"}"                                    &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $5$ & \verb"int foo(string s) { return 800;}"    &    \\
-     & \verb"CLASS Father"                        &    \\
-     & \verb"{"                                   &    \\
-     & ~ ~ ~ ~\verb"string foo(string s)"         &    \\
-     & ~ ~ ~ ~\verb"{"                            &    \\
-     & ~ ~ ~ ~ ~ ~ ~ ~\verb"return s;"            & OK \\
-     & ~ ~ ~ ~\verb"}"                            &    \\
-     & ~ ~ ~ ~\verb"void Print()"                 &    \\
-     & ~ ~ ~ ~\verb"{"                            &    \\
-     & ~ ~ ~ ~ ~ ~ ~ ~\verb"PrintString(foo("``\verb"Jerry""\verb"));"  & \\
-     & ~ ~ ~ ~\verb"}"                            &    \\
-     & \verb"}"                                   &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                               \\
+\verb"CLASS counter { int i := 32767; }"       \\
+\verb"counter c := NEW counter;"               \\
+\verb"void inc(){ c.i := c.i + 1; }"           \\
+\verb"void dec(){ c.i := c.i - 1; }"           \\
+\verb"int foo(){ return c.i; }"                \\
+\verb"void main()"                             \\
+\verb"{"                                       \\
+\verb"    PrintInt(foo(inc(),dec()));"         \\
+\verb"}"                                       \\
+                                               \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
-\caption{Scope Rules.
-\label{Table_Code_Examples_Scope_Rules}}
+\caption{Relevant MIPS system calls.
+\label{Table_MIPS_System_Calls}}
 \end{table}
 \newpage
 \begin{table}[h]

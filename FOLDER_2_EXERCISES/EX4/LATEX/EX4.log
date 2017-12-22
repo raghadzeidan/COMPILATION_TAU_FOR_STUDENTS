@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.11.13)  22 DEC 2017 11:48
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.11.13)  22 DEC 2017 12:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -241,74 +241,55 @@ LaTeX Info: Redefining \nameref on input line 16.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-[2] [3]
-Overfull \hbox (1.15562pt too wide) in paragraph at lines 174--179
+[2]
+Overfull \hbox (1.15562pt too wide) in paragraph at lines 142--147
  []\OT1/cmr/bx/n/10 While state-ments[] \OT1/cmr/m/n/10 be-have sim-i-lar to (p
 rac-ti-cally) all pro-gram-ming lan-guages:
  []
 
-[4]
+[3] [4] [5]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
+[6]
 Underfull \hbox (badness 10000) in paragraph at lines 393--396
 
  []
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 397.
-[6] [7] [8]
+[7]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 397.
  (./EX4.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 397.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 397.
-
-
-Package rerunfilecheck Warning: File `EX4.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `EX4.out':
-(rerunfilecheck)             Before: 18C93DE61894AA69982D1C1C94345453;621
-(rerunfilecheck)             After:  5BCE8A51A78AD22C13159E030CC8075A;560.
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+Package rerunfilecheck Info: File `EX4.out' has not changed.
+(rerunfilecheck)             Checksum: D7183BA32A6DCB8037EF7AF0D35832F3;648.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 397.
  ) 
 Here is how much of TeX's memory you used:
- 4883 strings out of 494910
- 71135 string characters out of 6178754
- 166881 words of memory out of 5000000
- 8077 multiletter control sequences out of 15000+600000
+ 4887 strings out of 494910
+ 71238 string characters out of 6178754
+ 157002 words of memory out of 5000000
+ 8078 multiletter control sequences out of 15000+600000
  9191 words of font info for 34 fonts, out of 8000000 for 9000
  81 hyphenation exceptions out of 8191
  29i,19n,28p,264b,339s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{subsection.3.5} has been referenced but does not 
-exist, replaced by a fixed one
-
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
-7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on EX4.pdf (8 pages, 153361 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+sy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pf
+b>
+Output written on EX4.pdf (7 pages, 153021 bytes).
 PDF statistics:
  158 PDF objects out of 1000 (max. 8388607)
- 134 compressed objects within 2 object streams
- 32 named destinations out of 1000 (max. 500000)
+ 135 compressed objects within 2 object streams
+ 35 named destinations out of 1000 (max. 500000)
  89 words of extra memory for PDF output out of 10000 (max. 10000000)
 
