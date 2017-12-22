@@ -76,7 +76,7 @@ and provides a multitude of example programs.
 % SUB-SECTION :: Binary Operations %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Binary Operations}
-Recall that integers in RioMare are artificially bounded between $-2^{15}$ and $2^{15}$.
+\paragraph{Integers} in RioMare are artificially bounded between $-2^{15}$ and $2^{15}-1$.
 The semantics of integer binary operations in RioMare is therefore somewhat different
 than that of standard programming languages.
 It is presented in Table \ref{Table_Semantics_Of_Rio_Mare_Binary_Operations_Between_Integers},
@@ -127,61 +127,62 @@ a ~ /_{[RioMare]} ~ b ~ = ~
 \caption{Semantics of RioMare binary operations between integers
 \label{Table_Semantics_Of_Rio_Mare_Binary_Operations_Between_Integers}}
 \end{table}
-Binary operations between strings include concatenation,
-and testing for equality.
-When concatenating two strings $s_{1}$ and $s_{2}$, we should allocate enough 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SUB-SECTION :: Return Statements %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Return Statements}
-\label{subsection_Return_Statements}
-According to the syntax of RioMare, return statements can only be found inside functions.
-Since functions can \textit{not} be nested,
-it follows that a return statement belongs to \textit{exactly one} function.
-when a function \verb"foo" is declared to have a \verb"void" return type,
-then all of its return statements must be \textit{empty} (\verb"return;").
-In contrast, when a function \verb"bar" has a non void return type \verb"T",
-then a return statement inside \verb"bar" must be \textit{non empty},
-and the type of the returned expression must match \verb"T".
+\paragraph{Strings} can be concatenated with binary operation $+$,
+and tested for (contents) equality with binary operator $=$.
+When concatenating two (null terminated) strings $\{s_{i}\}_{i=1}^{2}$,
+the resulting string $s_{1}s_{2}$ is allocated on the heap,
+and should be null terminated. The result of testing contents equality
+is either $0$ when they are equal, or $1$ otherwise.
 \newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SUB-SECTION :: Equality Testing %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Equality Testing}
-\label{subsection_Equality_Testing}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SUB-SECTION :: Scope Rules %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Scope Rules}
-\label{subsection_Scope_Rules}
-\paragraph{RioMare} defines four kinds of scopes:
-block scopes of if and while statements,
-function scopes,
-class scopes and
-the outermost global scope.
-When an identifier is being used at some point in the program,
-its declaration is searched for in all of its enclosing scopes.
-The search starts from the innermost scope, 
-and ends at the outermost (global) scope.
-\paragraph{Note} that array type declarations and
-class type declarations can only be defined
-in the outermost (global) scope.
-Class type names and array type names must be different than any
-previously defined variable names, function names, class type names
-and array type names.
-\paragraph{Functions} can be defined only in the class scopes, and the global scope.
-Following the same reason in \ref{Table_Code_Examples_Use_Before_Def},
-functions may only refer to previously defined types, variables and functions.
-When a function is being called inside a class scope, the declaration
-of a function with that name is searched first in its class scope.
-If no such function is found, the search moves to the global scope,
-and if the declaration is missing there too, a semantic error is issued.
-Following the same reason, when a function is being called inside the global scope,
-only the global scope is searched for its declaration.
-\paragraph{Resolving} a variable identifier
-follows the same principal, with the slight difference that variables can be declared
-in all four kinds of scopes.
-Table \ref{Table_Code_Examples_Scope_Rules} summarizes these facts.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SECTION :: Runtime Checks %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Runtime Checks}
+\label{subsection_Runtime_Checks}
+RioMare enforces three kinds of runtime checks:
+division by zero, invalid pointer dereference and out of bound array access.
+\paragraph{Division by zero} should be handled by printing ``Division By Zero",
+and then exit gracefully by using the exit system call.
+The following code will result in such behaviour:
+\[
+\verb"int i:= 6; while (i+1) { int j := 8/i; i := i-1; }"
+\]
+\paragraph{Invalid pointer dereference} can occur when trying to
+access data members or methods of uninitialized class variable.
+For example, here:
+\[
+\verb"CLASS Father { int i; int j; } Father f; int i := f.i;"
+\]
+Similarly, assigning \verb"NIL" to \verb"f" should clearly trigger the same behaviour:
+\[
+\verb"CLASS Father { int i; int j; } Father f := NIL; int i := f.i;"
+\]
+When an invalid pointer dereference occurs, the program should print
+``Invalid Pointer Dereference" and then then exit gracefully by using the exit system call.
+\paragraph{Out of bound array access} should be handled by printing "Access Violation" 
+and then exit gracefully by using the exit system call.
+The following code demonstrates an illegal array access:
+\[
+\verb"ARRAY IntArray = int[] IntArray A := NEW int[6]; int i := A[18];"
+\]
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SECTION :: If and While Statements %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{If and While Statements}
+\label{subsection_If_And_While_Statements}
+\paragraph{While statements} behave similar to (practically) all programming languages:
+before executing their body, their condition is evaluated.
+If it equals $0$, the body is ignored, and control is transferred
+to the statement immediately after the body.
+Otherwise, the body is executed, then the condition is evaluated again, and so forth. 
+\paragraph{If statements} behave similar to (practically) all programming languages:
+before executing their body, their condition is evaluated.
+If it equals $0$, the body is ignored, and control is transferred
+to the statement immediately after the body.
+Otherwise, the body is executed exactly once,
+then control is transferred to the statement immediately after the body. 
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: System Calls %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

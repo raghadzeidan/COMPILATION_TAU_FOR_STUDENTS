@@ -2,10 +2,9 @@
 \BOOKMARK [1][-]{section.2}{Programming Assignment}{}% 2
 \BOOKMARK [1][-]{section.3}{The RioMare Semantics}{}% 3
 \BOOKMARK [2][-]{subsection.3.1}{Binary Operations}{section.3}% 4
-\BOOKMARK [2][-]{subsection.3.2}{Return Statements}{section.3}% 5
-\BOOKMARK [2][-]{subsection.3.3}{Equality Testing}{section.3}% 6
-\BOOKMARK [2][-]{subsection.3.4}{Scope Rules}{section.3}% 7
-\BOOKMARK [2][-]{subsection.3.5}{System Calls}{section.3}% 8
-\BOOKMARK [1][-]{section.4}{Input}{}% 9
-\BOOKMARK [1][-]{section.5}{Output}{}% 10
-\BOOKMARK [1][-]{section.6}{Submission Guidelines}{}% 11
+\BOOKMARK [2][-]{subsection.3.2}{Runtime Checks}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{If and While Statements}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.4}{System Calls}{section.3}% 7
+\BOOKMARK [1][-]{section.4}{Input}{}% 8
+\BOOKMARK [1][-]{section.5}{Output}{}% 9
+\BOOKMARK [1][-]{section.6}{Submission Guidelines}{}% 10
