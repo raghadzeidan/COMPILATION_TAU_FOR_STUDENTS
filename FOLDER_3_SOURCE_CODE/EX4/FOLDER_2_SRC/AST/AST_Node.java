@@ -1,30 +1,29 @@
-/***********/
-/* PACKAGE */
-/***********/
 package AST;
 
-/*******************/
-/* PROJECT IMPORTS */
-/*******************/
-import AST_VISITOR.*;
+import TEMP.*;
 
-/************/
-/* AST Node */
-/************/
 public abstract class AST_Node
 {
+	/*******************************************/
+	/* The serial number is for debug purposes */
+	/* In particular, it can help in creating  */
+	/* a graphviz dot format of the AST ...    */
+	/*******************************************/
 	public int SerialNumber;
 	
-	public int PrintMe()
+	/***********************************************/
+	/* The default message for an unknown AST node */
+	/***********************************************/
+	public void PrintMe()
 	{
-		return 700;
+		System.out.print("AST NODE UNKNOWN\n");
 	}
 
-	/****************************/
-	/* ACCEPT AST VISITOR(S):   */
-	/* [1] AST PRINTING VISITOR */
-	/* [2] AST SEMANTIC VISITOR */
-	/* [3] AST CODE_GEN VISITOR */
-	/****************************/
-	public void Accept_AST_Visitor(AST_Visitor v){v.Visit(this);}
+	/*****************************************/
+	/* The default IR action for an AST node */
+	/*****************************************/
+	public TEMP IRme()
+	{
+		return null;
+	}
 }

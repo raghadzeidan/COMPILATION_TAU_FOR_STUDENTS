@@ -64,7 +64,8 @@ import java_cup.runtime.*;
 	/*******************************************/
 	/* Enable line number extraction from main */
 	/*******************************************/
-	public int getLine() { return yyline + 1; } 
+	public int getLine()    { return yyline + 1; }
+	public int getCharPos() { return yycolumn;   } 
 %}
 
 /***********************/
@@ -74,6 +75,7 @@ LineTerminator	= \r|\n|\r\n
 WhiteSpace		= {LineTerminator} | [ \t\f]
 INTEGER			= 0 | [1-9][0-9]*
 ID				= [a-zA-Z]+
+STRING			= \"[a-z|A-Z]*\"
    
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
@@ -100,6 +102,7 @@ ID				= [a-zA-Z]+
 "+"					{ return symbol(TokenNames.PLUS);}
 "-"					{ return symbol(TokenNames.MINUS);}
 "class"				{ return symbol(TokenNames.CLASS);}
+"return"			{ return symbol(TokenNames.RETURN);}
 "*"					{ return symbol(TokenNames.TIMES);}
 "/"					{ return symbol(TokenNames.DIVIDE);}
 ":="				{ return symbol(TokenNames.ASSIGN);}
@@ -113,6 +116,7 @@ ID				= [a-zA-Z]+
 ";"					{ return symbol(TokenNames.SEMICOLON);}
 {ID}				{ return symbol(TokenNames.ID, new String(yytext()));}
 {INTEGER}			{ return symbol(TokenNames.INT, new Integer(yytext()));}
+{STRING}			{ return symbol(TokenNames.STRING, new String(yytext()));}
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
 {LineTerminator}	{ /* just skip what was found, do nothing */ }
 <<EOF>>				{ return symbol(TokenNames.EOF);}
