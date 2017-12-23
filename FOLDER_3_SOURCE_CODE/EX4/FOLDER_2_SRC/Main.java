@@ -1,16 +1,10 @@
-/*******************/
-/* GENERAL IMPORTS */
-/*******************/
+   
 import java.io.*;
 import java.io.PrintWriter;
 import java_cup.runtime.Symbol;
-
-/*******************/
-/* PROJECT IMPORTS */
-/*******************/
 import AST.*;
-import AST_PRINT.*;
-import AST_VISITOR.*;
+import IR.*;
+import MIPS.*;
 
 public class Main
 {
@@ -19,13 +13,11 @@ public class Main
 		Lexer l;
 		Parser p;
 		Symbol s;
-		AST_STMT_LIST AST;
-		AST_Printing_Visitor v;
+		AST_DEC_LIST AST;
 		FileReader file_reader;
 		PrintWriter file_writer;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
-		v = new AST_Printing_Visitor(argv[2]);
 		
 		try
 		{
@@ -52,22 +44,40 @@ public class Main
 			/***********************************/
 			/* [5] 3 ... 2 ... 1 ... Parse !!! */
 			/***********************************/
-			AST = (AST_STMT_LIST) p.parse().value;
+			AST = (AST_DEC_LIST) p.parse().value;
 			
-			/*******************************************************/
-			/* [6] Print AST recursively with AST Printing Visitor */
-			/*******************************************************/
-			AST.Accept_AST_Visitor(v);
-			
-			// while (AST != null)
-			// {
-			//	System.out.print(AST.PrintMe());
-			//	System.out.print("\n");
-			//	AST = AST.tail;
-			// }
-			
+			/*************************/
+			/* [6] Print the AST ... */
+			/*************************/
+			AST.PrintMe();
+
 			/**************************/
-			/* [10] Close output file */
+			/* [7] Semant the AST ... */
+			/**************************/
+			AST.SemantMe();
+
+			/**********************/
+			/* [8] IR the AST ... */
+			/**********************/
+			AST.IRme();
+			
+			/***********************/
+			/* [9] MIPS the IR ... */
+			/***********************/
+			IR.getInstance().MIPSme();
+
+			/**************************************/
+			/* [10] Finalize AST GRAPHIZ DOT file */
+			/**************************************/
+			AST_GRAPHVIZ.getInstance().finalizeFile();			
+
+			/***************************/
+			/* [11] Finalize MIPS file */
+			/***************************/
+			sir_MIPS_a_lot.getInstance().finalizeFile();			
+
+			/**************************/
+			/* [12] Close output file */
 			/**************************/
 			file_writer.close();
     	}
