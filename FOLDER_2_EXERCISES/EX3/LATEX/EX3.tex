@@ -346,21 +346,21 @@ Table \ref{Table_Code_Examples_Assignments} summarizes these facts.
      & \verb"}"                                   &       \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $7$ & \verb"CLASS IntList"                            &    \\
-     & \verb"{"                                        &    \\
-     & ~ ~ ~ ~\verb"void Init() { tail := NEW List; }" & OK \\
-     & ~ ~ ~ ~\verb"int head;"                         &    \\
-     & ~ ~ ~ ~\verb"IntList tail;"                     &    \\
-     & \verb"}"                                        &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $7$ & \verb"CLASS IntList"                               &    \\
+     & \verb"{"                                           &    \\
+     & ~ ~ ~ ~\verb"void Init() { tail := NEW IntList; }" & OK \\
+     & ~ ~ ~ ~\verb"int head;"                            &    \\
+     & ~ ~ ~ ~\verb"IntList tail;"                        &    \\
+     & \verb"}"                                           &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  $8$ & \verb"ARRAY gradesArray  = int[]"   &       \\
      & \verb"ARRAY IDsArray     = int[]"   &       \\
      & \verb"IDsArray    i := NEW int[8];" &       \\
      & \verb"gradesArray g := NEW int[8];" &       \\
-     & \verb"i := g;"                      & ERROR \\
+     & \verb"void foo() { i := g; }"       & ERROR \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -556,21 +556,21 @@ The signatures of these functions are as follows:\\ \\
      & \verb"}"                                              &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $2$ & \verb"int salary := 7800;"        &    \\
-     & \verb"void foo(string salary)"    &    \\
-     & \verb"{"                          & OK \\
-     & ~ ~ ~ ~\verb"PrintString(salary)" &    \\
-     & \verb"}"                          &    \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $2$ & \verb"int salary := 7800;"         &    \\
+     & \verb"void foo(string salary)"     &    \\
+     & \verb"{"                           & OK \\
+     & ~ ~ ~ ~\verb"PrintString(salary);" &    \\
+     & \verb"}"                           &    \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $3$ & \verb"void foo(string salary)"    &       \\
-     & \verb"{"                          &       \\
-     & ~ ~ ~ ~\verb"int salary := 7800;" & ERROR \\
-     & ~ ~ ~ ~\verb"PrintString(salary)" &       \\
-     & \verb"}"                          &       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ $3$ & \verb"void foo(string salary)"     &       \\
+     & \verb"{"                           &       \\
+     & ~ ~ ~ ~\verb"int salary := 7800;"  & ERROR \\
+     & ~ ~ ~ ~\verb"PrintString(salary);" &       \\
+     & \verb"}"                           &       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  $4$ & \verb"string myvar := "``\verb"80""\verb";" &    \\
