@@ -106,3 +106,39 @@ example_03:
 	@setterm -term linux -fore white
 	./example_03_clang
 
+.PHONY: example_04
+example_04:
+	@clear
+	@setterm -term linux -fore blue
+	@echo "************************"
+	@echo "*                      *"
+	@echo "* [0] Compile with gcc *"
+	@echo "*                      *"
+	@echo "************************"
+	@setterm -term linux -fore white
+	gcc -o example_04_gcc example_04_destructing_objects.cpp
+	@setterm -term linux -fore blue
+	@echo "**************************"
+	@echo "*                        *"
+	@echo "* [1] Compile with clang *"
+	@echo "*                        *"
+	@echo "**************************"
+	@setterm -term linux -fore white
+	clang -o example_04_clang example_04_destructing_objects.cpp
+	@setterm -term linux -fore blue
+	@echo "********************************"
+	@echo "*                              *"
+	@echo "* [2] Run gcc compiled version *"
+	@echo "*                              *"
+	@echo "********************************"
+	@setterm -term linux -fore white
+	./example_04_gcc
+	@setterm -term linux -fore blue
+	@echo "**********************************"
+	@echo "*                                *"
+	@echo "* [3] Run clang compiled version *"
+	@echo "*                                *"
+	@echo "**********************************"
+	@setterm -term linux -fore white
+	./example_04_clang
+
