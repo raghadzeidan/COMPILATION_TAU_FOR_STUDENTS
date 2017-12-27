@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.11.13)  24 DEC 2017 08:45
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.11.13)  24 DEC 2017 09:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -204,12 +204,12 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [5] [6] [7] [8]
-Underfull \hbox (badness 10000) in paragraph at lines 542--546
+Underfull \hbox (badness 10000) in paragraph at lines 546--550
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 542--546
+Underfull \hbox (badness 10000) in paragraph at lines 546--550
 
  []
 
@@ -224,23 +224,23 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 745--748
+Underfull \hbox (badness 10000) in paragraph at lines 749--752
 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 749.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 753.
 [10] [11] [12]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 749.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 753.
  (./EX3.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 749.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 749.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 753.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 753.
 Package rerunfilecheck Info: File `EX3.out' has not changed.
 (rerunfilecheck)             Checksum: 747F2636E2B01FA9011C908DA20115E6;944.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 749.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 753.
  ) 
 Here is how much of TeX's memory you used:
  4324 strings out of 494910
@@ -261,7 +261,7 @@ blic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 tt10.pfb>
-Output written on EX3.pdf (12 pages, 162453 bytes).
+Output written on EX3.pdf (12 pages, 162650 bytes).
 PDF statistics:
  213 PDF objects out of 1000 (max. 8388607)
  186 compressed objects within 2 object streams

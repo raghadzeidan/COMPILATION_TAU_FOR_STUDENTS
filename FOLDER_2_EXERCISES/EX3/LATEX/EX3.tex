@@ -519,9 +519,13 @@ and ends at the outermost (global) scope.
 class type declarations can only be defined
 in the outermost (global) scope.
 Class type names and array type names must be different than any
-previously defined variable names, function names, class type names
-and array type names.
+previously defined variable names, function names, class type names,
+array type names, primitive type names (int and string) and library function names
+(PrintInt and PrintString).
 \paragraph{Functions} can be defined only in the class scopes, and the global scope.
+When a function is defined in the global scope, its name must be different than
+any class type name, array type name, previously defined functions in the global scope,
+primitive type names (int and string) and library function names (PrintInt and PrintString).
 Following the same reason in \ref{Table_Code_Examples_Use_Before_Def},
 functions may only refer to previously defined types, variables and functions.
 When a function is being called inside a class scope, the declaration
