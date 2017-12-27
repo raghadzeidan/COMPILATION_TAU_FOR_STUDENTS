@@ -1,1 +1,1 @@
-INT(5)*INT(8)*INT(6)*INT(5)
+INT(3)-INT(4)*INT(8)
