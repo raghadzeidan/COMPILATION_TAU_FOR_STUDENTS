@@ -1,5 +1,8 @@
 int main()
 {
-	PrintInt(1+7+12+55);
+	int i := 7;
+	int j := 8;
+	int k := 9;
+	PrintInt(i+j+k+55);
 }
 

@@ -212,13 +212,35 @@ everything:
 	@echo "*                                                         *"
 	@echo "*                                                         *"
 	@echo "***********************************************************"
-	./Allocate_Registers_Ad_Hoc
+	#./Allocate_Registers_Ad_Hoc
+	sed -i 's/Temp_0/$$t0/g'     ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/\bTemp_2\b/$$t1/g' ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_4/$$t2/g'     ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_10/$$t3/g'    ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_12/$$t4/g'    ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_14/$$t5/g'    ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/\bTemp_1\b/$$t6/g' ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/\bTemp_3\b/$$t6/g' ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_5/$$t6/g'     ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_9/$$t6/g'     ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_11/$$t0/g'    ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_17/$$t1/g'    ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_16/$$t2/g'    ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_8/$$t3/g'     ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_13/$$t4/g'    ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_19/$$t5/g'    ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_18/$$t0/g'    ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_7/$$t7/g'     ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_15/$$t0/g'    ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_21/$$t1/g'    ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_20/$$t2/g'    ${OUTPUT_DIR}/MIPS.txt
+	sed -i 's/Temp_6/$$t3/g'     ${OUTPUT_DIR}/MIPS.txt
 	@echo "\n"
-	@echo "****************************************"
-	@echo "*                                      *"
-	@echo "*                                      *"
-	@echo "* [9] Run spim and redirect its output *"
-	@echo "*                                      *"
-	@echo "*                                      *"
-	@echo "****************************************"
+	@echo "*****************************************"
+	@echo "*                                       *"
+	@echo "*                                       *"
+	@echo "* [11] Run spim and redirect its output *"
+	@echo "*                                       *"
+	@echo "*                                       *"
+	@echo "*****************************************"
 	spim -f ${OUTPUT_DIR}/MIPS.txt > ${OUTPUT_DIR}/MIPS_OUTPUT.txt	

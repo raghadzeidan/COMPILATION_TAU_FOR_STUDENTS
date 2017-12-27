@@ -1,5 +1,8 @@
 package AST;
 
+import IR.*;
+import TEMP.*;
+import MIPS.*;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 
@@ -10,6 +13,11 @@ public class AST_EXP_VAR_SIMPLE extends AST_EXP_VAR
 	/************************/
 	public String name;
 	
+	/************************************************/
+	/* PRIMITIVE AD-HOC COUNTER FOR LOCAL VARIABLES */
+	/************************************************/
+	public static int localVariablesCounter = 0;
+
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
@@ -40,6 +48,15 @@ public class AST_EXP_VAR_SIMPLE extends AST_EXP_VAR
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
 			String.format("SIMPLE\nVAR\n(%s)",name));
+	}
+	public TEMP IRme()
+	{
+		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+		IR.getInstance().Add_IRcommand(new IRcommand_Load(
+			t,
+			sir_MIPS_a_lot.getInstance().addressLocalVar(++localVariablesCounter)));
+
+		return t;
 	}
 	public TYPE SemantMe()
 	{

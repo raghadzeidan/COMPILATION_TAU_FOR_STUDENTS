@@ -15,6 +15,7 @@ import TEMP.*;
 
 public class sir_MIPS_a_lot
 {
+	private int WORD_SIZE=4;
 	/***********************/
 	/* The file writer ... */
 	/***********************/
@@ -36,6 +37,27 @@ public class sir_MIPS_a_lot
 		fileWriter.format("\tmove $a0,Temp_%d\n",idx);
 		fileWriter.format("\tli $v0,1\n");
 		fileWriter.format("\tsyscall\n");
+	}
+	public TEMP addressLocalVar(int serialLocalVarNum)
+	{
+		TEMP t  = TEMP_FACTORY.getInstance().getFreshTEMP();
+		int idx = t.getSerialNumber();
+
+		fileWriter.format("\taddi Temp_%d,$fp,%d\n",idx,-serialLocalVarNum*WORD_SIZE);
+		
+		return t;
+	}
+	public void load(TEMP dst,TEMP src)
+	{
+		int idxdst=dst.getSerialNumber();
+		int idxsrc=src.getSerialNumber();
+		fileWriter.format("\tlw Temp_%d,0(Temp_%d)\n",idxdst,idxsrc);		
+	}
+	public void store(TEMP dst,TEMP src)
+	{
+		int idxdst=dst.getSerialNumber();
+		int idxsrc=src.getSerialNumber();
+		fileWriter.format("\tsw Temp_%d,0(Temp_%d)\n",idxsrc,idxdst);		
 	}
 	public void li(TEMP t,int value)
 	{
@@ -130,6 +152,11 @@ public class sir_MIPS_a_lot
 			/************************************************/
 			instance.fileWriter.print(".text\n");
 			instance.fileWriter.print("main:\n");
+
+			/******************************************/
+			/* [5] Will work with <= 10 variables ... */
+			/******************************************/
+			instance.fileWriter.print("\taddi $fp,$sp,40\n");
 		}
 		return instance;
 	}

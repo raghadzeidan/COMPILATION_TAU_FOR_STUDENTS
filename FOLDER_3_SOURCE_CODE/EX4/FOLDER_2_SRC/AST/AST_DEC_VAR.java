@@ -1,5 +1,8 @@
 package AST;
 
+import IR.*;
+import TEMP.*;
+import MIPS.*;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 
@@ -12,6 +15,11 @@ public class AST_DEC_VAR extends AST_DEC
 	public String name;
 	public AST_EXP initialValue;
 	
+	/************************************************/
+	/* PRIMITIVE AD-HOC COUNTER FOR LOCAL VARIABLES */
+	/************************************************/
+	public static int localVariablesCounter = 0;
+
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
@@ -57,6 +65,17 @@ public class AST_DEC_VAR extends AST_DEC
 			
 	}
 
+	public TEMP IRme()
+	{
+		if (initialValue != null)
+		{
+			IR.getInstance().Add_IRcommand(new IRcommand_Store(
+				sir_MIPS_a_lot.getInstance().addressLocalVar(++localVariablesCounter),
+				initialValue.IRme()));
+		}
+		return null;
+	}
+	
 	public TYPE SemantMe()
 	{
 		TYPE t;
