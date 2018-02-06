@@ -28,6 +28,7 @@ void PrintPrimes(int start, int end)
         {
             PrintInt(p);
         }
+        p := p + 1;
     }
 }
 
