@@ -37,6 +37,9 @@ void main()
 		i := i + 1;
 	}
 	
-	A[ 3]->WALK();
-	A[20]->SWIM();
+	Grandfather g1 := A[ 3];
+	Grandfather g2 := A[20];
+
+	g1->SWIM();
+	g2->WALK();
 }
