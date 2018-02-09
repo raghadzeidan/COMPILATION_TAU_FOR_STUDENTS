@@ -2,7 +2,17 @@ class Tree {
 Tree left  := nil;
 Tree right := nil;
 int weight := 0;
-int sum() { return weight + left.sum() + right.sum(); }
+int sum() { 
+	int res := weight;
+	if (1 - (left = nil))
+	{
+		res := res + left.sum();
+	}
+	if (1 - (right = nil))
+	{
+		res := res + right.sum();
+	}
+	return res; }
 }
 
 array TreeArray = Tree[]
@@ -18,7 +28,7 @@ void main()
 	{
 		TA[i] := new Tree;
 		TA[i].weight := 19*i;
-		i++;
+		i := i+1;
 	}
 
 	root.left  := TA[0];

@@ -1,4 +1,4 @@
-int sum() { retun 4; }
+int sum() { return 4; }
 
 class foo
 {

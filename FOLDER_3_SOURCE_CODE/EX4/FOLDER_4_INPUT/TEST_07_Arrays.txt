@@ -40,6 +40,6 @@ void main()
 	Grandfather g1 := A[ 3];
 	Grandfather g2 := A[20];
 
-	g1->SWIM();
-	g2->WALK();
+	g1.SWIM();
+	g2.WALK();
 }
