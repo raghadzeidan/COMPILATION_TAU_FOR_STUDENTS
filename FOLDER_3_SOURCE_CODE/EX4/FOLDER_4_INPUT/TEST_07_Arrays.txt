@@ -1,19 +1,19 @@
 
 class Grandfather {
-void WALK(){ PrintString("Grandfather WALK"); }
-void RUN() { PrintString("Grandfather RUN" ); }
-void SWIM(){ PrintString("Grandfather SWIM"); }
+void WALK(){ PrintString("GrandfatherWALK"); }
+void RUN() { PrintString("GrandfatherRUN" ); }
+void SWIM(){ PrintString("GrandfatherSWIM"); }
 }
 
 class Father extends Grandfather {
-void SWIM() { PrintString("Father SWIM" ); }
-void PAINT(){ PrintString("Father PAINT"); }
-void RUN()  { PrintString("Father RUN"  ); }
+void SWIM() { PrintString("FatherSWIM" ); }
+void PAINT(){ PrintString("FatherPAINT"); }
+void RUN()  { PrintString("FatherRUN"  ); }
 }
 
 class Son extends Father {
-void RUN()  { PrintString("Son RUN" ); }
-void WALK() { PrintString("Son WALK"); }
+void RUN()  { PrintString("SonRUN" ); }
+void WALK() { PrintString("SonWALK"); }
 }
 
 array ClassArray = Grandfather[]
