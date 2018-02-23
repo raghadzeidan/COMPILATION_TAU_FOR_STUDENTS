@@ -36,7 +36,7 @@ void main()
 {
 	Student moish := new Student;
 	moish.grades := new int[10];
-	moish.lastYearSalaries := new int[12];
+	moish.lastYearSalaries := new int[13];
 
 	moish.lastYearSalaries[ 0] := 7400;
 	moish.lastYearSalaries[ 1] := 7400;
@@ -50,6 +50,7 @@ void main()
 	moish.lastYearSalaries[ 9] := 7400;
 	moish.lastYearSalaries[10] := 7400;
 	moish.lastYearSalaries[11] := 7400;
+	moish.lastYearSalaries[12] := 7400;
 
 	int LinearAlgebra1 := 0;
 	int LinearAlgebra2 := 1;
