@@ -2,18 +2,23 @@ class Tree {
 Tree left  := nil;
 Tree right := nil;
 int weight := 0;
-int sum() { 
+}
+
+int sum(Tree t) {
+	Tree left = t.left;
+	Tree right = t.right;
+	int weight = t.weight;
+	
 	int res := weight;
 	if (1 - (left = nil))
 	{
-		res := res + left.sum();
+		res := res + sum(left);
 	}
 	if (1 - (right = nil))
 	{
-		res := res + right.sum();
+		res := res + sum(right);
 	}
 	return res; }
-}
 
 array TreeArray = Tree[]
 
