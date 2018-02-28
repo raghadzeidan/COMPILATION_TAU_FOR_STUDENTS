@@ -5,9 +5,9 @@ int weight := 0;
 }
 
 int sum(Tree t) {
-	Tree left = t.left;
-	Tree right = t.right;
-	int weight = t.weight;
+	Tree left := t.left;
+	Tree right := t.right;
+	int weight := t.weight;
 	
 	int res := weight;
 	if (1 - (left = nil))
@@ -53,5 +53,5 @@ void main()
 	root.right.right.left  := TA[12];
 	root.right.right.right := TA[13];
 
-	PrintInt(root.sum());
+	PrintInt(sum(root));
 }
