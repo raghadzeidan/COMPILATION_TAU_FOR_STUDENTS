@@ -39,10 +39,8 @@
 \section{Introduction}
 We continue our journey of building a compiler
 for the invented object oriented language RioMare.
-Remember that the entire specification of RioMare appears
-inside the relevant folder of the course website.
 In order to make this document self contained,
-all the information needed to complete the second exercise is brought here again.
+all the information needed to complete the second exercise is brought here.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION :: Programming Assignment %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -82,8 +80,13 @@ Program  & $::=$ & dec$^{+}$ \\
 dec      & $::=$ & funcDec $|$ varDec $|$ classDec $|$ arrayDec \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+newExp   & $::=$ & NEW ID $|$ NEW ID $'['$ exp $']'$ \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 varDec   & $::=$ & ID ID $[$ ASSIGN exp $]$ ';' \\
+         & $::=$ & ID ID ASSIGN newExp ';'      \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 funcDec  & $::=$ & ID ID $'('$ $[$ ID ID $[$ ',' ID ID $]^{*}$ $]$ $')'$ %%
@@ -113,8 +116,7 @@ var      & $::=$ & ID                  \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 stmt     & $::=$ & varDec                                                             \\
          & $::=$ & var ASSIGN exp ';'                                                 \\
-         & $::=$ & var ASSIGN NEW ID ';'                                              \\
-         & $::=$ & var ASSIGN NEW ID $'['$ exp $']'$ ';'                              \\
+         & $::=$ & var ASSIGN newExp ';'                                              \\
          & $::=$ & RETURN $[$ exp $]$ ';'                                             \\
          & $::=$ & IF $'('$ exp $')'$ $'\{'$ stmt $[$ stmt $]^{*}$ $'\}'$             \\
          & $::=$ & WHILE $'('$ exp $')'$ $'\{'$ stmt $[$ stmt $]^{*}$ $'\}'$          \\
