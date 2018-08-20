@@ -12,3 +12,12 @@
 **/Output.txt
 **/MIPS.txt
 **/MIPS_OUTPUT.txt
+
+**/*.aux
+**/*.log
+**/*.nav
+**/*.out
+**/*.snm
+**/*.synctex.gz
+**/*.toc
+
