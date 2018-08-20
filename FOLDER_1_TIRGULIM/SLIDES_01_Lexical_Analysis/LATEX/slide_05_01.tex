@@ -1,0 +1,42 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Warm up examples} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Open :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Warm up examples (white space matters) }
+%%%%%%%%%%%%%%%%%%
+% Table :: Begin %
+%%%%%%%%%%%%%%%%%%
+\begin{table}[h]
+\centering
+\begin{tabular}{ | l | l | }
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+code:             & \#include $<$vector$>$                   \\
+                  & int main()                               \\
+                  & \{                                       \\
+	              & std::map$<$std::pair$<$int,int$>$ $>$ m; \\
+                  & \}                                       \\
+compilation line: & g++ example.cpp                          \\
+status:           & \color{green}ok\color{black}             \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline \hline \hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+code:             & \#include $<$vector$>$                \\
+                  & int main()                            \\
+                  & \{                                    \\
+	              & std::map\textless std::pair$<$int,int$>>$ m; \\
+                  & \}                                    \\
+compilation line: & g++ example.cpp                       \\
+status:           & \color{white}ok\color{black}          \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption*{\label{Table_Examples_Numbs}}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Close :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}

@@ -1,0 +1,309 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% document class: beamer %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{beamer}
+
+%%%%%%%%%%%%
+% PACKAGES %
+%%%%%%%%%%%%
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{multirow}
+\hypersetup{colorlinks=true,urlcolor=blue}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% no navigation barsplease %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{footline}[frame number]{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% no navigation symbols please %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{navigation symbols}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% no footers at all please %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{footline}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% center the title please %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{frametitle}[default][center]
+
+%%%%%%%%%%%%%%%%%%
+% begin document %
+%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%
+% title %
+%%%%%%%%%
+\title{Compilation First Step: Lexical Analysis}
+
+%%%%%%%%%%
+% author %
+%%%%%%%%%%
+\author{Verifying that every single word is legal}
+
+%%%%%%%%%%%%
+% date ... %
+%%%%%%%%%%%%
+\date{\today} 
+
+%%%%%%%%%%%%%
+% frame ... %
+%%%%%%%%%%%%%
+\frame{\titlepage} 
+
+%\frame{\frametitle{Table of contents}\tableofcontents} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Warm up examples} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Open :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Warm up examples}
+%%%%%%%%%%%%%%%%%%
+% Table :: Begin %
+%%%%%%%%%%%%%%%%%%
+\begin{table}[h]
+\centering
+\begin{tabular}{ | l | c | l | }
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+code & compilation line & status \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+& &\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+int main()\{ 6; \} & gcc -Wall example.c & example.c:3:5: warning:\\
+& & statement with no effect \\
+& & 6; \\
+& & \^ \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+& &\\
+\hline
+d & e & f \\ \hline
+g & h & i \\ \hline
+\end{tabular}
+\caption{
+abtrsact state
+\label{Table_Examples_01_02}}
+\end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Close :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Implementation (High Level) Description %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Implementation (High Level) Description} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Title :: Implementation (High Level) Description %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Implementation (High Level) Description}
+%%%%%%%%%%%%%%%%%%
+% Items :: Begin %
+%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+\item
+Resolving occurrences of program string variables is
+not trivial in C, which is weakly typed, and allows
+taking the memory location of stored variables:
+msg$\rightarrow$contents = (void *) $\&$buf;
+\item
+We use the term abstract buffers to denote the corresponding solver string variables.
+As the program modifies strings with writes, strcpy etc.
+abstrct buffers accumulate these changes by keeping consecutive
+versions for abstract buffers.
+\item
+Using a many sorted solver inevitably introduces sort conversion issues.
+Suppose that a bitvector is added to an integer:
+(i $<<$ 5) + strlen( msg )
+and it is sound to do this addition in both bitvector and integer domains.
+Which expression should be converted? we say: whichever is faster!
+%%%%%%%%%%%%%%%%
+% Items :: End %
+%%%%%%%%%%%%%%%%
+\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Accelerations %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Accelerations} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Title :: Accelerations %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Accelerations List}
+%%%%%%%%%%%%%%%%%%
+% Items :: Begin %
+%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+\item
+Context Aware Sorts
+\begin{itemize}
+\item ((*s) == 'a') vs. ((*s) $<<$ 5)
+\end{itemize}
+\item
+Tailored String Semantics
+\begin{itemize}
+\item int strcmp(s1,s2) $\rightarrow$ bool strcmp(s1,s2)
+\item char *strchr(s,c) $\rightarrow$ bool strchr(s,c)
+\end{itemize}
+\item
+Solver Performance Driven Query Rewriting
+\begin{itemize}
+\item str.indexof $\rightarrow$ str.contains
+\item str.indexof $\rightarrow$ str.len
+\item automatic deducing of query invariants
+\end{itemize}
+\item
+Reducing Number of States with C to C translations:\\
+char *f(char *d,char *s)
+$\{$
+while (*d++ = *s++);
+$\}$
+return d;
+$\rightarrow$ strcpy(d,s); return d+strlen(src);
+\item
+Caching reads/writes.
+\item
+Reducing number of generated abtract buffer versions.
+\item
+Under approximation of programs paths.
+For example, Ignoring toUpper and adding relevant constraints.
+%%%%%%%%%%%%%%%%
+% Items :: End %
+%%%%%%%%%%%%%%%%
+\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Accelerations %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Accelerations} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Title :: Accelerations %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Accelerations :: Context Aware Sorts}
+%%%%%%%%%%%%%%%%%%
+% Items :: Begin %
+%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+\item
+Sort conversions are expansive, and in some cases they can be avoided altogether.
+Think of the following examples:\\
+~ ~ ~ ~if ((*s) == ' ')           $\{$ s++; $\}$ \\
+~ ~ ~ ~if (((*s) $<<$ 3) $<$ 100) $\{$ s++; $\}$ \\
+Since the returned value from (*s) has a string sort,
+then in order to shift it left, it needs to be converted to a bit vector.
+In constrast, if it is simply compared to the white-space character,
+then it needs not be converted at all.
+\item
+A simple pre processing of the program can easily identify locations
+where such conversions are not needed.
+%%%%%%%%%%%%%%%%
+% Items :: End %
+%%%%%%%%%%%%%%%%
+\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Accelerations %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Accelerations} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Title :: Accelerations %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Accelerations :: Tailored String Semantics}
+%%%%%%%%%%%%%%%%%%
+% Items :: Begin %
+%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+\item
+The semantics of string library functions often contains more
+details then actually needed by users.
+\item
+For example, whenever two strings are compared with strcmp(s1,s2),
+the returned value is either $0$ when they are identical,
+or the ascii difference between the first place of change.
+\item
+Usually users just ask whether the result is $0$ or not.
+This gives a chance for a sound optimization, since it enables us
+to use the native returned boolean sort from the solver
+\item
+Similarly, it is quite usual to use strchr to check the existence of
+a certain character in a string:\\
+if (strchr( s, ' ')) $\{$ return -1; $\}$\\
+This enables a faster query.
+%%%%%%%%%%%%%%%%
+% Items :: End %
+%%%%%%%%%%%%%%%%
+\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Accelerations %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Accelerations} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Title :: Accelerations %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Accelerations :: Query Rewriting}
+%%%%%%%%%%%%%%%%%%
+% Items :: Begin %
+%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+\item
+Some queries happen often, like boundaries checks before each strcpy operation.
+The solver tries to figure out whether the first null termination of the source
+can be larger than the destination's size. As it so happens, sometimes the
+source buffer has no other constraints, and so clearly the null termination 
+can be the very last byte. In these cases, replacing str.indexof with str.len
+is much faster.
+\item
+In the strchr case described before, str.indexof can be replaced with str.contains
+which is much faster.
+\item
+Some queries deal with very large ($>$ 1000 bytes long) strings.
+As the solver struggles with the huge size,
+it is sometimes possible to automatically prove an equivalent satisfiable query
+with much shorter sizes, and infer back the model from the small string
+to the large original string
+%%%%%%%%%%%%%%%%
+% Items :: End %
+%%%%%%%%%%%%%%%%
+\end{itemize}
+}
+
+\frame{\frametitle{Implementation :: Details}
+\begin{itemize}
+\item Keep KLEE's memory model: Each allocation has a MemoryObject.
+\item Use $markString$ calls to tag memory objects which we want to consider as strings.
+\item Writes to strings get translated to $version_{i+1} = prefixVersion_i ++ newChar ++ suffixVersion_i$ 
+\item For each read we introduce a new BitVectorVariable, that is return of the read. Then we make a string out of it and assert it is equal to the desired read location
+\item Allocations of symbolic sizes are currently conretize to a value between 10 and 128. (Easy to change this)
+\item Currently support $strcmp$, $str(n)cpy$, $strchr$ and $strlen$.
+\item Calls to these intercepted in SpecialFunctionHandler, arguments resolved to MemoryObjects and through them to AbstractBuffers. Then appropriate constraints are added to the state.
+\end{itemize}
+}
+
+\frame{\frametitle{Implementation :: Integration with KLEE}
+\begin{itemize}
+\item KLEE is very bitvector orientated: expressions need witdh, and symbolic things can only be Arrays of bitvectors.
+\item Width is important to corectly interface with Extract and Concat expression and Casting.
+\item Arrays are important to correctly interface with the solver and test case generation
+\item Currently we set the width of all Strings/Ints to 8 (se they fit in1 memory cell) and special case on type (we started to type the Expression language)
+\item Arrays for Strings are represented as 0 length Arrays of bitvectors (seems to work well enough so far)
+\end{itemize}
+}
+
+\end{document}

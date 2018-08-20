@@ -1,0 +1,44 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Warm up examples} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Open :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Warm up examples (white space matters) }
+%%%%%%%%%%%%%%%%%%
+% Table :: Begin %
+%%%%%%%%%%%%%%%%%%
+\begin{table}[h]
+\centering
+\begin{tabular}{ | l | l | }
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+code:             & main = do                          \\
+                  &   putStrLn("-2-2=?")               \\
+                  &   x $<$- readLn                    \\
+                  &   if (x $<$ -4) then putStrLn("Y") \\
+                  &                 else putStrLn("N") \\
+compilation line: & ghc example.hs                     \\
+status:           & \color{green}ok\color{black}       \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline \hline \hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+code:             & main = do                          \\
+                  &   putStrLn("-2-2=?")               \\
+                  &   x $<$- readLn                    \\
+                  &   if (x$<$-4) then putStrLn("Y")   \\
+                  &               else putStrLn("N")   \\
+compilation line: & ghc example.hs                     \\
+status:           & \color{red} error:                 \\
+                  & \color{black} parse error on input \\
+                  & $<$-                               \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption*{\label{Table_Examples_Numbers}}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Close :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}

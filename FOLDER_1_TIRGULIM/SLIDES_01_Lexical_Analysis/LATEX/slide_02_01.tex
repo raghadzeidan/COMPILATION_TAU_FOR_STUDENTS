@@ -1,0 +1,45 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Warm up examples} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Open :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Warm up examples (more numbers)}
+%%%%%%%%%%%%%%%%%%
+% Table :: Begin %
+%%%%%%%%%%%%%%%%%%
+\begin{table}[h]
+\centering
+\begin{tabular}{ | l | l | }
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+code             & int main()\{ 90000000000000000000; \} \\
+compilation line & gcc example.c                         \\
+status           & \color{white} ok
+                   \color{black}                         \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline \hline \hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+code:             & int main()\{ 90000000000000000000; \} \\
+compilation line: & clang example.c                       \\
+status:           & \color{white} error:
+                    integer constant is larger than the
+                    largest                               \\
+                  & \color{white} unsigned integer type   \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline \hline \hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+code:             & int main()\{ 0x000000000000000009; \} \\
+compilation line: & gcc example.c                         \\
+status:           & \color{white} ok
+                    \color{black}                         \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption*{\label{Table_Examples_Numbers}}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Close :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}

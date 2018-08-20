@@ -60,232 +60,34 @@
 %\frame{\frametitle{Table of contents}\tableofcontents} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECTION :: Warm up examples %
+% Warm up examples :: Numbers %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Warm up examples} 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Frame Open :: Warm up examples %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Warm up examples (numbers)}
-%%%%%%%%%%%%%%%%%%
-% Table :: Begin %
-%%%%%%%%%%%%%%%%%%
-\begin{table}[h]
-\centering
-\begin{tabular}{ | l | l | }
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-code             & int main()\{ 6; \}  \\
-compilation line & gcc example.c       \\
-status           & \color{green} ok
-                   \color{black}       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline \hline \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-code             & int main()\{ 6b; \} \\
-compilation line & gcc example.c       \\
-status           & \color{red} error:
-                   \color{black}
-                   invalid suffix "b"
-                   on integer constant \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline \hline \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-code:             & int main()\{ 7e; \} \\
-compilation line: & gcc example.c       \\
-status:           & \color{red} error:
-                    \color{black}
-                    exponent has no
-                    digits              \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline \hline \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-code             & int main()\{ 0u; \} \\
-compilation line & gcc example.c       \\
-status           & \color{green} ok
-                   \color{black}       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-\end{tabular}
-\caption*{\label{Table_Examples_Numbers}}
-\end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Frame Close :: Warm up examples %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECTION :: Warm up examples %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Warm up examples} 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Frame Open :: Warm up examples %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Warm up examples (more numbers)}
-%%%%%%%%%%%%%%%%%%
-% Table :: Begin %
-%%%%%%%%%%%%%%%%%%
-\begin{table}[h]
-\centering
-\begin{tabular}{ | l | l | }
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-code             & int main()\{ 90000000000000000000; \} \\
-compilation line & gcc example.c                         \\
-status           & \color{green} ok
-                   \color{black}                         \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline \hline \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-code:             & int main()\{ 90000000000000000000; \} \\
-compilation line: & clang example.c                       \\
-status:           & \color{red} error:
-                    \color{black}
-                    integer constant is larger than the
-                    largest                               \\
-                  & unsigned integer type                 \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline \hline \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-code:             & int main()\{ 0x000000000000000009; \} \\
-compilation line: & gcc example.c                         \\
-status:           & \color{green} ok
-                    \color{black}                         \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-\end{tabular}
-\caption*{\label{Table_Examples_Numbers}}
-\end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Frame Close :: Warm up examples %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECTION :: Warm up examples %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Warm up examples} 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Frame Open :: Warm up examples %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Warm up examples (and some more numbers)}
-%%%%%%%%%%%%%%%%%%
-% Table :: Begin %
-%%%%%%%%%%%%%%%%%%
-\begin{table}[h]
-\centering
-\begin{tabular}{ | l | l | }
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-code:             & \#include $<$iostream$>$                          \\
-                  & int main() \{                                     \\
-                  & auto i=999999999999999;                           \\
-                  & std::cout$<<$sizeof(i); \}                        \\
-compilation line: & g++ -o example example.c \&\& ./example           \\
-output:           & 8                                                 \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline \hline \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-code:             & \#include $<$iostream$>$                          \\
-                  & int main() \{                                     \\
-                  & auto j=99999999;                                  \\
-                  & std::cout$<<$sizeof(j); \}                        \\
-compilation line: & g++ -o example example.c \&\& ./example           \\
-output:           & 4                                                 \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-\end{tabular}
-\caption*{\label{Table_Examples_Numbers}}
-\end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Frame Close :: Warm up examples %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECTION :: Warm up examples %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Warm up examples} 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Frame Open :: Warm up examples %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Warm up examples (white space matters) }
-%%%%%%%%%%%%%%%%%%
-% Table :: Begin %
-%%%%%%%%%%%%%%%%%%
-\begin{table}[h]
-\centering
-\begin{tabular}{ | l | l | }
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-code:             & main = do                          \\
-                  &   putStrLn("-2-2=?")               \\
-                  &   x $<$- readLn                    \\
-                  &   if (x $<$ -4) then putStrLn("Y") \\
-                  &                 else putStrLn("N") \\
-compilation line: & ghc example.hs                     \\
-status:           & \color{green}ok\color{black}       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline \hline \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-code:             & main = do                          \\
-                  &   putStrLn("-2-2=?")               \\
-                  &   x $<$- readLn                    \\
-                  &   if (x$<$-4) then putStrLn("Y")   \\
-                  &               else putStrLn("N")   \\
-compilation line: & ghc example.hs                     \\
-status:           & \color{green}ok\color{black}       \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-\end{tabular}
-\caption*{\label{Table_Examples_Numbers}}
-\end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Frame Close :: Warm up examples %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECTION :: Warm up examples %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Warm up examples} 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Frame Open :: Warm up examples %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Warm up examples (white space matters) }
-%%%%%%%%%%%%%%%%%%
-% Table :: Begin %
-%%%%%%%%%%%%%%%%%%
-\begin{table}[h]
-\centering
-\begin{tabular}{ | l | l | }
-\hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-code:             & \#include $<$vector$>$                   \\
-                  & int main()                               \\
-                  & \{                                       \\
-	              & std::map$<$std::pair$<$int,int$>$ $>$ m; \\
-                  & \}                                       \\
-compilation line: & g++ example.cpp                          \\
-status:           & \color{green}ok\color{black}             \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline \hline \hline
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-code:             & \#include $<$vector$>$                \\
-                  & int main()                            \\
-                  & \{                                    \\
-	              & std::map$<$std::pair$<$int,int$>>$ m; \\
-                  & \}                                    \\
-compilation line: & g++ example.cpp                       \\
-status:           & \color{green}ok\color{black}          \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\hline
-\end{tabular}
-\caption*{\label{Table_Examples_Numbs}}
-\end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Frame Close :: Warm up examples %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-}
+\input{slide_01_01}
+\input{slide_01_02}
+\input{slide_01_03}
+\input{slide_01_04}
+\input{slide_01_05}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Warm up examples :: More Numbers %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{slide_02_01}
+\input{slide_02_02}
+\input{slide_02_03}
+\input{slide_02_04}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Warm up examples :: And Some More Numbers %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{slide_03_01}
+\input{slide_03_02}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Warm up examples :: White Space Matters %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{slide_04_01}
+\input{slide_04_02}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Warm up examples :: White Space Matters %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{slide_05_01}
+\input{slide_05_02}
 
 \end{document}

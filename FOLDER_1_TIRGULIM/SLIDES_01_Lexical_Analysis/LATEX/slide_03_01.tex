@@ -1,0 +1,40 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Warm up examples} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Open :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Warm up examples (and some more numbers)}
+%%%%%%%%%%%%%%%%%%
+% Table :: Begin %
+%%%%%%%%%%%%%%%%%%
+\begin{table}[h]
+\centering
+\begin{tabular}{ | l | l | }
+\hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+code:             & \#include $<$iostream$>$                          \\
+                  & int main() \{                                     \\
+                  & auto i=999999999999999;                           \\
+                  & std::cout$<<$sizeof(i); \}                        \\
+compilation line: & g++ -o example example.c \&\& ./example           \\
+output:           & \color{white} 8                                   \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline \hline \hline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+code:             & \#include $<$iostream$>$                          \\
+                  & int main() \{                                     \\
+                  & auto j=99999999;                                  \\
+                  & std::cout$<<$sizeof(j); \}                        \\
+compilation line: & g++ -o example example.c \&\& ./example           \\
+output:           & \color{white} 4                                   \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hline
+\end{tabular}
+\caption*{\label{Table_Examples_Numbers}}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Close :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
