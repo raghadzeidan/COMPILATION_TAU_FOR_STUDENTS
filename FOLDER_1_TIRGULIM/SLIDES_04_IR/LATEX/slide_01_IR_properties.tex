@@ -1,0 +1,35 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: IR properties %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{IR properties} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Open :: IR properties %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{IR properties}
+\begin{itemize}
+\item \textbf{Independent} of the source language
+\begin{tabular}{ l l l }
+                                                                            &               &                                                    \\
+\href{https://clang.llvm.org/}{clang}(C/CPP)                                & $\rightarrow$ &                                                    \\
+\href{https://github.com/flang-compiler/flang}{flang}(Fortran)              & $\rightarrow$ &                                                    \\
+\href{https://en.wikipedia.org/wiki/Glasgow_Haskell_Compiler}{ghc}(Haskell) & $\rightarrow$ & \href{https://llvm.org/docs/LangRef.html}{LLVM IR} \\
+\href{https://github.com/go-llvm/llgo}{llgo}(Go)                            & $\rightarrow$ &                                                    \\
+...                                                                         & $\rightarrow$ &                                                    \\
+                                                                            &               &                                                    \\
+\end{tabular}
+\item \textbf{Independent} of the target language
+\begin{tabular}{ l l l }
+                                                   &               &                                                               \\
+                                                   & $\rightarrow$ & \href{https://en.wikipedia.org/wiki/X86}{x86}                 \\
+                                                   & $\rightarrow$ & \href{https://en.wikipedia.org/wiki/ARM_architecture}{ARM}    \\
+\href{https://llvm.org/docs/LangRef.html}{LLVM IR} & $\rightarrow$ & \href{https://en.wikipedia.org/wiki/WebAssembly}{WebAssembly} \\
+                                                   & $\rightarrow$ & \href{https://en.wikipedia.org/wiki/MIPS_architecture}{Mips}  \\
+                                                   & $\rightarrow$ & ...                                                           \\
+                                                   &               &                                                               \\
+\end{tabular}
+\item Contains the \textbf{entire} information needed for final translation
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Close :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}

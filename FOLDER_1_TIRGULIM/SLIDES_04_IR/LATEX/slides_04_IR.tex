@@ -1,0 +1,71 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% document class: beamer %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{beamer}
+
+%%%%%%%%%%%%
+% PACKAGES %
+%%%%%%%%%%%%
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{multirow}
+\hypersetup{colorlinks=true,urlcolor=blue}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% no navigation barsplease %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{footline}[frame number]{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% no navigation symbols please %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{navigation symbols}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% no footers at all please %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{footline}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% center the title please %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{frametitle}[default][center]
+
+%%%%%%%%%%%%%%%%%%
+% begin document %
+%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%
+% title %
+%%%%%%%%%
+\title{Compilation Fourth Step:\\Intermediate Representation (IR)}
+
+%%%%%%%%%%
+% author %
+%%%%%%%%%%
+\author{Flattening the AST to a sequence of instructions}
+
+%%%%%%%%%%%%
+% date ... %
+%%%%%%%%%%%%
+\date{\today} 
+
+%%%%%%%%%%%%%
+% frame ... %
+%%%%%%%%%%%%%
+\frame{\titlepage} 
+
+%\frame{\frametitle{Table of contents}\tableofcontents} 
+
+%%%%%%%%%%%%%%%%%
+% IR properties %
+%%%%%%%%%%%%%%%%%
+\input{slide_01_IR_properties}
+%%%%%%%%%%%%%%%
+% IR examples %
+%%%%%%%%%%%%%%%
+\input{slide_02_IR_examples}
+
+\end{document}
