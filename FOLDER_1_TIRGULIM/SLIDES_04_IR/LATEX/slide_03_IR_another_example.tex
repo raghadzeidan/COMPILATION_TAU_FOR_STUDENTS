@@ -1,0 +1,39 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: IR examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{IR Another Example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Open :: IR examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{IR Another Example}
+\begin{itemize}
+\item Consider the simple statement: \textit{if (2$<$6) $\{$ PrintInt(3); $\}$}.
+\item IR is produced by scanning the AST recursively as follows:
+\begin{itemize}
+\item First, the condition subtree is scanned, producing the IR commands:
+\begin{itemize}
+\item \textbf{li  Temp\_74, 2}
+\item \textbf{li  Temp\_75, 6}
+\item \textbf{li  Temp\_76, 1}
+\item \textbf{blt Temp\_74, Temp\_75, label\_cond\_end}
+\item \textbf{li  Temp\_76, 0}
+\item \textbf{label\_cond\_end}
+\end{itemize}
+\item Then, the if-father-node uses the temporary returned from
+      its condition-son and wraps the IR commands produced by its
+      body-son as follows:
+\begin{itemize}
+\item \textbf{beq Temp\_76, 0, label\_if\_end}
+\item \textbf{li   Temp\_77, 3}
+\item \textbf{call PrintInt( Temp\_77 )}
+\item \textbf{label label\_if\_end}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Close :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Close :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}

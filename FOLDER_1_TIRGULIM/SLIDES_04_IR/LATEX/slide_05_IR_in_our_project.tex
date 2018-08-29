@@ -1,0 +1,42 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTION :: IR in our project %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{IR in our project}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Open :: IR in our project %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{IR in our project :: Overflow handled in AST $\rightarrow$ IR}
+\begin{itemize}
+\item Handling arithmetic overflow in the AST $\rightarrow$ IR phase
+      will yield the following IR code for the addition above:
+%%%%%%%%%%%%%%%%%%
+% Table :: Begin %
+%%%%%%%%%%%%%%%%%%
+\begin{table}[h]
+\centering
+\begin{tabular}{ l }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                                         \\
+li Temp\_24, 32765                       \\
+li Temp\_25, 8                           \\
+add Temp\_23, Temp\_24, Temp\_25         \\
+li Temp\_26,  32767                      \\
+li Temp\_27, -32768                      \\
+bgt Temp\_23, Temp\_26, Label\_Overflow  \\
+blt Temp\_23, Temp\_27, Label\_Underflow \\
+\# What should we write here?            \\
+Label\_Overflow:                         \\
+\# and here?                             \\
+Label\_Underflow:                        \\
+\# and here too?                         \\
+Label\_End:                              \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tabular}
+\caption*{\label{Table_Leaving_Overflow_To_IR_2_MIPS}}
+\end{table}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frame Close :: Warm up examples %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
