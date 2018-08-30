@@ -14,25 +14,17 @@
 \end{center}
 \end{figure}
 \begin{itemize}
-\item Handling arithmetic overflow in the IR $\rightarrow$ MIPS phase
-      will yield the following (simple) IR code for the addition above:
-%%%%%%%%%%%%%%%%%%
-% Table :: Begin %
-%%%%%%%%%%%%%%%%%%
-\begin{table}[h]
-\centering
-\begin{tabular}{ l }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                               \\
-li Temp\_24, 32765             \\
-li Temp\_25, 8                 \\
-add Temp\_23,Temp\_24,Temp\_25 \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\end{tabular}
-\caption*{\label{Table_Leaving_Overflow_To_IR_2_MIPS}}
-\end{table}
-\item What is the benefit of a simpler IR?
-      How will the add instruction be translated to MIPS eventually?
+\item
+Handling arithmetic overflow in the IR $\rightarrow$ MIPS phase
+will yield the following (simple) IR code for the addition above:
+\begin{itemize}
+\item \textbf{li  Temp\_29, 32765}
+\item \textbf{li  Temp\_30, 8    }
+\item \textbf{add Temp\_31, Temp\_29, Temp\_30}
+\end{itemize}
+\item
+What are the benefits of a simpler IR?
+How will the add instruction be translated to MIPS eventually?
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

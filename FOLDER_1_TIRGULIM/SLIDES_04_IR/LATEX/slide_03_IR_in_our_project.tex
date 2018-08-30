@@ -7,16 +7,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{IR in our project}
 \begin{itemize}
-\item Designing a good IR is more art than science.
-\item Specially true in our project where there's only one source language
-      (Poseidon) and one target language (MIPS).
-\item In fact, do we really \textit{need} an IR in our project?
-      Why not translate directly AST $\rightarrow$ MIPS?
-\item For example, how should we translate \textit{32765+8}?
-      (remember that addition is done with 16 bits overflow).
-      One way is to handle the overflow in the AST $\rightarrow$ IR phase.
-      Another way is to handle it during IR $\rightarrow$ MIPS phase.
-      Which one is better?
+\item
+Designing a good IR is more art than science.
+\item
+Specially true in our project where there's only
+one source language (Poseidon) and
+one target language (MIPS).
+\item
+In fact, do we even \textit{need} an IR in our project?
+\textbf{Why not translate directly AST $\rightarrow$ MIPS}?
+\item
+For example, how should we \textit{really} translate \textit{32765+8}?
+(remember that addition is done with 16 bits overflow).
+\begin{itemize}
+\item
+Should we handle overflow in AST $\rightarrow$ IR phase?
+\item
+Or should we handle it in the IR $\rightarrow$ MIPS phase?
+\end{itemize}
 \end{itemize}
 \begin{figure}[htbp]
 \begin{center}
@@ -25,14 +33,6 @@
 \label{Figure_Simple_Addition_Of_2_Integers_AST}
 \end{center}
 \end{figure}
-
-%\centering
-%\begin{tikzpicture}
-%\tikzstyle{every node}=[draw,shape=circle];
-%\node [text width=1cm, align=center] { Binop }
-%child { node [text width=1cm, align=center] { Simple\\Var } }
-%child { node [text width=1cm, align=center] {    INT(8)   } };
-%\end{tikzpicture}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Frame Close :: Warm up examples %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

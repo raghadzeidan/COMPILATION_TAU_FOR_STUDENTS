@@ -7,35 +7,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{IR in our project :: Overflow handled in AST $\rightarrow$ IR}
 \begin{itemize}
-\item Handling arithmetic overflow in the AST $\rightarrow$ IR phase
-      will yield the following IR code for the addition above:
-%%%%%%%%%%%%%%%%%%
-% Table :: Begin %
-%%%%%%%%%%%%%%%%%%
-\begin{table}[h]
-\centering
-\begin{tabular}{ l }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                                         \\
-li Temp\_24, 32765                       \\
-li Temp\_25, 8                           \\
-add Temp\_23, Temp\_24, Temp\_25         \\
-li Temp\_26,  32767                      \\
-li Temp\_27, -32768                      \\
-bgt Temp\_23, Temp\_26, Label\_Overflow  \\
-blt Temp\_23, Temp\_27, Label\_Underflow \\
-\# What should we write here?            \\
-Label\_Overflow:                         \\
-\# and here?                             \\
-Label\_Underflow:                        \\
-\# and here too?                         \\
-Label\_End:                              \\
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\end{tabular}
-\caption*{\label{Table_Leaving_Overflow_To_IR_2_MIPS}}
-\end{table}
+\item
+Handling arithmetic overflow in the AST $\rightarrow$ IR phase
+will yield the following IR code for the addition above:
+\begin{itemize}
+\item \textbf{li  Temp\_29, 32765}
+\item \textbf{li  Temp\_30, 8}
+\item \textbf{add Temp\_31, Temp\_29, Temp\_30}
+\item \textbf{li  Temp\_32,  32767}
+\item \textbf{li  Temp\_33, -32768}
+\item \textbf{bgt Temp\_31, Temp\_32, label\_overflow}
+\item \textbf{blt Temp\_31, Temp\_33, label\_underflow}
+\item \# What should we write here?
+\item \textbf{label\_overflow:}
+\item \# and here?
+\item \textbf{label\_underflow:}
+\item \# and here too?
+\item \textbf{label\_end:}
 \end{itemize}
-
+\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Frame Close :: Warm up examples %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
