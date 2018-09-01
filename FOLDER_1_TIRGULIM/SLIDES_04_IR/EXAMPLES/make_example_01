@@ -1,0 +1,20 @@
+#!/bin/bash
+resize -s 31 90
+clear
+setterm -term linux -fore blue
+echo -e "\033[1m\$ cat example_01.c\033[0m"
+setterm -term linux -fore white
+cat example_01.c
+setterm -term linux -fore blue
+echo -e "\033[1m\$ clang -c -emit-llvm example_01.c\033[0m"
+setterm -term linux -fore white
+clang -c -emit-llvm example_01.c
+setterm -term linux -fore blue
+echo -e "\033[1m\$ llvm-dis example_01.bc\033[0m"
+setterm -term linux -fore white
+llvm-dis example_01.bc
+setterm -term linux -fore blue
+echo -e "\033[1m\$ sed -n '7,22p;23q' example_01.ll\033[0m"
+setterm -term linux -fore white
+sed -n '7,22p;23q' example_01.ll
+gnome-screenshot -w -f ./example_01.png
