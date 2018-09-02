@@ -1,5 +1,5 @@
 #!/bin/bash
-resize -s 31 90
+resize -s 31 60
 clear
 setterm -term linux -fore blue
 echo -e "\033[1m\$ cat example_01.c\033[0m"
@@ -18,3 +18,4 @@ echo -e "\033[1m\$ sed -n '7,22p;23q' example_01.ll\033[0m"
 setterm -term linux -fore white
 sed -n '7,22p;23q' example_01.ll
 gnome-screenshot -w -f ./example_01.png
+cp ./example_01.png ../LATEX/example_01.png
