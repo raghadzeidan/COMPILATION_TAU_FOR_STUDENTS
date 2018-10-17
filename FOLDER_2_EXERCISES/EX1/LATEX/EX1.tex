@@ -26,7 +26,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DATE = SUBMISSION DATE HERE %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\date{Due 08/11/2017}
+\date{Due 31/10/2018, 07:00 am}
 
 %%%%%%%%%
 % TITLE %
@@ -38,7 +38,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 During the semester we will implement a compiler to an invented
-object oriented language called RioMare.
+object oriented language called Poseidon.
 In order to make this document self contained,
 all the information needed to complete the first exercise is brought here.
 
@@ -48,7 +48,7 @@ all the information needed to complete the first exercise is brought here.
 \section{Programming Assignment}
 The first exercise implements a lexical scanner based on the
 open source tool \href{http://jflex.de/}{JFlex}.
-The input for the scanner is a single text file containing a RioMare program,
+The input for the scanner is a single text file containing a Poseidon program,
 and the output is a (single) text file containing a tokenized representation of the input.
 The course repository contains a simple skeleton program,
 and you are encouraged to work your way up from there.
@@ -58,7 +58,7 @@ and you are encouraged to work your way up from there.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Lexical Considerations}
 \paragraph{Identifiers} may contain letters and digits, and must start with a letter.
-\paragraph{Keywords} in Table \ref{Table_Reserved_Keywords_of_RioMare} can \textit{not}
+\paragraph{Keywords} in Table \ref{Table_Reserved_Keywords_of_Poseidon} can \textit{not}
 be used as identifiers.
 \begin{table}[h]
 \centering
@@ -69,14 +69,14 @@ extends & return & new    & if    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{tabular}
 \caption{
-Reserved keywords of RioMare.
-\label{Table_Reserved_Keywords_of_RioMare}}
+Reserved keywords of Poseidon.
+\label{Table_Reserved_Keywords_of_Poseidon}}
 \end{table}
 \paragraph{White spaces} consist of spaces, tabs and newlines characters.
 They may appear between any tokens.
 Keywords and identifiers must be separated by a white space,
 or a token that is neither a keyword nor an identifier.
-\paragraph{Comments} in RioMare are similar to those used in the C programming language,
+\paragraph{Comments} in Poseidon are similar to those used in the C programming language,
 but may only contain characters from Table \ref{Table_Characters_That _May_Appear_inside_Comments}.
 \begin{table}[h]
 \centering
@@ -96,7 +96,7 @@ letters & digits & white spaces & line terminators \\
 \hline
 \end{tabular}
 \caption{
-Characters that may appear inside comments in RioMare.
+Characters that may appear inside comments in Poseidon.
 \label{Table_Characters_That _May_Appear_inside_Comments}}
 \end{table}
 A comment beginning with the characters // indicates that the remainder of the line is a comment.
@@ -112,14 +112,14 @@ Integers should \textit{not} have leading zeroes,
 and when they do, it is a lexical error.
 In addition, $-0$ is a lexical error.
 Though integers are stored as 32 bits in memory,
-they are artificially limited in RioMare to have
+they are artificially limited in Poseidon to have
 16-bits signed values between $-2^{15}$ and $2^{15}-1$.
 Integers out of this range are lexical errors.
 \paragraph{Strings} are sequences of (zero or more) letters between double quotes.
 Strings that contain non letter characters are lexical errors.
 Unclosed strings are lexical errors too.
 \section{Input}
-The input for this exercise is a single text file, the input RioMare program.
+The input for this exercise is a single text file, the input Poseidon program.
 %%%%%%%%%%%%%%%%%%%%%
 % SECTION :: Output %
 %%%%%%%%%%%%%%%%%%%%%
@@ -208,7 +208,7 @@ Then, visit the
 \href{https://education.github.com/discount_requests/new}{academic discount page}
 to enable the free creation of private repositories.
 One team member should create a new \textit{private} repository called COMPILATION,
-and then invite other team members, the course grader (ronsheme) and myself (OrenGitHub)
+and then invite other team members, the course grader (ronshemer) and myself (OrenGitHub)
 as collaborators.
 Please put inside the uppermost folder (COMPILATION) the following text files:
 (1) ``IDS.txt", with the IDs of all team members (one ID per line).
@@ -225,7 +225,7 @@ on the school server: $nova.cs.tau.ac.il$.
 This is the formal running environment of the course.
 \paragraph{Execution parameters}
 LEXER receives $2$ file names:\\ \\
-InputRioMareProgram.txt\\
+InputPoseidonProgram.txt\\
 OutputTokenizedProgram.txt
 
 \end{document}
