@@ -13,23 +13,20 @@ package IR;
 import TEMP.*;
 import MIPS.*;
 
-public class IRcommand_Binop_Add_Integers extends IRcommand
+public class IRcommand_Label extends IRcommand
 {
-	public TEMP t1;
-	public TEMP t2;
-	public TEMP dst;
+	String label_name;
 	
-	public IRcommand_Binop_Add_Integers(TEMP dst,TEMP t1,TEMP t2)
+	public IRcommand_Label(String label_name)
 	{
-		this.dst = dst;
-		this.t1 = t1;
-		this.t2 = t2;
+		this.label_name = label_name;
 	}
+	
 	/***************/
 	/* MIPS me !!! */
 	/***************/
 	public void MIPSme()
 	{
-		sir_MIPS_a_lot.getInstance().add(dst,t1,t2);
+		sir_MIPS_a_lot.getInstance().label(label_name);
 	}
 }

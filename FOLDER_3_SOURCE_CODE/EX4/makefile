@@ -121,13 +121,13 @@ compile:
 	
 everything:
 	clear
-	@echo "*****************************"
-	@echo "*                           *"
-	@echo "*                           *"
-	@echo "* [0] Remove PARSER program *"
-	@echo "*                           *"
-	@echo "*                           *"
-	@echo "*****************************"
+	@echo "******************************"
+	@echo "*                            *"
+	@echo "*                            *"
+	@echo "* [0] Remove COMPIER program *"
+	@echo "*                            *"
+	@echo "*                            *"
+	@echo "******************************"
 	rm -rf COMPILER
 	@echo "\n"
 	@echo "************************************************************"

@@ -16,12 +16,12 @@ import MIPS.*;
 public class IRcommand_Load extends IRcommand
 {
 	TEMP dst;
-	TEMP src;
+	String var_name;
 	
-	public IRcommand_Load(TEMP dst,TEMP src)
+	public IRcommand_Load(TEMP dst,String var_name)
 	{
-		this.dst = dst;
-		this.src = src;
+		this.dst      = dst;
+		this.var_name = var_name;
 	}
 	
 	/***************/
@@ -29,6 +29,6 @@ public class IRcommand_Load extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-		sir_MIPS_a_lot.getInstance().load(dst,src);
+		sir_MIPS_a_lot.getInstance().load(dst,var_name);
 	}
 }

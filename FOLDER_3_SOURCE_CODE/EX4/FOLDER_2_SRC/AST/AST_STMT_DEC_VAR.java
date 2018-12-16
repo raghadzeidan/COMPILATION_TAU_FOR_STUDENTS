@@ -23,10 +23,10 @@ public class AST_STMT_DEC_VAR extends AST_STMT
 		this.var = var;
 	}
 	
-	public TEMP IRme()
-	{
-		return var.IRme();
-	}
+	//public TEMP IRme()
+	//{
+	//	return var.IRme();
+	//}
 	public TYPE SemantMe()
 	{
 		return var.SemantMe();

@@ -3,6 +3,8 @@ package AST;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 import TEMP.*;
+import IR.*;
+import MIPS.*;
 
 public class AST_DEC_FUNC extends AST_DEC
 {
@@ -36,6 +38,9 @@ public class AST_DEC_FUNC extends AST_DEC
 
 	public TEMP IRme()
 	{
+		IR.
+		getInstance().
+		Add_IRcommand(new IRcommand_Label("main"));		
 		if (body != null) body.IRme();
 
 		return null;

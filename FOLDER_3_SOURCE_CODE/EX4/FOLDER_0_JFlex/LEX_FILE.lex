@@ -102,6 +102,7 @@ STRING			= \"[a-z|A-Z]*\"
 "+"					{ return symbol(TokenNames.PLUS);}
 "-"					{ return symbol(TokenNames.MINUS);}
 "class"				{ return symbol(TokenNames.CLASS);}
+"while"				{ return symbol(TokenNames.WHILE);}
 "return"			{ return symbol(TokenNames.RETURN);}
 "*"					{ return symbol(TokenNames.TIMES);}
 "/"					{ return symbol(TokenNames.DIVIDE);}

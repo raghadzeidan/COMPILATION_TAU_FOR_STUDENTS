@@ -67,11 +67,11 @@ public class AST_DEC_VAR extends AST_DEC
 
 	public TEMP IRme()
 	{
+		IR.getInstance().Add_IRcommand(new IRcommand_Allocate(name));
+		
 		if (initialValue != null)
 		{
-			IR.getInstance().Add_IRcommand(new IRcommand_Store(
-				sir_MIPS_a_lot.getInstance().addressLocalVar(++localVariablesCounter),
-				initialValue.IRme()));
+			IR.getInstance().Add_IRcommand(new IRcommand_Store(name,initialValue.IRme()));
 		}
 		return null;
 	}

@@ -38,26 +38,29 @@ public class sir_MIPS_a_lot
 		fileWriter.format("\tli $v0,1\n");
 		fileWriter.format("\tsyscall\n");
 	}
-	public TEMP addressLocalVar(int serialLocalVarNum)
+	//public TEMP addressLocalVar(int serialLocalVarNum)
+	//{
+	//	TEMP t  = TEMP_FACTORY.getInstance().getFreshTEMP();
+	//	int idx = t.getSerialNumber();
+	//
+	//	fileWriter.format("\taddi Temp_%d,$fp,%d\n",idx,-serialLocalVarNum*WORD_SIZE);
+	//	
+	//	return t;
+	//}
+	public void allocate(String var_name)
 	{
-		TEMP t  = TEMP_FACTORY.getInstance().getFreshTEMP();
-		int idx = t.getSerialNumber();
-
-		fileWriter.format("\taddi Temp_%d,$fp,%d\n",idx,-serialLocalVarNum*WORD_SIZE);
-		
-		return t;
+		fileWriter.format(".data\n");
+		fileWriter.format("\tglobal_%s: .word 721\n",var_name);
 	}
-	public void load(TEMP dst,TEMP src)
+	public void load(TEMP dst,String var_name)
 	{
 		int idxdst=dst.getSerialNumber();
-		int idxsrc=src.getSerialNumber();
-		fileWriter.format("\tlw Temp_%d,0(Temp_%d)\n",idxdst,idxsrc);		
+		fileWriter.format("\tlw Temp_%d,global_%s\n",idxdst,var_name);
 	}
-	public void store(TEMP dst,TEMP src)
+	public void store(String var_name,TEMP src)
 	{
-		int idxdst=dst.getSerialNumber();
 		int idxsrc=src.getSerialNumber();
-		fileWriter.format("\tsw Temp_%d,0(Temp_%d)\n",idxsrc,idxdst);		
+		fileWriter.format("\tsw Temp_%d,global_%s\n",idxsrc,var_name);		
 	}
 	public void li(TEMP t,int value)
 	{
@@ -74,7 +77,15 @@ public class sir_MIPS_a_lot
 	}
 	public void label(String inlabel)
 	{
-		fileWriter.format("%s:\n",inlabel);
+		if (inlabel.equals("main"))
+		{
+			fileWriter.format(".text\n");
+			fileWriter.format("%s:\n",inlabel);
+		}
+		else
+		{
+			fileWriter.format("%s:\n",inlabel);
+		}
 	}	
 	public void jump(String inlabel)
 	{
@@ -135,28 +146,13 @@ public class sir_MIPS_a_lot
 				e.printStackTrace();
 			}
 
-			System.out.print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-
 			/*****************************************************/
 			/* [3] Print data section with error message strings */
 			/*****************************************************/
 			instance.fileWriter.print(".data\n");
-			System.out.print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-
 			instance.fileWriter.print("string_access_violation: .asciiz \"Access Violation\"\n");
 			instance.fileWriter.print("string_illegal_div_by_0: .asciiz \"Illegal Division By Zero\"\n");
 			instance.fileWriter.print("string_invalid_ptr_dref: .asciiz \"Invalid Pointer Dereference\"\n");
-				
-			/************************************************/
-			/* [4] Print text section with entry point main */
-			/************************************************/
-			instance.fileWriter.print(".text\n");
-			instance.fileWriter.print("main:\n");
-
-			/******************************************/
-			/* [5] Will work with <= 10 variables ... */
-			/******************************************/
-			instance.fileWriter.print("\taddi $fp,$sp,40\n");
 		}
 		return instance;
 	}
