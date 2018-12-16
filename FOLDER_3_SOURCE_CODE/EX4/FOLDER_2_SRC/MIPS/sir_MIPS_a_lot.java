@@ -37,6 +37,9 @@ public class sir_MIPS_a_lot
 		fileWriter.format("\tmove $a0,Temp_%d\n",idx);
 		fileWriter.format("\tli $v0,1\n");
 		fileWriter.format("\tsyscall\n");
+		fileWriter.format("\tli $a0,32\n");
+		fileWriter.format("\tli $v0,11\n");
+		fileWriter.format("\tsyscall\n");
 	}
 	//public TEMP addressLocalVar(int serialLocalVarNum)
 	//{
@@ -75,6 +78,14 @@ public class sir_MIPS_a_lot
 
 		fileWriter.format("\tadd Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 	}
+	public void mul(TEMP dst,TEMP oprnd1,TEMP oprnd2)
+	{
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
+		int dstidx=dst.getSerialNumber();
+
+		fileWriter.format("\tmul Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
+	}
 	public void label(String inlabel)
 	{
 		if (inlabel.equals("main"))
@@ -104,6 +115,26 @@ public class sir_MIPS_a_lot
 		int i2 =oprnd2.getSerialNumber();
 		
 		fileWriter.format("\tbge Temp_%d,Temp_%d,%s\n",i1,i2,label);				
+	}
+	public void bne(TEMP oprnd1,TEMP oprnd2,String label)
+	{
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
+		
+		fileWriter.format("\tbne Temp_%d,Temp_%d,%s\n",i1,i2,label);				
+	}
+	public void beq(TEMP oprnd1,TEMP oprnd2,String label)
+	{
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
+		
+		fileWriter.format("\tbeq Temp_%d,Temp_%d,%s\n",i1,i2,label);				
+	}
+	public void beqz(TEMP oprnd1,String label)
+	{
+		int i1 =oprnd1.getSerialNumber();
+				
+		fileWriter.format("\tbeq Temp_%d,$zero,%s\n",i1,label);				
 	}
 	
 	/**************************************/

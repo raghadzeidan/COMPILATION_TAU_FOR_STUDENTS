@@ -114,6 +114,18 @@ public class AST_EXP_BINOP extends AST_EXP
 			getInstance().
 			Add_IRcommand(new IRcommand_Binop_Add_Integers(dst,t1,t2));
 		}
+		if (OP == 2)
+		{
+			IR.
+			getInstance().
+			Add_IRcommand(new IRcommand_Binop_Mul_Integers(dst,t1,t2));
+		}
+		if (OP == 3)
+		{
+			IR.
+			getInstance().
+			Add_IRcommand(new IRcommand_Binop_EQ_Integers(dst,t1,t2));
+		}
 		if (OP == 4)
 		{
 			IR.
