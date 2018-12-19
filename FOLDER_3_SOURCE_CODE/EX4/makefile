@@ -203,7 +203,7 @@ everything:
 	@echo "*                                              *"
 	@echo "*                                              *"
 	@echo "************************************************"
-	eog ${OUTPUT_DIR}/AST.jpeg &
+	#eog ${OUTPUT_DIR}/AST.jpeg &
 	@echo "\n"
 	@echo "***********************************************************"
 	@echo "*                                                         *"
@@ -212,7 +212,6 @@ everything:
 	@echo "*                                                         *"
 	@echo "*                                                         *"
 	@echo "***********************************************************"
-	#./Allocate_Registers_Ad_Hoc
 	sed -i 's/\bTemp_0\b/$$t0/g'  ${OUTPUT_DIR}/MIPS.txt
 	sed -i 's/\bTemp_1\b/$$t1/g'  ${OUTPUT_DIR}/MIPS.txt
 	sed -i 's/\bTemp_2\b/$$t2/g'  ${OUTPUT_DIR}/MIPS.txt
