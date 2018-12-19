@@ -13,11 +13,11 @@ package IR;
 import TEMP.*;
 import MIPS.*;
 
-public class IRcommandPrintInt extends IRcommand
+public class IRcommand_PrintInt extends IRcommand
 {
 	TEMP t;
 	
-	public IRcommandPrintInt(TEMP t)
+	public IRcommand_PrintInt(TEMP t)
 	{
 		this.t = t;
 	}

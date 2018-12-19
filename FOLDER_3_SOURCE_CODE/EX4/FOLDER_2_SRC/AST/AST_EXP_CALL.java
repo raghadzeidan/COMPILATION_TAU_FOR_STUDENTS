@@ -31,7 +31,7 @@ public class AST_EXP_CALL extends AST_EXP
 		
 		if (params != null) { t = params.head.IRme(); }
 		
-		IR.getInstance().Add_IRcommand(new IRcommandPrintInt(t));
+		IR.getInstance().Add_IRcommand(new IRcommand_PrintInt(t));
 		
 		return null;
 	}
