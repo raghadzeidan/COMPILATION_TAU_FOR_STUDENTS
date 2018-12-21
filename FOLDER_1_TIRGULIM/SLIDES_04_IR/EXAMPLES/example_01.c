@@ -1,10 +1,14 @@
-#include <stdio.h>
-int foo(int x,int y,int z)
+int x;
+int y;
+int z;
+int w;
+
+int main()
 {
-    return x+y+z;
-}
-int main(int argc, char **argv)
-{
-    printf("%d\n",foo(1,2,3));
-    return 0;
+	x = 5;
+	y = 6;
+	z = 7;
+	w = 8;
+
+	return x+y+z+w;
 }

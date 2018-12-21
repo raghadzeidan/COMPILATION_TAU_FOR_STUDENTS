@@ -1,0 +1,45 @@
+\section{IR of Industrial Compilers}
+\frame{
+\frametitle{IR of Industrial Compilers :: LLVM Bitcode \\
+Global variables handled \textit{similarly} in IR and ASM
+}
+\begin{columns}
+\begin{column}{0.70\textwidth}
+    \begin{center}
+     \includegraphics[width=0.75\textwidth]{example_01.png}
+     \end{center}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item
+declarations ({\color{red} red})
+\begin{itemize}
+\item
+default value 0
+\end{itemize}
+\item
+stores ({\color{blue} blue})
+\begin{itemize}
+\item
+name based access
+\end{itemize}
+\item
+loads (how many?)
+\begin{itemize}
+\item
+name based access
+\end{itemize}
+\item
+temps (how many?)
+\begin{itemize}
+\item
+tmp,tmp1,tmp2,...
+\item
+add,add1,add2,...
+\item
+the more the marrier?
+\end{itemize}
+\end{itemize}
+\end{column}
+\end{columns}
+}
