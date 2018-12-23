@@ -1,0 +1,13 @@
+#!/bin/bash
+resize -s 40 75
+clear
+setterm -term linux -fore blue
+echo -e "\033[1m\$ clang -g -O0 -o example_02 example_02.c\033[0m"
+setterm -term linux -fore white
+clang -g -O0 -o example_02 example_02.c
+setterm -term linux -fore blue
+echo -e "\033[1m\$ objdump -S example_02 | cat -n | sed -n '96,115p;116q'\033[0m"
+setterm -term linux -fore white
+objdump -S example_02 | cat -n | sed -n '96,115p;116q'
+gnome-screenshot -w -f ./example_02_elf.png
+cp ./example_02_elf.png ../LATEX/example_02_elf.png

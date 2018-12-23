@@ -1,0 +1,25 @@
+#!/bin/bash
+resize -s 37 65
+clear
+setterm -term linux -fore blue
+echo -e "\033[1m\$ cat example_02.c\033[0m"
+setterm -term linux -fore white
+cat example_02.c
+setterm -term linux -fore blue
+echo -e "\033[1m\$ clang -c -emit-llvm example_02.c\033[0m"
+setterm -term linux -fore white
+clang -c -emit-llvm example_02.c
+setterm -term linux -fore blue
+echo -e "\033[1m\$ opt -instnamer -o example_02.bc example_02.bc\033[0m"
+setterm -term linux -fore white
+opt -instnamer -o example_02.bc example_02.bc
+setterm -term linux -fore blue
+echo -e "\033[1m\$ llvm-dis example_02.bc\033[0m"
+setterm -term linux -fore white
+llvm-dis example_02.bc
+setterm -term linux -fore blue
+echo -e "\033[1m\$ sed -n '5,26p;27q' example_02.ll\033[0m"
+setterm -term linux -fore white
+sed -n '5,26p;27q' example_02.ll
+gnome-screenshot -w -f ./example_02.png
+cp ./example_02.png ../LATEX/example_02.png
