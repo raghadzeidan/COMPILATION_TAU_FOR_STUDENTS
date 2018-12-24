@@ -14,5 +14,5 @@ example_02_elf:
 example_03: make_example_03
 	@./make_example_03
 .PHONY example_04:
-example_04:
+example_04: make_example_04
 	@./make_example_04
