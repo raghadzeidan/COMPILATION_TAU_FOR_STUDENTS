@@ -1,21 +1,29 @@
 #!/bin/bash
-resize -s 35 85
+resize -s 37 65
 clear
 setterm -term linux -fore blue
-echo -e "\033[1m\$ cat example_04.java\033[0m"
+echo -e "\033[1m\$ cat example_05.c\033[0m"
 setterm -term linux -fore white
-cat example_04.java
+cat example_05.c
 setterm -term linux -fore blue
-echo -e "\033[1m\$ javac example_04.java\033[0m"
+echo -e "\033[1m\$ clang -c -emit-llvm example_05.c\033[0m"
 setterm -term linux -fore white
-javac example_04.java
+clang -c -emit-llvm example_05.c
 setterm -term linux -fore blue
-echo -e "\033[1m\$ javap -l -c example_04.class > example_04.bytecode\033[0m"
+echo -e "\033[1m\$ opt -instnamer -o example_05.bc example_05.bc\033[0m"
 setterm -term linux -fore white
-javap -l -c example_04.class > example_04.bytecode
+opt -instnamer -o example_05.bc example_05.bc
 setterm -term linux -fore blue
-echo -e "\033[1m\$ sed -n '11,23p;24q' example_04.bytecode\033[0m"
+echo -e "\033[1m\$ llvm-dis example_05.bc\033[0m"
 setterm -term linux -fore white
-sed -n '11,23p;24q' example_04.bytecode
-gnome-screenshot -w -f ./example_04.png
-cp ./example_04.png ../LATEX/example_04.png
+llvm-dis example_05.bc
+setterm -term linux -fore blue
+echo -e "\033[1m\$ sed -i -e 's/\s\{3,\}; preds/    ; preds/g' example_05.ll\033[0m"
+setterm -term linux -fore white
+sed -i -e 's/\s\{3,\}; preds/    ; preds/g' example_05.ll
+setterm -term linux -fore blue
+echo -e "\033[1m\$ sed -n '25,42p;43q' example_05.ll\033[0m"
+setterm -term linux -fore white
+sed -n '25,42p;43q' example_05.ll
+gnome-screenshot -w -f ./example_05.png
+cp ./example_05.png ../LATEX/example_05.png

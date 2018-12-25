@@ -16,3 +16,9 @@ example_03: make_example_03
 .PHONY example_04:
 example_04: make_example_04
 	@./make_example_04
+.PHONY example_05:
+example_05: make_example_05
+	@./make_example_05
+.PHONY example_06:
+example_06: make_example_06
+	@./make_example_06
