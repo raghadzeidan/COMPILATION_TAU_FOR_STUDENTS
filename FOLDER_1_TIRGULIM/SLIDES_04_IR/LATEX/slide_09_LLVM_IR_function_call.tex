@@ -1,7 +1,7 @@
 \section{IR of Industrial Compilers}
 \frame{
 \frametitle{IR of Industrial Compilers :: LLVM Bitcode \\
-How to generate IR for while statements?
+How to generate IR for function calls?
 }
 \begin{columns}
 \begin{column}{0.60\textwidth}
@@ -12,26 +12,24 @@ How to generate IR for while statements?
 \begin{column}{0.6\textwidth}
 \begin{itemize}
 \item
-three labels are created:
+3 parameters are sent for foo:
 \begin{itemize}
-\item while.cond ({\color{red} red})
-\item while.body ({\color{blue} blue})
-\item while.end ({\color{green} green})
+\item add = i $+$ j ({\color{red} red})
+\item tmp2 = x      ({\color{blue} blue})
+\item sub = i $-$ j ({\color{green} green})
 \end{itemize}
 \item
-how to make sure \\
-these labels are unique?
+does evaluation order matter?
 \item
-one \textit{conditional} branch is issued
-from \textit{while.cond} to either \textit{while.body}
-or \textit{while.end}
+how should we handle \\
+the return value?
 \item
-the other (unconditional) branch \\
-is from \textit{while.body} to \textit{while.cond}
+which calling convention \\
+is implied here?
 \item
-What would be the only     \\
-difference when generating \\
-IR for if statements?
+which calling convention \\
+should we adopt          \\
+in \textit{our} project?
 \end{itemize}
 \end{column}
 \end{columns}
