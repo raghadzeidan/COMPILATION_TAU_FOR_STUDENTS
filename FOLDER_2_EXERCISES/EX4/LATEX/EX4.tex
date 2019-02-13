@@ -178,7 +178,9 @@ from left to right, so for example, the following code should print \verb"32766"
 \caption{Evaluation order of a called function's parameters matters.
 \label{Table_Code_Example_Evaluation_Order_Function_Call}}
 \end{table}
-\paragraph{When evaluating global variables} order matters,
+\paragraph{When evaluating global variables}
+\label{Paragraph_When_Evaluating_Global_Variables}
+order matters,
 and it should be the same as the order of appearance in the original program.
 Note that before entering main, all global variables with initialized values
 should be evaluated.
@@ -272,6 +274,14 @@ system call example & MIPS code & Remarks      \\
 \caption{Relevant MIPS system calls.
 \label{Table_MIPS_System_Calls}}
 \end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SUB-SECTION :: System Calls %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Program entry point (main)}
+\label{subsection_Program_Entry_Point_Main}
+Every (valid) Poseidon program has a main function with signature: \verb"void main()".
+This function is the entry point of execution (see also \ref{Paragraph_When_Evaluating_Global_Variables}).
+
 \newpage
 \begin{table}[h]
 \centering

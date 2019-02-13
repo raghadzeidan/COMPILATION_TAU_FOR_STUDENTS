@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.16)  19 DEC 2018 13:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.16)  13 FEB 2019 14:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -251,8 +251,14 @@ rac-ti-cally) all pro-gram-ming lan-guages:
  []
 
 [3] [4]
-Overfull \hbox (47.63829pt too wide) in paragraph at lines 238--273
+Overfull \hbox (47.63829pt too wide) in paragraph at lines 240--275
  [][] 
+ []
+
+
+Overfull \hbox (8.30566pt too wide) in paragraph at lines 282--284
+\OT1/cmr/m/n/10 Every (valid) Po-sei-don pro-gram has a main func-tion with sig
+-na-ture: [][]\OT1/cmtt/m/n/10 void main()[]\OT1/cmr/m/n/10 .
  []
 
 [5]
@@ -260,25 +266,25 @@ Overfull \hbox (47.63829pt too wide) in paragraph at lines 238--273
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 417--420
+Underfull \hbox (badness 10000) in paragraph at lines 427--430
 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 421.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 431.
 [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 421.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 431.
  (./EX4.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 421.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 421.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 431.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 431.
 Package rerunfilecheck Info: File `EX4.out' has not changed.
-(rerunfilecheck)             Checksum: 2F2F931E60A840D7AEACEA3FD7BEEF00;649.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 421.
+(rerunfilecheck)             Checksum: 6B0F81E70C7D6773AC98C27A5AF00E23;727.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 431.
  ) 
 Here is how much of TeX's memory you used:
- 4946 strings out of 494813
- 72059 string characters out of 6178108
- 159611 words of memory out of 5000000
- 8233 multiletter control sequences out of 15000+600000
+ 4950 strings out of 494813
+ 72170 string characters out of 6178108
+ 159725 words of memory out of 5000000
+ 8236 multiletter control sequences out of 15000+600000
  9537 words of font info for 35 fonts, out of 8000000 for 9000
  81 hyphenation exceptions out of 8191
  28i,19n,28p,267b,339s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -294,10 +300,10 @@ amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on EX4.pdf (7 pages, 163949 bytes).
+Output written on EX4.pdf (7 pages, 164589 bytes).
 PDF statistics:
- 163 PDF objects out of 1000 (max. 8388607)
- 139 compressed objects within 2 object streams
- 36 named destinations out of 1000 (max. 500000)
- 89 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 171 PDF objects out of 1000 (max. 8388607)
+ 147 compressed objects within 2 object streams
+ 37 named destinations out of 1000 (max. 500000)
+ 97 words of extra memory for PDF output out of 10000 (max. 10000000)
 
