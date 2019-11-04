@@ -152,7 +152,7 @@ DIVIDE    & $/$  & & NEW              &                          \\
 COMMA     & $,$  & & INT$(value)$     & $value$ is an integer    \\
 DOT       & $.$  & & STRING$(value)$  & $value$ is a string      \\
 SEMICOLON & $;$  & & ID$(value)$      & $value$ is an identifier \\
-ELLIPSIS  & $...$ & & ELLIPSIS & \\
+ELLIPSIS  & $...$ & & & \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
@@ -224,12 +224,17 @@ or write a new one if you want to.
 Before you submit, make sure that your exercise compiles and runs
 on the school server: $nova.cs.tau.ac.il$.
 This is the formal running environment of the course.
-The files for the exercise can be found in the course repository using the following link: \\
+You are encouraged to use the makefile provided by the exercise skeleton,
+which can be found (along with the other files...) in the course repository using the following link: \\
 \url{https://github.com/davidtr1037/COMPILATION_TAU_FOR_STUDENTS/tree/master/FOLDER_3_SOURCE_CODE/EX1}
 
+\newpage
+
 \paragraph{Execution parameters}
-LEXER receives $2$ file names:\\
-Input.txt\\
-OutputTokenizedProgram.txt
+LEXER receives $2$ file names:
+\begin{itemize}
+\item Input.txt
+\item OutputTokenizedProgram.txt
+\end{itemize}
 
 \end{document}
