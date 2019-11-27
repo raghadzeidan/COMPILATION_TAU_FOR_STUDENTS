@@ -26,7 +26,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DATE = SUBMISSION DATE HERE %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\date{Due 21/11/2018, before 07:00}
+\date{Due 11/12/2019, before 23:55}
 
 %%%%%%%%%
 % TITLE %
@@ -226,4 +226,9 @@ PARSER receives $2$ input file names:\\ \\
 InputPicassoProgram.txt\\
 OutputStatus.txt
 
+\section{Additional Notes}
+Note that in this exercise, the token for integers (INT) excludes '+' and '-',
+so you might need to update your lexer according to that.
+Now, if the input for the lexer if \textit{-2},
+then it should return 2 tokens: MINUS INT.
 \end{document}
