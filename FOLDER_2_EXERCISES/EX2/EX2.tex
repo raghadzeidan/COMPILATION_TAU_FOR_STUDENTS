@@ -194,6 +194,15 @@ The output is a \textit{single} text file that contains a \textit{single} word.
 Either OK when the input program has correct syntax,
 or otherwise ERROR(\textit{location}), where \textit{location}
 is the line number of the \textit{first} error that was encountered.
+\section{Running the skeleton}
+You can run the skeleton by running the following command (from the directory of the execrcise):
+\begin{itemize}
+\item make
+\end{itemize}
+The makefile generates the relevant files using jflex/cup, compiles everything, runs,
+and generates an image of the resulting syntax tree.
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION :: Submission Guidelines %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -208,6 +217,10 @@ or write a new one if you want to.
 Before you submit, make sure that your exercise compiles and runs
 on the school server: $nova.cs.tau.ac.il$.
 This is the formal running environment of the course.
+The exercise skeleton can be found (along with the other files...) in the course repository using the following link: \\
+\url{https://github.com/davidtr1037/COMPILATION_TAU_FOR_STUDENTS/tree/master/FOLDER_3_SOURCE_CODE/EX2}
+
+
 \paragraph{Execution parameters}
 PARSER receives $2$ input file names:\\ \\
 InputPicassoProgram.txt\\
