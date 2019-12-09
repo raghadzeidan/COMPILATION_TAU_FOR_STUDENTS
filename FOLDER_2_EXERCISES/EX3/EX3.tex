@@ -26,7 +26,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DATE = SUBMISSION DATE HERE %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\date{Due 19/12/2018, before 07:00}
+\date{Due 1/1/2020, before 23:55}
 
 %%%%%%%%%
 % TITLE %
@@ -38,7 +38,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 We continue our journey of building a compiler
-for the invented object oriented language Poseidon.
+for the invented object oriented language Picasso.
 In order to make this document self contained,
 all the information needed to complete the third exercise is brought here.
 
@@ -50,7 +50,7 @@ The third exercise implements a semantic analyzer that
 recursively scans the AST produced by
 \href{http://www2.cs.tum.edu/projects/cup/}{CUP},
 and checks if it contains any semantic errors.
-The input for the semantic analyzer is a (single) text file containing a Poseidon program,
+The input for the semantic analyzer is a (single) text file containing a Picasso program,
 and the output is a (single) text file indicating whether the input program
 is semantically valid or not.
 In addition to that, whenever the input program is valid semantically,
@@ -61,16 +61,16 @@ but the best time to design and implement this addition is
 exercise $3$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECTION :: Poseidon Semantics %
+% SECTION :: Picasso Semantics %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The Poseidon Semantics}
-This section describes the semantics of Poseidon,
+\section{The Picasso Semantics}
+This section describes the semantics of Picasso,
 and provides a multitude of legal and illegal example programs.
 %%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: Types %
 %%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Types}
-The Poseidon programming language defines two native types: \textit{integers} and \textit{strings}.
+The Picasso programming language defines two native types: \textit{integers} and \textit{strings}.
 In addition, it is possible to define a \textit{class} by specifying its data members and methods.
 Also, given an existing type \verb"T", one can define an \textit{array} of \verb"T"'s.
 Note, that defining classes and arrays is only possible in the uppermost (global) scope.
@@ -84,13 +84,18 @@ Classes contain data members and methods,
 and can only be defined in the uppermost (global) scope.
 They can refer to/extend only previously defined classes,
 to ensure that the class hierarchy has a tree structure.
-In contrast, %Following the same concept,
-a method \verb"M1" \textit{can} refer to a method \verb"M2",
-even if %whenever
-\verb"M2" is defined after \verb"M1" in the class.
+A method \verb"M1" \textit{can't} refer to a method \verb"M2",
+if \verb"M2" is defined after \verb"M1" in the class.
 Following the same concept, %In contrast to all that,
-a method \verb"M" \textit{can} refer to a data member \verb"d",
-even if \verb"d" is defined \textit{after} \verb"M" in the class.
+a method \verb"M" \textit{can't} refer to a data member \verb"d",
+if \verb"d" is defined \textit{after} \verb"M" in the class.
+%In contrast, %Following the same concept,
+%a method \verb"M1" \textit{can} refer to a method \verb"M2",
+%even if %whenever
+%\verb"M2" is defined after \verb"M1" in the class.
+%Following the same concept, %In contrast to all that,
+%a method \verb"M" \textit{can} refer to a data member \verb"d",
+%even if \verb"d" is defined \textit{after} \verb"M" in the class.
 Table \ref{Table_Code_Examples_Use_Before_Def} summarizes these facts.
 \begin{table}[h]
 \centering
@@ -122,7 +127,7 @@ Table \ref{Table_Code_Examples_Use_Before_Def} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  $3$ & \verb"CLASS UseBeforeDef"                      &    \\
      & \verb"{"                                       &    \\
-     & ~ ~ ~ ~\verb"void foo() { bar(8); }"           & OK \\
+     & ~ ~ ~ ~\verb"void foo() { bar(8); }"           & ERROR \\
      & ~ ~ ~ ~\verb"void bar(int i) { PrintInt(i); }" &    \\
      & \verb"}"                                       &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -130,7 +135,7 @@ Table \ref{Table_Code_Examples_Use_Before_Def} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  $4$ & \verb"CLASS UseBeforeDef"                 &    \\
      & \verb"{"                                  &    \\
-     & ~ ~ ~ ~\verb"void foo() { PrintInt(i); }" & OK \\
+     & ~ ~ ~ ~\verb"void foo() { PrintInt(i); }" & ERROR \\
      & ~ ~ ~ ~\verb"int i;"                      &    \\
      & \verb"}"                                  &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -140,7 +145,7 @@ Table \ref{Table_Code_Examples_Use_Before_Def} summarizes these facts.
 \label{Table_Code_Examples_Use_Before_Def}}
 \end{table}
 \newpage
-\paragraph{Methods overloading} is \textit{illegal} in Poseidon,
+\paragraph{Methods overloading} is \textit{illegal} in Picasso,
 with the obvious exception of overriding a method in a derived class.
 Similarly, it is illegal to define a variable with the same name of
 a previously defined variable (shadowing), or a previously defined method.
@@ -191,7 +196,7 @@ Table \ref{Table_Code_Examples_Overload_Override} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 \end{tabular}
-\caption{Method overloading and variable shadowing are both illegal in Poseidon.
+\caption{Method overloading and variable shadowing are both illegal in Picasso.
 \label{Table_Code_Examples_Overload_Override}}
 \end{table}
 \newpage
@@ -382,7 +387,7 @@ The type of the condition inside if and while statements is the primitive type i
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Return Statements}
 \label{subsection_Return_Statements}
-According to the syntax of Poseidon, return statements can only be found inside functions.
+According to the syntax of Picasso, return statements can only be found inside functions.
 Since functions can \textit{not} be nested,
 it follows that a return statement belongs to \textit{exactly one} function.
 when a function \verb"foo" is declared to have a \verb"void" return type,
@@ -505,7 +510,7 @@ Table \ref{Table_Code_Examples_Binary_Operations} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Scope Rules}
 \label{subsection_Scope_Rules}
-\paragraph{Poseidon} defines four kinds of scopes:
+\paragraph{Picasso} defines four kinds of scopes:
 block scopes of if and while statements,
 function scopes,
 class scopes and
@@ -542,7 +547,7 @@ Table \ref{Table_Code_Examples_Scope_Rules} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Library Functions}
 \label{subsection_Library_Functions}
-Poseidon defines three library functions: PrintInt, PrintString and PrintTrace.\\
+Picasso defines three library functions: PrintInt, PrintString and PrintTrace.\\
 The signatures of these functions are as follows:\\ \\
 \verb"void PrintInt(int i)      { ... }"\\ 
 \verb"void PrintString(string s){ ... }"\\ 
@@ -673,8 +678,8 @@ INT      & $::=$ & $[1-9][0-9]^{*}$ $|$ $0$                            \\
 \\
 \end{tabular}
 \caption{
-Context free grammar for the Poseidon programming language.
-\label{Table_CFG_Of_Poseidon}}
+Context free grammar for the Picasso programming language.
+\label{Table_CFG_Of_Picasso}}
 \end{table}
 \begin{table}[h]
 \centering
@@ -717,16 +722,16 @@ Precedence & Operator & Description & Associativity \\
 \hline
 \end{tabular}
 \caption{
-Binary operators of Poseidon along with their associativity and precedence.
+Binary operators of Picasso along with their associativity and precedence.
 $1$ stands for the lowest precedence, and $9$ for the highest.
-\label{Table_Binary_Operators_Of_Poseidon}}
+\label{Table_Binary_Operators_Of_Picasso}}
 \end{table}
 
 %%%%%%%%%%%%%%%%%%%%
 % SECTION :: Input %
 %%%%%%%%%%%%%%%%%%%%
 \section{Input}
-The input for this exercise is a single text file, the input Poseidon program.
+The input for this exercise is a single text file, the input Picasso program.
 
 %%%%%%%%%%%%%%%%%%%%%
 % SECTION :: Output %
@@ -753,7 +758,7 @@ This is the formal running environment of the course.
 
 \paragraph{Execution parameters}
 compiler receives $2$ input file names:\\ \\
-InputPoseidonProgram.txt\\
+InputPicassoProgram.txt\\
 OutputStatus.txt
 
 \end{document}
