@@ -471,7 +471,7 @@ Table \ref{Table_Code_Examples_Binary_Operations} summarizes these facts.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  $1$ & \verb"CLASS Father"                     &    \\
      & \verb"{"                                &    \\
-     & ~ ~ ~ ~\verb"int foo() { return 8/0; }" & OK \\
+     & ~ ~ ~ ~\verb"int foo() { return 8/0; }" & ERROR \\
      & \verb"}"                                &    \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
@@ -582,7 +582,7 @@ The signatures of these functions are as follows:\\ \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hline
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- $4$ & \verb"string myvar := "``\verb"80""\verb";" &    \\
+ $4$ & \verb"string myvar := "``\verb"ab""\verb";" &    \\
      & \verb"CLASS Father"                         &    \\
      & \verb"{"                                    &    \\
      & ~ ~ ~ ~\verb"Father myvar := nil;"          &    \\
