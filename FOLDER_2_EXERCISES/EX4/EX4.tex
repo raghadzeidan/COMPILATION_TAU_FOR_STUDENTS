@@ -28,7 +28,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DATE = SUBMISSION DATE HERE %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\date{Due 31/1/2019 before 0700}
+\date{Due 26/1/2020 before 23:55}
 
 %%%%%%%%%
 % TITLE %
@@ -40,7 +40,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 Congratulations, you have made it to the final step of
-building an entire compiler for Poseidon programs.
+building an entire compiler for Picasso programs.
 In order to make this document self contained,
 all the information needed to complete the fourth exercise is brought here again.
 
@@ -48,7 +48,7 @@ all the information needed to complete the fourth exercise is brought here again
 % SECTION :: Programming Assignment %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Programming Assignment}
-The fourth (and last) exercise implements the code generation phase for Poseidon programs.
+The fourth (and last) exercise implements the code generation phase for Picasso programs.
 The chosen destination language this year is \href{https://en.wikipedia.org/wiki/MIPS_architecture}{MIPS}
 assembly, favoured for it straightforward syntax,
 \href{https://en.wikipedia.org/wiki/SPIM}{complete toolchain}
@@ -60,33 +60,33 @@ $(2)$ Translate IR to MIPS instructions,
 but use an unbounded number of temporaries instead of registers.
 $(3)$ Perform liveness analysis, build the interference graph,
 and allocate those hundreds (or so) temporaries into $8$ physical registers.
-The input for this last exercise is a (single) text file, containing a Poseidon
+The input for this last exercise is a (single) text file, containing a Picasso
 program, and the output is a (single) text file that contains the translation
 of the input program into MIPS assembly.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SECTION :: Poseidon Semantics %
+% SECTION :: Picasso Semantics %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The Poseidon Semantics}
-This section describes the semantics of Poseidon,
+\section{The Picasso Semantics}
+This section describes the semantics of Picasso,
 and provides a multitude of example programs.
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SUB-SECTION :: Binary Operations %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Binary Operations}
-\paragraph{Integers} in Poseidon are artificially bounded between $-2^{15}$ and $2^{15}-1$.
-The semantics of integer binary operations in Poseidon is therefore somewhat different
+\paragraph{Integers} in Picasso are artificially bounded between $-2^{15}$ and $2^{15}-1$.
+The semantics of integer binary operations in Picasso is therefore somewhat different
 than that of standard programming languages.
 It is presented in Table \ref{Table_Semantics_Of_Rio_Mare_Binary_Operations_Between_Integers},
-and to distinguish Poseidon operators from the usual arithmetic signs,
-we shall use a Poseidon subscript inside brackets:
-($*_{[Poseidon]}$, $+_{[Poseidon]}$ etc.)
+and to distinguish Picasso operators from the usual arithmetic signs,
+we shall use a Picasso subscript inside brackets:
+($*_{[Picasso]}$, $+_{[Picasso]}$ etc.)
 \begin{table}[h]
 \centering
 \begin{tabular}{|p{10cm}|}
 \hline
 \[
-a ~ *_{[Poseidon]} ~ b ~ = ~
+a ~ *_{[Picasso]} ~ b ~ = ~
 \begin{cases} 
 -2^{15}  ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ a*b \in (-\infty, -2^{15}] \\
 a*b      ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ a*b \in (-2^{15},2^{15}-1] \\
@@ -95,7 +95,7 @@ a*b      ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ a*b \in (-2^{15},2^{15}-1] \\
 \]
 \\ \hline
 \[
-a ~ +_{[Poseidon]} ~ b ~ = ~
+a ~ +_{[Picasso]} ~ b ~ = ~
 \begin{cases} 
 -2^{15}  ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ a+b \in (-\infty, -2^{15}] \\
 a+b      ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ a+b \in (-2^{15},2^{15}-1] \\
@@ -104,7 +104,7 @@ a+b      ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ a+b \in (-2^{15},2^{15}-1] \\
 \]
 \\ \hline
 \[
-a ~ -_{[Poseidon]} ~ b ~ = ~
+a ~ -_{[Picasso]} ~ b ~ = ~
 \begin{cases} 
 -2^{15}  ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ a-b \in (-\infty, -2^{15}] \\
 a-b      ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ a-b \in (-2^{15},2^{15}-1] \\
@@ -113,7 +113,7 @@ a-b      ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ a-b \in (-2^{15},2^{15}-1] \\
 \]
 \\ \hline
 \[
-a ~ /_{[Poseidon]} ~ b ~ = ~
+a ~ /_{[Picasso]} ~ b ~ = ~
 \begin{cases} 
 -2^{15}             ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ \lfloor a/b \rfloor \in (-\infty, -2^{15}] \\
 \lfloor a/b \rfloor ~ & ~ ~ ~ ~ ~ ~ ~ ~ \text{when} ~ \lfloor a/b \rfloor \in (-2^{15},2^{15}-1] \\
@@ -122,7 +122,7 @@ a ~ /_{[Poseidon]} ~ b ~ = ~
 \]
 \\ \hline
 \end{tabular}
-\caption{Semantics of Poseidon binary operations between integers
+\caption{Semantics of Picasso binary operations between integers
 \label{Table_Semantics_Of_Rio_Mare_Binary_Operations_Between_Integers}}
 \end{table}
 \paragraph{Strings} can be concatenated with binary operation $+$,
@@ -196,7 +196,7 @@ The order in which you evaluate the data members initializations is irrelevant.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Runtime Checks}
 \label{subsection_Runtime_Checks}
-Poseidon enforces three kinds of runtime checks:
+Picasso enforces three kinds of runtime checks:
 division by zero, invalid pointer dereference and out of bound array access.
 \paragraph{Division by zero} should be handled by printing ``Division By Zero",
 and then exit gracefully by using the exit system call.
@@ -279,7 +279,7 @@ system call example & MIPS code & Remarks      \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Program entry point (main)}
 \label{subsection_Program_Entry_Point_Main}
-Every (valid) Poseidon program has a main function with signature: \verb"void main()".
+Every (valid) Picasso program has a main function with signature: \verb"void main()".
 This function is the entry point of execution (see also \ref{Paragraph_When_Evaluating_Global_Variables}).
 
 \newpage
@@ -347,8 +347,8 @@ INT      & $::=$ & $[1-9][0-9]^{*}$ $|$ $0$                            \\
 \\
 \end{tabular}
 \caption{
-Context free grammar for the Poseidon programming language.
-\label{Table_CFG_Of_Poseidon}}
+Context free grammar for the Picasso programming language.
+\label{Table_CFG_Of_Picasso}}
 \end{table}
 \begin{table}[h]
 \centering
@@ -391,16 +391,16 @@ Precedence & Operator & Description & Associativity \\
 \hline
 \end{tabular}
 \caption{
-Binary operators of Poseidon along with their associativity and precedence.
+Binary operators of Picasso along with their associativity and precedence.
 $1$ stands for the lowest precedence, and $9$ for the highest.
-\label{Table_Binary_Operators_Of_Poseidon}}
+\label{Table_Binary_Operators_Of_Picasso}}
 \end{table}
 
 %%%%%%%%%%%%%%%%%%%%
 % SECTION :: Input %
 %%%%%%%%%%%%%%%%%%%%
 \section{Input}
-The input for this exercise is a single text file, the input Poseidon program.
+The input for this exercise is a single text file, the input Picasso program.
 
 %%%%%%%%%%%%%%%%%%%%%
 % SECTION :: Output %
@@ -409,12 +409,20 @@ The input for this exercise is a single text file, the input Poseidon program.
 The output is a single text file that contains the
 translation of the input program into MIPS assembly.
 
+\section{Skeleton}
+To run the skeleton use the following command:
+\begin{itemize}
+\item make everything
+\end{itemize}
+This will create a file with the compiled MIPS code (MIPS.txt), and a file with the output of SPIM (MIPS\_OUTPUT.txt).
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SECTION :: Submission Guidelines %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Submission Guidelines}
 The skeleton code for this exercise resides (as usual)
-in subdirectory EX4 of the course repository.
+in subdirectory EX4 of the course repository
+(\url{https://github.com/davidtr1037/COMPILATION_TAU_FOR_STUDENTS/tree/master/FOLDER_3_SOURCE_CODE/EX4}).
 COMPILATION/EX4 should contain a makefile building your source files to a
 runnable jar file called COMPILER (note the lack of the .jar suffix).
 Feel free to use the makefile supplied in the course repository,
@@ -425,7 +433,7 @@ This is the formal running environment of the course.
 
 \paragraph{Execution parameters}
 compiler receives $2$ input file names:\\ \\
-InputPoseidonProgram.txt\\
+InputPicassoProgram.txt\\
 OutputMIPS.s
 
 \end{document}
